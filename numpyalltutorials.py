@@ -3,7 +3,10 @@
 #Single data type; e.g. all floats or all integers.  Less memory.  NumPy data types:  int8 bit -128 to 127, int16 bit -32768 to 32,767, int32, int64, uint8 unsigned integer 0 to 255, uint16 0 to 65535, uint32, uint64, float16 half precision signed float, float32 single precision signed lfoat, float64 double precision signed float, complex, compex64, complex 128.  Also boolean bool_, string, datetime, and python object.  Default is float64.
 
 #Python_ NUMPY _ Numerical Python Arrays Tutorial [720p] Joe James
-#numpy tutorial - introduction channel codebasics, numpy tutorial - basic array operations, 
+#numpy tutorial - introduction channel codebasics, numpy tutorial - basic array operations, numpy tutorial - slicingstacking arrays, indexing with boolean arrays
+#Numpy and Loops in Python
+
+#print(help(np.linspace)) #RM:  press q to exit or quit
 import numpy as np
 
 definenumpyarray = np.array([2,3,4])
@@ -31,6 +34,9 @@ print(newdimension)
  [ 4.8  7.2]
  [ 9.6 12. ]]
 '''
+x = np.ones(50, dtype=np.int8)
+print(x) #print [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+print(len(x)) #print 50
 #Not functions.  No need for paranthesis.
 numberofelements = newdimension.size
 print(numberofelements) #print 6
@@ -90,6 +96,43 @@ onesarrayintegeronerow = np.ones((1,10), dtype=np.int8)
 print(onesarrayintegeronerow) #print [[1 1 1 1 1 1 1 1 1 1]]
 onesarrayinteger = np.ones([10], dtype=np.int8)
 print(onesarrayinteger) #print [1 1 1 1 1 1 1 1 1 1]
+xtworows = np.ones((2,50), dtype=np.int8)
+print(xtworows)
+'''
+[[1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+  1 1 1 1 1 1 1 1 1 1 1 1 1 1]
+ [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+  1 1 1 1 1 1 1 1 1 1 1 1 1 1]]
+'''
+print(len(xtworows)) #print 2
+print("How many number ones?",xtworows.size) #print How many number ones? 100
+print("Dimensions?",xtworows.ndim) #print How many number ones? 2
+z = np.empty(10)
+print(z)
+'''
+[6.94456331e-310 1.17981216e-316 4.94065646e-324 1.17161225e-316
+ 1.33360289e+241 6.94456333e-310 1.35507283e+248 2.28563350e+243
+ 4.66839074e-313 1.33360297e+241]
+'''
+z = np.empty(50, dtype=np.int8)
+print(z)
+'''
+[1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ 1 1 1 1 1 1 1 1 1 1 1 1 1]
+'''
+#Create a while loop to append a random integer between 1 and 10 to mymatrix.  Stop the loop when the random integer is 7 or when there are 30 numbers.
+import random
+mymatrix = np.ones(1)
+print(mymatrix) #print [1.]
+i = 1
+while mymatrix[-1] != 7:
+	randomnumber = random.randint(1,10)
+	mymatrix = np.append(mymatrix,randomnumber)
+	i += 1
+	if i > 29:  #there is one number in mymatrix from mymatrix = np.ones(1) and counter started at 1
+		break
+print(mymatrix) #print [ 1.  8.  5. 10.  8.  3.  2.  6.  2.  4.  5.  5.  2.  5.  9.  6.  2. 10.  4.  2.  4.  9.  4. 10.  7.]
+
 randomarraybetweenzeroandone = np.random.random([2,3])
 print(randomarraybetweenzeroandone)
 '''
@@ -195,10 +238,53 @@ print(fourarray*eightarray)
 [[ 5 12]
  [21 32]]
 '''
-print(fourarray.dot(eightarray))
+print(fourarray.dot(eightarray)) #dot product matrix multiplication https://www.mathsisfun.com/algebra/matrix-multiplying.html
 '''
-[[19 22]
- [43 50]]
+[[19 22]  (1*5)+(2*7); (1*6)+(2*8)
+ [43 50]]  (3*5)+(4*7); (3*6)+(4*8)
+'''
+numpya = np.arange(1,10)
+print(numpya) #print [1 2 3 4 5 6 7 8 9]
+numpya = numpya.reshape(3,3)
+print(numpya)
+'''
+[[1 2 3]
+ [4 5 6]
+ [7 8 9]]
+'''
+numpyx = np.array([[1],[3],[4]])
+print(numpyx)
+'''
+[[1]
+ [3]
+ [4]]
+'''
+numpyb = np.array([[-0.1, -0.2, -0.3],[3, 10, 2],[4, 2, 0.5]])
+print(numpyb)
+'''
+[[-0.1 -0.2 -0.3]
+ [ 3.  10.   2. ]
+ [ 4.   2.   0.5]]
+'''
+print(np.cross(numpya,numpyb)) #cross product
+'''
+[[ 1.11022302e-16 -5.55111512e-17  0.00000000e+00]
+ [-5.00000000e+01  1.00000000e+01  2.50000000e+01]
+ [-1.40000000e+01  3.25000000e+01 -1.80000000e+01]]
+'''
+print(np.dot(numpya,numpyx)) #dot product matrix multiplication https://www.mathsisfun.com/algebra/matrix-multiplying.html
+'''
+[[19]  (1*1)+(2*3)+(3*4)
+ [43]  (4*1)+(5*3)+(6*4)
+ [67]]  (7*1)+(8*3)+(9*4)
+'''
+#numpya^-1 or numpya-inverse multiply numpyb linear algebra
+inversenumpya = np.linalg.inv(numpya)
+print(inversenumpya)
+'''
+[[-4.50359963e+15  9.00719925e+15 -4.50359963e+15]
+ [ 9.00719925e+15 -1.80143985e+16  9.00719925e+15]
+ [-4.50359963e+15  9.00719925e+15 -4.50359963e+15]]
 '''
 
 slicingarray = np.array([[6,7,8],[1,2,3],[9,3,2]])
