@@ -5,9 +5,37 @@
 #Python_ NUMPY _ Numerical Python Arrays Tutorial [720p] Joe James
 #numpy tutorial - introduction channel codebasics, numpy tutorial - basic array operations, numpy tutorial - slicingstacking arrays, indexing with boolean arrays
 #Numpy and Loops in Python
+#Python NumPy Tutorial _ NumPy Array _ Python Tutorial For Beginners _ Python Training _ Edureka [720p]
 
 #print(help(np.linspace)) #RM:  press q to exit or quit
 import numpy as np
+
+#Numpy is a multidimensional array object.  anarray is a two-dimensional array because it contains rows and columns.
+anarray = np.array([[1,2,3],[5,6,7],[8,9,10],[11,12,13]])
+print(anarray)
+'''
+[[ 1  2  3]
+ [ 5  6  7]
+ [ 8  9 10]
+ [11 12 13]]
+'''
+print(anarray[0,0]) #print 1
+print(anarray[0,1]) #print 2
+print(anarray[1,1]) #print 6
+print(anarray[1,2]) #print 7
+print(anarray[2,0]) #print 8
+print(anarray[2,2]) #print 10
+print(anarray[3,1]) #print 12
+print(anarray[3,2]) #print 13
+print(anarray.dtype) #print int64
+print(anarray.itemsize) #print 8
+print(anarray.size) #print 12
+print(anarray.itemsize*anarray.size) #print 96
+anarray = np.array([[1,2,3],[5,6,7],[8,9,10],[11,12,13]], dtype=np.int8)
+print(anarray.dtype) #print int8
+print(anarray.itemsize) #print 1
+print(anarray.size) #print 12
+print(anarray.itemsize*anarray.size) #print 12
 
 definenumpyarray = np.array([2,3,4])
 print(definenumpyarray) #print [2 3 4]
@@ -42,6 +70,7 @@ numberofelements = newdimension.size
 print(numberofelements) #print 6
 numpyshape = newdimension.shape
 print(numpyshape) #print (3, 2)
+#RM:  if a numpy array is one row, then its (number of columns,); e.g. (6,) for one row and six columns
 datatype = newdimension.dtype
 print(datatype) #print float64
 memoryinbyteseachelementtakes = newdimension.itemsize
@@ -106,7 +135,7 @@ print(xtworows)
 '''
 print(len(xtworows)) #print 2
 print("How many number ones?",xtworows.size) #print How many number ones? 100
-print("Dimensions?",xtworows.ndim) #print How many number ones? 2
+print("Dimensions?",xtworows.ndim) #print Dimensions? 2
 z = np.empty(10)
 print(z)
 '''
@@ -295,6 +324,7 @@ print(slicingarray)
  [9 3 2]]
 '''
 print(slicingarray[1,2]) #print 3.  row 1, column 2
+print(slicingarray[0:,2]) #print [8 3 2]  rows 0-, column 2
 print(slicingarray[0:2,2]) #print [8 3].  rows 0-1, column 2
 print(slicingarray[-1]) #print [9 3 2].  rows last row
 print(slicingarray[-1,0:2]) #print [9 3].  rows last, columns 0-1
@@ -322,3 +352,31 @@ for cell in slicingarray.flat:
 print(slicingarray.ravel()) #print [6 7 8 1 2 3 9 3 2]
 print(slicingarray.ravel()[0]) #print 6
 print(slicingarray.ravel()[3]) #print 1
+stackarraya = np.array([[1,2,3],[5,6,7]])
+stackarrayb = np.array([[8,9,10],[11,12,13]])
+print(stackarraya)
+'''
+[[1 2 3]
+ [5 6 7]]
+'''
+print(stackarrayb)
+'''
+[[ 8  9 10]
+ [11 12 13]]
+'''
+print(np.vstack((stackarraya,stackarrayb)))
+'''
+[[ 1  2  3]
+ [ 5  6  7]
+ [ 8  9 10]
+ [11 12 13]]
+'''
+print(np.vstack((stackarraya,stackarrayb)).shape) #print (4,3)
+print(np.hstack((stackarraya,stackarrayb)))
+'''
+[[ 1  2  3  8  9 10]
+ [ 5  6  7 11 12 13]]
+'''
+print(np.hstack((stackarraya,stackarrayb)).shape) #print (2,6)
+print(stackarraya.ravel()) #print [1 2 3 5 6 7]
+print(stackarraya.ravel().shape) #print (6,)
