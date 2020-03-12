@@ -1,11 +1,13 @@
 #RM:  find time for the w3resoruce numpy
 #w3numpybasic.py includes lessons not learned in YouTube videos such as element-wise comparison
+#Numpy is the core Python library for scientific and numercial computing.  It provides array objects.
 #Single data type; e.g. all floats or all integers.  Less memory.  NumPy data types:  int8 bit -128 to 127, int16 bit -32768 to 32,767, int32, int64, uint8 unsigned integer 0 to 255, uint16 0 to 65535, uint32, uint64, float16 half precision signed float, float32 single precision signed lfoat, float64 double precision signed float, complex, compex64, complex 128.  Also boolean bool_, string, datetime, and python object.  Default is float64.
 
 #Python_ NUMPY _ Numerical Python Arrays Tutorial [720p] Joe James
 #numpy tutorial - introduction channel codebasics, numpy tutorial - basic array operations, numpy tutorial - slicingstacking arrays, indexing with boolean arrays
 #Numpy and Loops in Python
 #Python NumPy Tutorial _ NumPy Array _ Python Tutorial For Beginners _ Python Training _ Edureka [720p]
+#NumPy Tutorial Part - 1 _ NumPy Array _ Python NumPy Tutorial Part -1_ Python Tutorial _ Simplilearn [720p]
 
 #print(help(np.linspace)) #RM:  press q to exit or quit
 import numpy as np
@@ -28,6 +30,8 @@ print(anarray[2,2]) #print 10
 print(anarray[3,1]) #print 12
 print(anarray[3,2]) #print 13
 print(anarray.dtype) #print int64
+print(anarray.shape) #print (4,3)
+print(anarray.ndim) #print 2
 print(anarray.itemsize) #print 8
 print(anarray.size) #print 12
 print(anarray.itemsize*anarray.size) #print 96
@@ -39,6 +43,8 @@ print(anarray.itemsize*anarray.size) #print 12
 
 definenumpyarray = np.array([2,3,4])
 print(definenumpyarray) #print [2 3 4]
+print(definenumpyarray.shape) #print (3,)
+print(definenumpyarray.ndim) #print 1
 print(definenumpyarray[2]) #print 4
 print(type(definenumpyarray)) #print <class 'numpy.ndarray'>
 definenumpyarray = np.array((2,3,4))
@@ -380,3 +386,31 @@ print(np.hstack((stackarraya,stackarrayb)))
 print(np.hstack((stackarraya,stackarrayb)).shape) #print (2,6)
 print(stackarraya.ravel()) #print [1 2 3 5 6 7]
 print(stackarraya.ravel().shape) #print (6,)
+
+print(np.char.add(["hello","hi"],["abc","xyz"])) #print ['helloabc' 'hixyz']
+print(np.char.multiply("Hello ",3)) #print Hello Hello Hello 
+print(np.char.center("Hello",20,fillchar="-")) #print -------Hello--------
+#also fillchar can do capitalize, title, lower case, upper case, split, split line, join
+print(np.char.capitalize("hello world")) #print Hello world
+print(np.char.title("hello world")) #print Hello World
+print(np.char.lower(["HELLO","WORLD"])) #print ['hello' 'world']
+print(np.char.lower("HELLO")) #print hello
+print(np.char.upper(["hello","world"])) #print ['HELLO' 'WORLD']
+print(np.char.upper("hello")) #print HELLO
+print(np.char.split(["are you coming to the party?"])) #print [list(['are', 'you', 'coming', 'to', 'the', 'party?'])]
+print(np.char.split(["are you coming to the party?"])[0]) #print ['are', 'you', 'coming', 'to', 'the', 'party?']
+print(np.char.split(["are you coming to the party?"])[0][3]) #print to
+print(np.char.splitlines("hello\nhow are you?")) #print ['hello', 'how are you?']
+print(np.char.splitlines("hello\n how are you?")) #print ['hello', ' how are you?']
+print(np.char.strip(["nina","admin","anaita"],"a")) #print ['nin' 'dmin' 'nait'].  Removes all leading and trailing a.
+print(np.char.join([":","-"],["dmy","ymd"])) #print ['d:m:y' 'y-m-d']
+print(np.char.replace("He is a good dancer.","is","was")) #print He was a good dancer.
+sentence = ["a water","an egg","an umbrella","a dough"]
+for eachsentence in sentence:
+	print(np.char.replace(eachsentence,"an","the"))
+'''
+a water
+the egg
+the umbrella
+a dough
+'''
