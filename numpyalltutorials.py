@@ -7,7 +7,7 @@
 #numpy tutorial - introduction channel codebasics, numpy tutorial - basic array operations, numpy tutorial - slicingstacking arrays, indexing with boolean arrays
 #Numpy and Loops in Python
 #Python NumPy Tutorial _ NumPy Array _ Python Tutorial For Beginners _ Python Training _ Edureka [720p]
-#NumPy Tutorial Part - 1 _ NumPy Array _ Python NumPy Tutorial Part -1_ Python Tutorial _ Simplilearn [720p]
+#NumPy Tutorial Part - 1 _ NumPy Array _ Python NumPy Tutorial Part -1_ Python Tutorial _ Simplilearn [720p], NumPy Tutorial Part - 2 _ NumPy Array _ Python NumPy Tutorial Part -2_ Python Tutorial _ Simplilearn [720p]
 
 #print(help(np.linspace)) #RM:  press q to exit or quit
 import numpy as np
@@ -21,6 +21,10 @@ print(anarray)
  [ 8  9 10]
  [11 12 13]]
 '''
+print(anarray.flatten()) #print [ 1  2  3  5  6  7  8  9 10 11 12 13]
+print(anarray.flatten(order="F"))  #print [ 1  5  8 11  2  6  9 12  3  7 10 13].  F stands for Fortran or column-major.  Flattens by column 1, column 2, column 3 top to bottom.
+print(anarray.flatten(order="C"))  #print [ 1  2  3  5  6  7  8  9 10 11 12 13].  C stands for C code or row-major the default.
+print(anarray.flatten(order="A"))  #print [ 1  2  3  5  6  7  8  9 10 11 12 13].  A stands for C and Fortran.
 print(anarray[0,0]) #print 1
 print(anarray[0,1]) #print 2
 print(anarray[1,1]) #print 6
@@ -55,8 +59,27 @@ numpyrange = np.arange(0,12)
 print(numpyrange) #print [ 0  1  2  3  4  5  6  7  8  9 10 11]
 print(numpyrange[6:9]) #print [6 7 8]
 print(numpyrange[-1]) #print 11
+print(numpyrange[:4]) #print [0 1 2 3]
+slicesoda = slice(2,9,2)
+print(numpyrange[slicesoda]) #print [2 4 6 8]
+print(numpyrange[2:9:2]) #print [2 4 6 8]
 print(numpyrange[-1::-1]) #print [11 10  9  8  7  6  5  4  3  2  1  0]
 print(numpyrange[-1:-6:-2]) #print [11  9  7]
+numpyrangereshape = numpyrange.reshape(4,3)
+print(numpyrangereshape)
+'''
+[[ 0  1  2]
+ [ 3  4  5]
+ [ 6  7  8]
+ [ 9 10 11]]
+'''
+numpyrangetranspose = numpyrangereshape.transpose()
+print(numpyrangetranspose)
+'''
+[[ 0  3  6  9]
+ [ 1  4  7 10]
+ [ 2  5  8 11]]
+'''
 numpyrange = np.arange(0,12,2)
 print(numpyrange) #print [ 0  2  4  6  8 10]
 evenspread = np.linspace(0,12,6) #six elements between 0 and 12 inclusive
@@ -67,6 +90,61 @@ print(newdimension)
 [[ 0.   2.4]
  [ 4.8  7.2]
  [ 9.6 12. ]]
+'''
+bravo = np.arange(0,8).reshape(2,4)
+print(bravo)
+'''
+[[0 1 2 3]
+ [4 5 6 7]]
+'''
+charlie = bravo.reshape(2,2,2)
+print(charlie)
+'''
+[[[0 1]
+  [2 3]]
+
+ [[4 5]
+  [6 7]]]
+'''
+print(np.rollaxis(charlie,1,0))
+'''
+[[[0 1]
+  [4 5]]
+
+ [[2 3]
+  [6 7]]]
+'''
+print(np.rollaxis(charlie,2,0))
+'''
+[[[0 2]
+  [4 6]]
+
+ [[1 3]
+  [5 7]]]
+'''
+print(np.rollaxis(charlie,2,1))
+'''
+[[[0 2]
+  [1 3]]
+
+ [[4 6]
+  [5 7]]]
+'''
+print(np.rollaxis(charlie,1,2))
+'''
+[[[0 1]
+  [2 3]]
+
+ [[4 5]
+  [6 7]]]
+'''
+print(np.swapaxes(charlie,1,2))
+'''
+[[[0 2]
+  [1 3]]
+
+ [[4 6]
+  [5 7]]]
 '''
 x = np.ones(50, dtype=np.int8)
 print(x) #print [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
@@ -278,6 +356,51 @@ print(fourarray.dot(eightarray)) #dot product matrix multiplication https://www.
 [[19 22]  (1*5)+(2*7); (1*6)+(2*8)
  [43 50]]  (3*5)+(4*7); (3*6)+(4*8)
 '''
+print(np.concatenate((fourarray, eightarray)))
+'''
+[[1 2]
+ [3 4]
+ [5 6]
+ [7 8]]
+'''
+print(np.concatenate((fourarray, eightarray), axis=1))
+'''
+[[1 2 5 6]
+ [3 4 7 8]]
+'''
+mathops1 = np.arange(0,9).reshape(3,3)
+print(mathops1)
+'''
+[[0 1 2]
+ [3 4 5]
+ [6 7 8]]
+'''
+mathops2 = np.array([10,11,12])
+print(mathops2) #print [10 11 12]
+print(np.add(mathops1,mathops2))
+'''
+[[10 12 14]
+ [13 15 17]
+ [16 18 20]]
+'''
+print(np.subtract(mathops1,mathops2))
+'''
+[[-10 -10 -10]
+ [ -7  -7  -7]
+ [ -4  -4  -4]]
+'''
+print(np.multiply(mathops1,mathops2))
+'''
+[[ 0 11 24]
+ [30 44 60]
+ [60 77 96]]
+'''
+print(np.divide(mathops1,mathops2))
+'''
+[[0.         0.09090909 0.16666667]
+ [0.3        0.36363636 0.41666667]
+ [0.6        0.63636364 0.66666667]]
+'''
 numpya = np.arange(1,10)
 print(numpya) #print [1 2 3 4 5 6 7 8 9]
 numpya = numpya.reshape(3,3)
@@ -322,6 +445,24 @@ print(inversenumpya)
  [-4.50359963e+15  9.00719925e+15 -4.50359963e+15]]
 '''
 
+iteratearray = np.arange(0,45,5)
+print(iteratearray) #print [ 0  5 10 15 20 25 30 35 40]
+iteratearray = iteratearray.reshape(3,3)
+print(iteratearray)
+'''
+[[ 0  5 10]
+ [15 20 25]
+ [30 35 40]]
+'''
+for x in np.nditer(iteratearray):
+	print(x,end=",") #print 0,5,10,15,20,25,30,35,40,.  Instructor said you can flatten iteratearray.flatten() and run a standard for loop.
+print("\n")
+for x in np.nditer(iteratearray, order="C"):
+	print(x,end=",") #print 0,5,10,15,20,25,30,35,40,
+print("\n")
+for x in np.nditer(iteratearray, order="F"):
+	print(x,end=",") #print 0,15,30,5,20,35,10,25,40,
+print("\n")
 slicingarray = np.array([[6,7,8],[1,2,3],[9,3,2]])
 print(slicingarray)
 '''
@@ -386,6 +527,42 @@ print(np.hstack((stackarraya,stackarrayb)))
 print(np.hstack((stackarraya,stackarrayb)).shape) #print (2,6)
 print(stackarraya.ravel()) #print [1 2 3 5 6 7]
 print(stackarraya.ravel().shape) #print (6,)
+splita = np.arange(9)
+print(splita) #print [0 1 2 3 4 5 6 7 8]
+splitathree = np.split(splita,3)
+print(splitathree) #print [array([0, 1, 2]), array([3, 4, 5]), array([6, 7, 8])]
+print(splitathree[0]) #print [0 1 2]
+print(splitathree[1][2]) #print 5
+splita45 = np.split(splita,[4,5])
+print(splita45) #print [array([0, 1, 2, 3]), array([4]), array([5, 6, 7, 8])]
+splita47 = np.split(splita,[4,7])
+print(splita47) #print [array([0, 1, 2, 3]), array([4, 5, 6]), array([7, 8])]
+splita47 = np.split(splita,[1,7,4])
+print(splita47) #print [array([0]), array([1, 2, 3, 4, 5, 6]), array([], dtype=int64), array([4, 5, 6, 7, 8])]
+print(splita47[3]) #print [4 5 6 7 8]
+resizea = np.array([[1,2,3], [4,5,6]])
+print(resizea)
+'''
+[[1 2 3]
+ [4 5 6]]
+'''
+print(resizea.shape) #print (2, 3)
+resizeb = np.resize(resizea,(3,2))
+print(resizeb)
+'''
+[[1 2]
+ [3 4]
+ [5 6]]
+'''
+print(resizeb.shape) #print (3, 2)
+resizec = np.resize(resizea,(3,3))
+print(resizec)
+'''
+[[1 2 3]
+ [4 5 6]
+ [1 2 3]]
+'''
+print(resizec.shape) #print (3, 3)
 
 print(np.char.add(["hello","hi"],["abc","xyz"])) #print ['helloabc' 'hixyz']
 print(np.char.multiply("Hello ",3)) #print Hello Hello Hello 
