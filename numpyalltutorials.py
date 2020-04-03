@@ -246,6 +246,20 @@ while mymatrix[-1] != 7:
 		break
 print(mymatrix) #print [ 1.  8.  5. 10.  8.  3.  2.  6.  2.  4.  5.  5.  2.  5.  9.  6.  2. 10.  4.  2.  4.  9.  4. 10.  7.]
 
+randomintegerstenbyten = np.random.randint(100, size=(10,10)) #https://docs.scipy.org/doc/numpy-1.15.0/reference/generated/numpy.random.randint.html
+print(randomintegerstenbyten)
+'''
+[[95 30  1 77 89  7 68 43 60 48]
+ [ 5  2  7 10 10 45 20 55 58 44]
+ [31 20 35  0 51 79 93 26 15 39]
+ [80 56 32 24  5 42 35  7 25 29]
+ [89 83  8 48 24 97 35 71 32 82]
+ [90 41 59 48  9 37 51 99 77 50]
+ [63 95 71 79 89 30 85 76 20 99]
+ [41 59 85 92 44  8 19  5 83 35]
+ [31 26 70 70 16 46 53  3 51 77]
+ [13 56 51 56 53 97 15 17 29 95]]
+'''
 randomarraybetweenzeroandone = np.random.random([2,3])
 print(randomarraybetweenzeroandone)
 '''
@@ -272,6 +286,10 @@ standarddeviationnumber = randomarrayintegers.std()
 print(standarddeviationnumber) #print 2.244994432064365
 print(np.std(randomarrayintegers)) #print 2.244994432064365
 print(np.sqrt(randomarrayintegers)) #print [2.         3.16227766 3.         2.44948974 3.        ]
+arraylog10 = np.array([1,2,3])
+print(np.log10(arraylog10)) #print [0.         0.30103    0.47712125]
+print(np.log2(arraylog10)) #print [0.        1.        1.5849625]
+print(np.pi) #print 3.141592653589793
 sumpartofarray = np.array([3,8,4,5,3,8], dtype=np.int8)
 print(sumpartofarray) #print [3 8 4 5 3 8]
 sumpartofarray = sumpartofarray.reshape(3,2)
@@ -285,7 +303,7 @@ sumbyrow = sumpartofarray.sum(axis=1)
 print(sumbyrow) #print [11  9 11]
 sumbycolumn = sumpartofarray.sum(axis=0)
 print(sumbycolumn) #print [10 21]
-flatnumpyarray = sumpartofarray.ravel()
+flatnumpyarray = sumpartofarray.ravel()  #ravel flat or set up as a one line column
 print(flatnumpyarray) #print [3 8 4 5 3 8]
 importtextfile = np.loadtxt("joejamesdata.txt", dtype=np.uint8, delimiter=",", skiprows=1) #The first row is the column headings
 print(importtextfile)
@@ -590,4 +608,122 @@ a water
 the egg
 the umbrella
 a dough
+'''
+
+#Exercises
+#Create a 6X6 two-dimensional array.  0s and 1s alternate across the diagonals.  Start with 0 at [0,0]
+array6x6 = np.zeros((6,6), dtype=int)
+print(array6x6)
+'''
+[[0 0 0 0 0 0]
+ [0 0 0 0 0 0]
+ [0 0 0 0 0 0]
+ [0 0 0 0 0 0]
+ [0 0 0 0 0 0]
+ [0 0 0 0 0 0]]
+'''
+array6x6[1::2,0::2] = 1  #rows start at 1 every 2, columns start at 0 every 2
+print(array6x6)
+'''
+[[0 0 0 0 0 0]
+ [1 0 1 0 1 0]
+ [0 0 0 0 0 0]
+ [1 0 1 0 1 0]
+ [0 0 0 0 0 0]
+ [1 0 1 0 1 0]]
+'''
+array6x6[0::2,1::2] = 1  #rows start at 0 every 2, columns start at 1 every 2
+print(array6x6)
+'''
+[[0 1 0 1 0 1]
+ [1 0 1 0 1 0]
+ [0 1 0 1 0 1]
+ [1 0 1 0 1 0]
+ [0 1 0 1 0 1]
+ [1 0 1 0 1 0]]
+'''
+#Find the total number and locations of missing values in the array
+missingvaluesrandomintegers = np.random.rand(10,10)
+print(missingvaluesrandomintegers)
+'''
+[[0.88751073 0.58949487 0.48114543 0.83262386 0.18668592 0.18267376
+  0.89156489 0.3991325  0.80501603 0.76052358]
+ [0.23299003 0.58887718 0.25444025 0.62653396 0.87544497 0.24087074
+  0.12150625 0.91325496 0.88046513 0.18700451]
+ [0.92616198 0.79691826 0.36697385 0.2161998  0.09843074 0.60393916
+  0.08024492 0.41214514 0.65896521 0.98395877]
+ [0.5645292  0.60887495 0.98013915 0.84297063 0.72834984 0.50315929
+  0.47855641 0.65042673 0.37535314 0.52618225]
+ [0.84331411 0.92631853 0.29501767 0.85703056 0.81327316 0.18041479
+  0.63759755 0.49366616 0.78604887 0.70871793]
+ [0.04144435 0.90529237 0.33938827 0.75600622 0.86920404 0.54634517
+  0.45698737 0.29209403 0.55879825 0.42461227]
+ [0.31357655 0.58221229 0.39642724 0.75557585 0.53948792 0.61255027
+  0.24117842 0.60820889 0.02968306 0.3011667 ]
+ [0.82931063 0.21898005 0.65101738 0.01306896 0.14099429 0.07138532
+  0.63786322 0.22982065 0.97433217 0.09272359]
+ [0.65239469 0.30731127 0.63608784 0.28022175 0.98540152 0.72134415
+  0.60975797 0.48423801 0.42216619 0.27976922]
+ [0.08032698 0.18193074 0.14266158 0.55665796 0.47306999 0.01407798
+  0.69330529 0.04943839 0.56891648 0.8083108 ]]
+'''
+#randomly find five index positions set to Null
+missingvaluesrandomintegers[np.random.randint(10, size=5), np.random.randint(10, size=5)] = np.nan
+print(missingvaluesrandomintegers)
+'''
+[[0.88751073 0.58949487 0.48114543 0.83262386 0.18668592 0.18267376
+  0.89156489 0.3991325  0.80501603 0.76052358]
+ [0.23299003 0.58887718 0.25444025 0.62653396 0.87544497 0.24087074
+  0.12150625 0.91325496 0.88046513 0.18700451]
+ [0.92616198 0.79691826 0.36697385 0.2161998  0.09843074 0.60393916
+  0.08024492 0.41214514        nan 0.98395877]
+ [0.5645292  0.60887495 0.98013915 0.84297063        nan 0.50315929
+  0.47855641 0.65042673 0.37535314 0.52618225]
+ [0.84331411 0.92631853 0.29501767 0.85703056 0.81327316 0.18041479
+  0.63759755 0.49366616 0.78604887 0.70871793]
+ [0.04144435 0.90529237 0.33938827        nan 0.86920404 0.54634517
+  0.45698737 0.29209403 0.55879825 0.42461227]
+ [0.31357655 0.58221229 0.39642724 0.75557585 0.53948792 0.61255027
+  0.24117842 0.60820889 0.02968306        nan]
+ [0.82931063 0.21898005 0.65101738 0.01306896 0.14099429 0.07138532
+  0.63786322 0.22982065 0.97433217 0.09272359]
+ [       nan 0.30731127 0.63608784 0.28022175 0.98540152 0.72134415
+  0.60975797 0.48423801 0.42216619 0.27976922]
+ [0.08032698 0.18193074 0.14266158 0.55665796 0.47306999 0.01407798
+  0.69330529 0.04943839 0.56891648 0.8083108 ]]
+'''
+print("Total number of missing values:",np.isnan(missingvaluesrandomintegers).sum()) #print Total number of missing values: 5
+print("Indexes of missing values:",np.argwhere(np.isnan(missingvaluesrandomintegers)))
+'''
+Indexes of missing values: [[2 8]
+ [3 4]
+ [5 3]
+ [6 9]
+ [8 0]]
+'''
+splitarraytotwoarraysrowsandcolumns = np.where(np.isnan(missingvaluesrandomintegers))
+print(splitarraytotwoarraysrowsandcolumns) #print (array([2, 3, 5, 6, 8]), array([8, 4, 3, 9, 0]))
+missingvaluesrandomintegers[splitarraytotwoarraysrowsandcolumns] = 0
+print(missingvaluesrandomintegers)
+'''
+[[0.88751073 0.58949487 0.48114543 0.83262386 0.18668592 0.18267376
+  0.89156489 0.3991325  0.80501603 0.76052358]
+ [0.23299003 0.58887718 0.25444025 0.62653396 0.87544497 0.24087074
+  0.12150625 0.91325496 0.88046513 0.18700451]
+ [0.92616198 0.79691826 0.36697385 0.2161998  0.09843074 0.60393916
+  0.08024492 0.41214514 0.         0.98395877]
+ [0.5645292  0.60887495 0.98013915 0.84297063 0.         0.50315929
+  0.47855641 0.65042673 0.37535314 0.52618225]
+ [0.84331411 0.92631853 0.29501767 0.85703056 0.81327316 0.18041479
+  0.63759755 0.49366616 0.78604887 0.70871793]
+ [0.04144435 0.90529237 0.33938827 0.         0.86920404 0.54634517
+  0.45698737 0.29209403 0.55879825 0.42461227]
+ [0.31357655 0.58221229 0.39642724 0.75557585 0.53948792 0.61255027
+  0.24117842 0.60820889 0.02968306 0.        ]
+ [0.82931063 0.21898005 0.65101738 0.01306896 0.14099429 0.07138532
+  0.63786322 0.22982065 0.97433217 0.09272359]
+ [0.         0.30731127 0.63608784 0.28022175 0.98540152 0.72134415
+  0.60975797 0.48423801 0.42216619 0.27976922]
+ [0.08032698 0.18193074 0.14266158 0.55665796 0.47306999 0.01407798
+  0.69330529 0.04943839 0.56891648 0.8083108 ]]
 '''
