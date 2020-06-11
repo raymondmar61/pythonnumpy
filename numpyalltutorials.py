@@ -8,6 +8,7 @@
 #Numpy and Loops in Python
 #Python NumPy Tutorial _ NumPy Array _ Python Tutorial For Beginners _ Python Training _ Edureka [720p]
 #NumPy Tutorial Part - 1 _ NumPy Array _ Python NumPy Tutorial Part -1_ Python Tutorial _ Simplilearn [720p], NumPy Tutorial Part - 2 _ NumPy Array _ Python NumPy Tutorial Part -2_ Python Tutorial _ Simplilearn [720p]
+#Complete Python NumPy Tutorial (Creating Arrays, Indexing, Math, Statistics, Reshaping) [720p]
 
 #print(help(np.linspace)) #RM:  press q to exit or quit
 import numpy as np
@@ -25,31 +26,171 @@ print(anarray.flatten()) #print [ 1  2  3  5  6  7  8  9 10 11 12 13]
 print(anarray.flatten(order="F"))  #print [ 1  5  8 11  2  6  9 12  3  7 10 13].  F stands for Fortran or column-major.  Flattens by column 1, column 2, column 3 top to bottom.
 print(anarray.flatten(order="C"))  #print [ 1  2  3  5  6  7  8  9 10 11 12 13].  C stands for C code or row-major the default.
 print(anarray.flatten(order="A"))  #print [ 1  2  3  5  6  7  8  9 10 11 12 13].  A stands for C and Fortran.
-print(anarray[0,0]) #print 1
-print(anarray[0,1]) #print 2
-print(anarray[1,1]) #print 6
-print(anarray[1,2]) #print 7
-print(anarray[2,0]) #print 8
-print(anarray[2,2]) #print 10
-print(anarray[3,1]) #print 12
-print(anarray[3,2]) #print 13
 print(anarray.dtype) #print int64
-print(anarray.shape) #print (4,3)
-print(anarray.ndim) #print 2
+print(anarray.shape) #print (4,3) (row, columns)
+print(anarray.ndim) #print 2e
 print(anarray.itemsize) #print 8
 print(anarray.size) #print 12
 print(anarray.itemsize*anarray.size) #print 96
+print(anarray.nbytes) #print 96
 anarray = np.array([[1,2,3],[5,6,7],[8,9,10],[11,12,13]], dtype=np.int8)
 print(anarray.dtype) #print int8
 print(anarray.itemsize) #print 1
 print(anarray.size) #print 12
 print(anarray.itemsize*anarray.size) #print 12
 
+reala = np.array([[1,2,3,4,5,6,7],[8,9,10,11,12,13,14]])
+print(reala)
+'''
+[[ 1  2  3  4  5  6  7]
+ [ 8  9 10 11 12 13 14]]
+'''
+#commas switches from row to column.  colon specifies the range of numbers.(?)
+print(reala[1,5]) #print 13
+print(reala[1,-2]) #print 13
+print(reala[-1,3]) #print 11
+print(reala[0:1]) #print [[ 1  2  3  4  5  6  7]]
+print(reala[0,]) #print [1 2 3 4 5 6 7]
+print(reala[0,:]) #print [1 2 3 4 5 6 7]
+print(reala[:,2]) #print [ 3 10]
+print(reala[0:,2]) #print [ 3 10]
+print(reala[1:,2]) #print [10]
+print(reala[1,2]) #print 10
+print(reala[0,2]) #print 3
+print(reala[0,1:6:2]) #print [2 4 6]
+print(reala[0,1:-1:2]) #print [2 4 6]
+reala[1,5] = 20
+print(reala)
+'''
+[[ 1  2  3  4  5  6  7]
+ [ 8  9 10 11 12 20 14]]
+'''
+reala[:,2] = 500
+print(reala)
+'''
+[[  1   2 500   4   5   6   7]
+ [  8   9 500  11  12  20  14]]
+'''
+reala[:,2] = [987,654]
+print(reala)
+'''
+[[  1   2 987   4   5   6   7]
+ [  8   9 654  11  12  20  14]]
+'''
+realb = np.array([[[1,2],[3,4]],[[5,6],[7,8]]])
+print(realb)
+'''
+[[[1 2]
+  [3 4]]
+
+ [[5 6]
+  [7 8]]]
+'''
+print(realb.shape) #print (2, 2, 2)
+print(realb[0,1,1]) #4  RM:  Instructor says work outside in to get the 4; although getting the 4 is too easy in a small 3-d array.
+print(realb[:,1,:])
+'''
+[[3 4]
+ [7 8]]
+'''
+print(realb[:,0,:])
+'''
+[[1 2]
+ [5 6]]
+'''
+wrongrealb = np.array([[[1,2,333],[3,4,5496]],[[5,6,500],[7,8]]])
+print(wrongrealb)
+'''
+[[list([1, 2, 333]) list([3, 4, 5496])]
+ [list([5, 6, 500]) list([7, 8])]]
+'''
+print(wrongrealb.shape) #print (2, 2)
+exercise = np.zeros([5,5], dtype="uint8")
+print(exercise)
+'''
+[[0 0 0 0 0]
+ [0 0 0 0 0]
+ [0 0 0 0 0]
+ [0 0 0 0 0]
+ [0 0 0 0 0]]
+'''
+exercise[2,2] = 9
+exercise[0:1] = 1
+exercise[4:5] = 1
+exercise[0:,0] = 1
+exercise[0:,4] = 1
+print(exercise)
+'''
+[[1 1 1 1 1]
+ [1 0 0 0 1]
+ [1 0 9 0 1]
+ [1 0 0 0 1]
+ [1 1 1 1 1]]
+'''
+instructorsolution = np.ones([5,5], dtype="uint8")
+print(instructorsolution)
+'''
+[[1 1 1 1 1]
+ [1 1 1 1 1]
+ [1 1 1 1 1]
+ [1 1 1 1 1]
+ [1 1 1 1 1]]
+'''
+fillinzeroes = np.zeros([3,3], dtype="uint8")
+print(fillinzeroes)
+'''
+[[0 0 0]
+ [0 0 0]
+ [0 0 0]]
+ '''
+instructorsolution[1:4,1:4] = fillinzeroes #also works instructorsolution[1:-1,1:-1] = fillinzeroes
+instructorsolution[2,2] = 9
+print(instructorsolution)
+'''
+[[1 1 1 1 1]
+ [1 0 0 0 1]
+ [1 0 9 0 1]
+ [1 0 0 0 1]
+ [1 1 1 1 1]]
+'''
+#Advanced indexing
+picknumbers = np.array([1,2,3,4,5,6,7,8,9])
+print(picknumbers[[1,2,8]]) #print [2 3 9]
+
+exercisetwoarray = np.arange(1,31).reshape(6,5)
+print(exercisetwoarray)
+'''
+[[ 1  2  3  4  5]
+ [ 6  7  8  9 10]
+ [11 12 13 14 15]
+ [16 17 18 19 20]
+ [21 22 23 24 25]
+ [26 27 28 29 30]]
+'''
+print(exercisetwoarray[2:4,0:2])
+'''
+[[11 12]
+ [16 17]]
+'''
+print(exercisetwoarray[[0,1,2,3],[1,2,3,4]]) #print [ 2  8 14 20]
+print(exercisetwoarray[[0,0,4,4,5,5],[3,4,3,4,3,4]]) #print [ 4  5 24 25 29 30]
+print(exercisetwoarray[[0,4,5],3:])
+'''
+[[ 4  5]
+ [24 25]
+ [29 30]]
+'''
+print(exercisetwoarray[[0,4,5],3:5])
+'''
+[[ 4  5]
+ [24 25]
+ [29 30]]
+'''
+
 definenumpyarray = np.array([2,3,4])
 print(definenumpyarray) #print [2 3 4]
-print(definenumpyarray.shape) #print (3,)
+print(definenumpyarray.shape) #print (3,) (row, columns)
 print(definenumpyarray.ndim) #print 1
-print(definenumpyarray[2]) #print 4
 print(type(definenumpyarray)) #print <class 'numpy.ndarray'>
 definenumpyarray = np.array((2,3,4))
 print(definenumpyarray) #print [2 3 4]
@@ -188,6 +329,47 @@ print(multiplybythree)
 [[ 4.5  6.   9. ]
  [12.  15.  18. ]]
 '''
+#Boolean masking
+greaterthanfifty = gettextdata > 50
+print(greaterthanfifty)
+'''
+[[False False False False  True  True False False False False False False
+  False False False False False False]
+ [False False False False  True  True False  True False False False False
+  False False False False False False]
+ [False False False False  True False False False  True False False False
+  False False False False  True  True]]
+'''
+greaterthanfiftyonerow = onerowintegers > 50
+print(greaterthanfiftyonerow)
+'''
+[[False False False False  True  True False False False False False False
+  False False False False False False False False False False  True  True
+  False  True False False False False False False False False False False
+  False False False False  True False False False  True False False False
+  False False False False  True  True]]
+'''
+greaterthanfiftyonerowgetnumbers = onerowintegers[onerowintegers > 50]
+print(greaterthanfiftyonerowgetnumbers) #print [196  75 254  75  55 231  78  76  88]
+greaterthanfiftyanyalongcolumns = np.any(gettextdata > 50, axis=0)
+print(greaterthanfiftyanyalongcolumns) #print [False False False False  True  True False  True  True False False False False False False False  True  True]
+greaterthanfiftyallalongcolumns = np.all(gettextdata > 50, axis=0)
+print(greaterthanfiftyallalongcolumns) #print [False False False False  True False False False False False False False False False False False False False]
+#Advanced indexing
+greaterthanfiftyanyalongrows = np.any(gettextdata > 50, axis=1)
+print(greaterthanfiftyanyalongrows) #print [ True  True  True]
+greaterthanfiftyallalongrows = np.all(gettextdata > 50, axis=1)
+print(greaterthanfiftyallalongrows) #print [False False False]
+between50and100 = ((gettextdata >= 50) & (gettextdata <=100))
+print(between50and100)
+'''
+[[False False False False False  True False False False False False False
+  False False False False False False]
+ [False False False False False  True False  True False False False False
+  False False False False False False]
+ [False False False False False False False False  True False False False
+  False False False False  True  True]]
+'''
 zeroesarray = np.zeros([3,4])
 print(zeroesarray)
 '''
@@ -220,6 +402,22 @@ print(xtworows)
 print(len(xtworows)) #print 2
 print("How many number ones?",xtworows.size) #print How many number ones? 100
 print("Dimensions?",xtworows.ndim) #print Dimensions? 2
+number99 = np.full([3,5], 99, dtype="int16")
+print(number99)
+'''
+[[99 99 99 99 99]
+ [99 99 99 99 99]
+ [99 99 99 99 99]]
+'''
+identifyarray = np.identity(5) #An identify matrix is always a square with a diagonal 1 in lament terms
+print(identifyarray)
+'''
+[[1. 0. 0. 0. 0.]
+ [0. 1. 0. 0. 0.]
+ [0. 0. 1. 0. 0.]
+ [0. 0. 0. 1. 0.]
+ [0. 0. 0. 0. 1.]]
+'''
 z = np.empty(10)
 print(z)
 '''
@@ -246,6 +444,37 @@ while mymatrix[-1] != 7:
 		break
 print(mymatrix) #print [ 1.  8.  5. 10.  8.  3.  2.  6.  2.  4.  5.  5.  2.  5.  9.  6.  2. 10.  4.  2.  4.  9.  4. 10.  7.]
 
+randomintegers = np.random.randint(-3,11,size=(2,8))
+print(randomintegers)
+'''
+[[ 1  5  0  5 -2  1  5 10]
+ [ 7  7  1  0 -3  5  8  5]]
+'''
+duplicatearraythreetimes = np.repeat(randomintegers,3)
+print(duplicatearraythreetimes)
+'''
+[ 1  1  1  5  5  5  0  0  0  5  5  5 -2 -2 -2  1  1  1  5  5  5 10 10 10
+  7  7  7  7  7  7  1  1  1  0  0  0 -3 -3 -3  5  5  5  8  8  8  5  5  5]
+'''
+duplicatearraythreetimesaxisdefaultone = np.repeat([1,2,3],3)
+print(duplicatearraythreetimesaxisdefaultone) #print [1 1 1 2 2 2 3 3 3]
+duplicatearraythreetimesaxissettzero = np.repeat([[1,2,3]],3,axis=0)
+print(duplicatearraythreetimesaxissettzero)
+'''
+[[1 2 3]
+ [1 2 3]
+ [1 2 3]]
+'''
+duplicatearraythreetimesaxisdefaultzero2d = np.repeat([[1,2,3],[7,8,9]],3,axis=0)
+print(duplicatearraythreetimesaxisdefaultzero2d)
+'''
+[[1 2 3]
+ [1 2 3]
+ [1 2 3]
+ [7 8 9]
+ [7 8 9]
+ [7 8 9]]
+'''
 randomintegerstenbyten = np.random.randint(100, size=(10,10)) #https://docs.scipy.org/doc/numpy-1.15.0/reference/generated/numpy.random.randint.html
 print(randomintegerstenbyten)
 '''
@@ -290,6 +519,18 @@ arraylog10 = np.array([1,2,3])
 print(np.log10(arraylog10)) #print [0.         0.30103    0.47712125]
 print(np.log2(arraylog10)) #print [0.        1.        1.5849625]
 print(np.pi) #print 3.141592653589793
+statistics = np.array([[1,2,3],[4,5,6]])
+print(statistics)
+'''
+[[1 2 3]
+ [4 5 6]]
+'''
+print(np.min(statistics)) #print 1
+print(np.min(statistics, axis=0)) #print [1 2 3]
+print(np.max(statistics)) #print 6
+print(np.max(statistics, axis=1)) #print [3 6]
+print(np.sum(statistics)) #print 21
+print(np.sum(statistics, axis=0)) #print [5 7 9]
 sumpartofarray = np.array([3,8,4,5,3,8], dtype=np.int8)
 print(sumpartofarray) #print [3 8 4 5 3 8]
 sumpartofarray = sumpartofarray.reshape(3,2)
@@ -347,6 +588,12 @@ print(np.sqrt(reshape2down3across))
  [1.73205081 2.        ]
  [2.23606798 2.44948974]]
 '''
+mathematics1 = np.array([1,2,3,4])
+print(mathematics1) #print [1 2 3 4]
+print(mathematics1+2) #print [3 4 5 6]
+print(mathematics1**2) #print [ 1  4  9 16]
+mathematics2 = np.array([1,0,1,0])
+print(mathematics1+mathematics2) #print [3 4 5 6]
 fourarray = np.array([[1,2],[3,4]])
 eightarray = np.array([[5,6],[7,8]])
 print(fourarray)
@@ -545,6 +792,36 @@ print(np.hstack((stackarraya,stackarrayb)))
 print(np.hstack((stackarraya,stackarrayb)).shape) #print (2,6)
 print(stackarraya.ravel()) #print [1 2 3 5 6 7]
 print(stackarraya.ravel().shape) #print (6,)
+verticalstack1 = np.array([1,2,3,4])
+verticalstack2 = np.array([5,6,7,8])
+print(np.vstack([verticalstack1,verticalstack2]))
+'''
+[[1 2 3 4]
+ [5 6 7 8]]
+'''
+print(np.vstack([verticalstack1,verticalstack2,verticalstack2]))
+'''
+[[1 2 3 4]
+ [5 6 7 8]
+ [5 6 7 8]]
+'''
+horizontalstack1 = np.ones((2,4))
+horizontalstack2 = np.zeros((2,2))
+print(horizontalstack1)
+'''
+[[1. 1. 1. 1.]
+ [1. 1. 1. 1.]]
+'''
+print(horizontalstack2)
+'''
+[[0. 0.]
+ [0. 0.]]
+'''
+print(np.hstack((horizontalstack1,horizontalstack2)))  #RM:  Use paranthesis or brackets?  Paranthesis for variables.  Bracktes for numbers.
+'''
+[[1. 1. 1. 1. 0. 0.]
+ [1. 1. 1. 1. 0. 0.]]
+'''
 splita = np.arange(9)
 print(splita) #print [0 1 2 3 4 5 6 7 8]
 splitathree = np.split(splita,3)
@@ -726,4 +1003,42 @@ print(missingvaluesrandomintegers)
   0.60975797 0.48423801 0.42216619 0.27976922]
  [0.08032698 0.18193074 0.14266158 0.55665796 0.47306999 0.01407798
   0.69330529 0.04943839 0.56891648 0.8083108 ]]
+'''
+
+#Copy array
+connectedcopyarray = np.array([1,2,3])
+copiedarray = connectedcopyarray
+print(copiedarray) #print [1 2 3]
+copiedarray[0] = 100
+print(copiedarray) #print [100   2   3]
+print(connectedcopyarray) #print [100   2   3]
+independentcopyarray = np.array([1,2,3], dtype="uint8")
+copiedarray = independentcopyarray.copy()
+print(copiedarray)
+copiedarray[0] = 100
+print(copiedarray) #print [100   2   3]
+print(independentcopyarray) #print [1   2   3]
+
+#Load data, import data, load file, import file
+gettextdata = np.genfromtxt("practicenumpynumbers.txt",delimiter=",")
+print(gettextdata)
+'''
+[[  1.  13.  21.  11. 196.  75.   4.   3.  34.   6.   7.   8.   0.   1.
+    2.   3.   4.   5.]
+ [  3.  42.  12.  33. 766.  75.   4.  55.   6.   4.   3.   4.   5.   6.
+    7.   0.  11.  12.]
+ [  1.  22.  33.  11. 999.  11.   2.   1.  78.   0.   1.   2.   9.   8.
+    7.   1.  76.  88.]]
+'''
+print(gettextdata.size) #print 54
+print(gettextdata.reshape((1,gettextdata.size))) #print [[  1.  13.  21.  11. 196.  75.   4.   3.  34.   6.   7.   8.   0.   1.    2.   3.   4.   5.   3.  42.  12.  33. 766.  75.   4.  55.   6.   4.    3.   4.   5.   6.   7.   0.  11.  12.   1.  22.  33.  11. 999.  11.    2.   1.  78.   0.   1.   2.   9.   8.   7.   1.  76.  88.]]
+onerow = (gettextdata.reshape((1,gettextdata.size)))
+for n in range(0,onerow.size):
+  print(onerow[0,n]) #print 1.0\n 13.0\n 21.0\n 11.0\n 196.0 . . . 76.0\n 88.0
+onerowintegers = onerow.astype("uint8")
+print(onerowintegers)
+'''
+[[  1  13  21  11 196  75   4   3  34   6   7   8   0   1   2   3   4   5
+    3  42  12  33 254  75   4  55   6   4   3   4   5   6   7   0  11  12
+    1  22  33  11 231  11   2   1  78   0   1   2   9   8   7   1  76  88]]
 '''
