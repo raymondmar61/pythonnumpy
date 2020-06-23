@@ -1,6 +1,7 @@
 #RM:  find time for the w3resoruce numpy
 #w3numpybasic.py includes lessons not learned in YouTube videos such as element-wise comparison
-#Numpy is the core Python library for scientific and numercial computing.  It provides array objects.
+#Numpy is the core Python library for scientific and numercial computing.  It provides array objects for slicing arrays and reshaping arrays.  Faster matrix computing.
+
 #Single data type; e.g. all floats or all integers.  Less memory.  NumPy data types:  int8 bit -128 to 127, int16 bit -32768 to 32,767, int32, int64, uint8 unsigned integer 0 to 255, uint16 0 to 65535, uint32, uint64, float16 half precision signed float, float32 single precision signed lfoat, float64 double precision signed float, complex, compex64, complex 128.  Also boolean bool_, string, datetime, and python object.  Default is float64.
 
 #Python_ NUMPY _ Numerical Python Arrays Tutorial [720p] Joe James
@@ -9,6 +10,7 @@
 #Python NumPy Tutorial _ NumPy Array _ Python Tutorial For Beginners _ Python Training _ Edureka [720p]
 #NumPy Tutorial Part - 1 _ NumPy Array _ Python NumPy Tutorial Part -1_ Python Tutorial _ Simplilearn [720p], NumPy Tutorial Part - 2 _ NumPy Array _ Python NumPy Tutorial Part -2_ Python Tutorial _ Simplilearn [720p]
 #Complete Python NumPy Tutorial (Creating Arrays, Indexing, Math, Statistics, Reshaping) [720p]
+#A Gentle introduction to NumPy _ Python NumPy Tutorial [720p]
 
 #print(help(np.linspace)) #RM:  press q to exit or quit
 import numpy as np
@@ -214,6 +216,12 @@ print(numpyrangereshape)
  [ 6  7  8]
  [ 9 10 11]]
 '''
+print(numpyrangereshape.T)
+'''
+[[ 0  3  6  9]
+ [ 1  4  7 10]
+ [ 2  5  8 11]]
+'''
 numpyrangetranspose = numpyrangereshape.transpose()
 print(numpyrangetranspose)
 '''
@@ -223,6 +231,23 @@ print(numpyrangetranspose)
 '''
 numpyrange = np.arange(0,12,2)
 print(numpyrange) #print [ 0  2  4  6  8 10]
+arangenumberofelements = np.linspace(1,25) #RM:  50 elemenets is default
+print(arangenumberofelements)
+'''
+[ 1.          1.48979592  1.97959184  2.46938776  2.95918367  3.44897959
+  3.93877551  4.42857143  4.91836735  5.40816327  5.89795918  6.3877551
+  6.87755102  7.36734694  7.85714286  8.34693878  8.83673469  9.32653061
+  9.81632653 10.30612245 10.79591837 11.28571429 11.7755102  12.26530612
+ 12.75510204 13.24489796 13.73469388 14.2244898  14.71428571 15.20408163
+ 15.69387755 16.18367347 16.67346939 17.16326531 17.65306122 18.14285714
+ 18.63265306 19.12244898 19.6122449  20.10204082 20.59183673 21.08163265
+ 21.57142857 22.06122449 22.55102041 23.04081633 23.53061224 24.02040816
+ 24.51020408 25.        ]
+'''
+tenevenlyspacedvalues = np.linspace(1,25,10)
+print(tenevenlyspacedvalues) #print [ 1.          3.66666667  6.33333333  9.         11.66666667 14.33333333 17.         19.66666667 22.33333333 25.        ]
+tenevenlyspacedvalues = np.linspace(1,25,10, dtype="int8")
+print(tenevenlyspacedvalues) #print [ 1  3  6  9 11 14 17 19 22 25]
 evenspread = np.linspace(0,12,6) #six elements between 0 and 12 inclusive
 print(evenspread) #print [ 0.   2.4  4.8  7.2  9.6 12. ]
 newdimension = evenspread.reshape(3,2) #three rows, two columns
@@ -286,6 +311,32 @@ print(np.swapaxes(charlie,1,2))
 
  [[4 6]
   [5 7]]]
+'''
+czeros = np.zeros((2,3))
+print(czeros)
+'''
+[[0. 0. 0.]
+ [0. 0. 0.]]
+'''
+print(czeros.reshape(3,2))
+'''
+[[0. 0.]
+ [0. 0.]
+ [0. 0.]]
+'''
+print(czeros.reshape(3,-1)) #-1 means parameter determined based on actual condition automatically
+'''
+[[0. 0.]
+ [0. 0.]
+ [0. 0.]]
+'''
+cones = np.ones((1,9))
+print(cones) #print [[1. 1. 1. 1. 1. 1. 1. 1. 1.]]
+print(cones.reshape(3,-1)) #-1 means parameter determined based on actual condition automatically
+'''
+[[1. 1. 1.]
+ [1. 1. 1.]
+ [1. 1. 1.]]
 '''
 x = np.ones(50, dtype=np.int8)
 print(x) #print [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1]
@@ -431,6 +482,28 @@ print(z)
 [1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
  1 1 1 1 1 1 1 1 1 1 1 1 1]
 '''
+emptynumpy = np.empty((3,3))
+print(emptynumpy)
+'''
+[[0.00000000e+000 1.27919471e-269 1.42115157e-269]
+ [6.63249360e-270 1.20448867e-240 1.72759950e-260]
+ [2.83579323e-309 2.76403504e-306 1.26480805e-321]]
+'''
+emptyonesnumpy = np.empty((3,3), dtype="int8")
+print(emptyonesnumpy)
+'''
+[[1 1 1]
+ [1 1 1]
+ [1 1 1]]
+'''
+emptyrandomintegersnumpy = np.empty((3,3), dtype="int16")
+print(emptyrandomintegersnumpy)
+'''
+[[-29536  26964  32572]
+ [     0 -29536  26964]
+ [ 32572      0      0]]
+'''
+
 #Create a while loop to append a random integer between 1 and 10 to mymatrix.  Stop the loop when the random integer is 7 or when there are 30 numbers.
 import random
 mymatrix = np.ones(1)
@@ -518,6 +591,7 @@ print(np.sqrt(randomarrayintegers)) #print [2.         3.16227766 3.         2.4
 arraylog10 = np.array([1,2,3])
 print(np.log10(arraylog10)) #print [0.         0.30103    0.47712125]
 print(np.log2(arraylog10)) #print [0.        1.        1.5849625]
+print(np.exp(arraylog10)) #print [ 2.71828183  7.3890561  20.08553692]
 print(np.pi) #print 3.141592653589793
 statistics = np.array([[1,2,3],[4,5,6]])
 print(statistics)
@@ -710,6 +784,8 @@ print(inversenumpya)
  [-4.50359963e+15  9.00719925e+15 -4.50359963e+15]]
 '''
 
+arangenumpybyhalf = np.arange(1,6, .5)
+print(arangenumpybyhalf) #print [1.  1.5 2.  2.5 3.  3.5 4.  4.5 5.  5.5]
 iteratearray = np.arange(0,45,5)
 print(iteratearray) #print [ 0  5 10 15 20 25 30 35 40]
 iteratearray = iteratearray.reshape(3,3)
@@ -790,6 +866,61 @@ print(np.hstack((stackarraya,stackarrayb)))
  [ 5  6  7 11 12 13]]
 '''
 print(np.hstack((stackarraya,stackarrayb)).shape) #print (2,6)
+fzeros = np.zeros((3,1))
+print(fzeros)
+'''
+[[0.]
+ [0.]
+ [0.]]
+'''
+gvstack = np.vstack((fzeros,np.ones((3,1))))  #stack arrays vertically up and down
+print(gvstack)
+'''
+[[0.]
+ [0.]
+ [0.]
+ [1.]
+ [1.]
+ [1.]]
+'''
+hhstack = np.hstack((fzeros,np.ones((3,1))))  #stack arrays horizontally left and right
+print(hhstack)
+'''
+[[0. 1.]
+ [0. 1.]
+ [0. 1.]]
+'''
+splitarray = np.array([[1,1,1],[1,1,1],[1,1,1],[0,0,0]])
+print(splitarray)
+'''
+[[1 1 1]
+ [1 1 1]
+ [1 1 1]
+ [0 0 0]]
+'''
+print(np.hsplit(splitarray,3)) #split array horizontally which looks vertically
+'''
+[array([[1],
+       [1],
+       [1],
+       [0]]), array([[1],
+       [1],
+       [1],
+       [0]]), array([[1],
+       [1],
+       [1],
+       [0]])]
+'''
+print(np.vsplit(splitarray,2)) #split array vertically which looks horizontally
+'''
+[array([[1, 1, 1],
+       [1, 1, 1]]), array([[1, 1, 1],
+       [0, 0, 0]])]
+'''
+print(np.vsplit(splitarray,4)) #split array vertically which looks horizontally
+'''
+[array([[1, 1, 1]]), array([[1, 1, 1]]), array([[1, 1, 1]]), array([[0, 0, 0]])]
+'''
 print(stackarraya.ravel()) #print [1 2 3 5 6 7]
 print(stackarraya.ravel().shape) #print (6,)
 verticalstack1 = np.array([1,2,3,4])
@@ -1042,3 +1173,4 @@ print(onerowintegers)
     3  42  12  33 254  75   4  55   6   4   3   4   5   6   7   0  11  12
     1  22  33  11 231  11   2   1  78   0   1   2   9   8   7   1  76  88]]
 '''
+
