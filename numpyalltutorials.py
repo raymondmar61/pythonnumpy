@@ -11,6 +11,8 @@
 #NumPy Tutorial Part - 1 _ NumPy Array _ Python NumPy Tutorial Part -1_ Python Tutorial _ Simplilearn [720p], NumPy Tutorial Part - 2 _ NumPy Array _ Python NumPy Tutorial Part -2_ Python Tutorial _ Simplilearn [720p]
 #Complete Python NumPy Tutorial (Creating Arrays, Indexing, Math, Statistics, Reshaping) [720p]
 #A Gentle introduction to NumPy _ Python NumPy Tutorial [720p]
+#Arrays in Python Numpy channel apmonitordotcom
+#Introduction to Numerical Computing with NumPy _ SciPy 2019 Tutorial _ Alex Chabot-Leclerc [720p]
 
 #print(help(np.linspace)) #RM:  press q to exit or quit
 import numpy as np
@@ -40,6 +42,37 @@ print(anarray.dtype) #print int8
 print(anarray.itemsize) #print 1
 print(anarray.size) #print 12
 print(anarray.itemsize*anarray.size) #print 12
+
+introa = np.array([1,2,3,4])
+print(introa) #print [1 2 3 4]
+introa[0] = 11.5
+print(introa) #print [11  2  3  4]
+introa.fill(-4.8)
+print(introa) #print [-4 -4 -4 -4]
+introb = np.array([1.1,2.2,3.3,4.5,9.9])
+print(introb) #print [1.1 2.2 3.3 4.5 9.9]
+introb[2] = 931
+print(introb) #print [  1.1   2.2 931.    4.5   9.9]
+
+firstnumpy = np.array([1,2,3.5,10,20])
+print(firstnumpy)
+print(firstnumpy[-1]) #print 20.0
+print(int(firstnumpy[-1])) #print 20
+print(firstnumpy[0:3]) #print [1.  2.  3.5]
+#print(int(firstnumpy[0:3])) #print TypeError: only size-1 arrays can be converted to Python scalars
+print(firstnumpy[0:3].astype(int)) #print [1  2  3].  #RM:  conversion rounds down.  https://kite.com/python/answers/how-to-convert-a-numpy-array-of-floats-into-integers-in-python Use numpy.ceil() and numpy.rint() to round up.  I can't figure it out.
+print(np.ceil(firstnumpy)) #print [ 1.  2.  4. 10. 20.]
+print(np.rint(firstnumpy)) #print [ 1.  2.  4. 10. 20.]
+print(np.ceil(np.rint(firstnumpy))) #print [ 1.  2.  4. 10. 20.]
+print(np.rint(np.ceil(firstnumpy))) #print [ 1.  2.  4. 10. 20.]
+weirdemptynumpy = np.empty(5)
+print(weirdemptynumpy) #print [ 1.  2.  4. 10. 20.]
+notweirdemptynumpy = np.empty(3)
+print(notweirdemptynumpy) #print [4.9e-324 9.9e-324 1.5e-323]
+numpystring = np.array([1,2,"car",10,20])
+print(numpystring) #print ['1' '2' 'car' '10' '20']
+print(numpystring[2]) #print car
+print(numpystring[2][0:2]) #print ca
 
 reala = np.array([[1,2,3,4,5,6,7],[8,9,10,11,12,13,14]])
 print(reala)
