@@ -74,6 +74,37 @@ print(numpystring) #print ['1' '2' 'car' '10' '20']
 print(numpystring[2]) #print car
 print(numpystring[2][0:2]) #print ca
 
+emptynumpy = np.array([0], dtype=np.int8)
+print(emptynumpy) #print [1]
+n = 1
+counter = 1
+for indexnumber in range(1,36):
+  emptynumpy = np.append(emptynumpy,n)
+  if counter == 5:
+    counter = 0
+    n+=5
+  else:
+    counter+=1
+    n+=1
+slicethearray = emptynumpy.reshape(6,6)
+print(slicethearray)
+'''
+[[ 0  1  2  3  4  5]
+ [10 11 12 13 14 15]
+ [20 21 22 23 24 25]
+ [30 31 32 33 34 35]
+ [40 41 42 43 44 45]
+ [50 51 52 53 54 55]]
+'''
+#commas switches from row to column.  colon specifies the range of numbers.(?)
+print(slicethearray[0,3:5]) #print [3 4]
+print(slicethearray[4:,4:]) #print [[44 45] [54 55]]
+print(slicethearray[:,2]) #print [ 2 12 22 32 42 52]
+print(slicethearray[2::2,::2])  #zero, second, and fourth rows, zero, second, fourth columns
+'''
+[[20 22 24]
+ [40 42 44]]
+'''
 reala = np.array([[1,2,3,4,5,6,7],[8,9,10,11,12,13,14]])
 print(reala)
 '''
@@ -86,6 +117,7 @@ print(reala[1,-2]) #print 13
 print(reala[-1,3]) #print 11
 print(reala[0:1]) #print [[ 1  2  3  4  5  6  7]]
 print(reala[0,]) #print [1 2 3 4 5 6 7]
+print(reala[1]) #print [ 8  9 10 11 12 13 14]
 print(reala[0,:]) #print [1 2 3 4 5 6 7]
 print(reala[:,2]) #print [ 3 10]
 print(reala[0:,2]) #print [ 3 10]
@@ -236,6 +268,7 @@ print(numpyrange) #print [ 0  1  2  3  4  5  6  7  8  9 10 11]
 print(numpyrange[6:9]) #print [6 7 8]
 print(numpyrange[-1]) #print 11
 print(numpyrange[:4]) #print [0 1 2 3]
+print(numpyrange[::3]) #print [0 3 6 9]
 slicesoda = slice(2,9,2)
 print(numpyrange[slicesoda]) #print [2 4 6 8]
 print(numpyrange[2:9:2]) #print [2 4 6 8]
