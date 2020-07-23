@@ -263,6 +263,37 @@ definenumpyarray = np.array((2,3,4))
 print(definenumpyarray) #print [2 3 4]
 print(definenumpyarray[2]) #print 4
 print(type(definenumpyarray)) #print <class 'numpy.ndarray'>
+extractslice = np.arange(0,25).reshape(5,5)
+print(extractslice)
+'''
+[[ 0  1  2  3  4]
+ [ 5  6  7  8  9]
+ [10 11 12 13 14]
+ [15 16 17 18 19]
+ [20 21 22 23 24]]
+'''
+print(extractslice[4:]) #print [[20 21 22 23 24]]
+print(extractslice[4:,:]) #print [[20 21 22 23 24]]
+print(extractslice[-1,:]) #print [20 21 22 23 24]
+print(extractslice[-1:,:]) #print [[20 21 22 23 24]]
+print(extractslice[:,1::2])
+'''
+[[ 1  3]
+ [ 6  8]
+ [11 13]
+ [16 18]
+ [21 23]]
+ '''
+print(extractslice[1::2,0::2])
+'''
+[[ 5  7  9]
+ [15 17 19]]
+'''
+print(extractslice[1::2,0:3:2])
+'''
+[[ 5  7]
+ [15 17]]
+'''
 numpyrange = np.arange(0,12)
 print(numpyrange) #print [ 0  1  2  3  4  5  6  7  8  9 10 11]
 print(numpyrange[6:9]) #print [6 7 8]
@@ -1210,8 +1241,9 @@ copiedarray[0] = 100
 print(copiedarray) #print [100   2   3]
 print(connectedcopyarray) #print [100   2   3]
 independentcopyarray = np.array([1,2,3], dtype="uint8")
+print(independentcopyarray) #print [1 2 3]
 copiedarray = independentcopyarray.copy()
-print(copiedarray)
+print(copiedarray) #print [1 2 3]
 copiedarray[0] = 100
 print(copiedarray) #print [100   2   3]
 print(independentcopyarray) #print [1   2   3]
@@ -1240,3 +1272,77 @@ print(onerowintegers)
     1  22  33  11 231  11   2   1  78   0   1   2   9   8   7   1  76  88]]
 '''
 
+#Fancy indexing or boolean indexing or indexing by position
+maskingarray = np.arange(0,80,10)
+print(maskingarray) #print [ 0 10 20 30 40 50 60 70]
+indices = [1,2,5]
+selectedindices = maskingarray[indices]
+print(selectedindices) #print [10 20 50]
+indices = [1,2,-3]
+selectedindices = maskingarray[indices]
+print(selectedindices) #print [10 20 50]
+replacewith99s = [1,2,5]
+maskingarray[replacewith99s] = 99
+print(maskingarray) #print [ 0 99 99 30 40 99 60 70]
+booleanindexing = np.array([0, 1, 0, 1, 1, 0, 0, 1], dtype=bool)
+print(booleanindexing) #print [False  True False  True  True False False  True]
+truenumbers = maskingarray[booleanindexing]
+print(truenumbers) #print [99 30 40 70]
+emptynumpy = np.array([0], dtype=np.int8)
+n = 1
+counter = 1
+for indexnumber in range(1,36):
+  emptynumpy = np.append(emptynumpy,n)
+  if counter == 5:
+    counter = 0
+    n+=5
+  else:
+    counter+=1
+    n+=1
+fancyindexing = emptynumpy.reshape(6,6)
+print(fancyindexing)
+'''
+[[ 0  1  2  3  4  5]
+ [10 11 12 13 14 15]
+ [20 21 22 23 24 25]
+ [30 31 32 33 34 35]
+ [40 41 42 43 44 45]
+ [50 51 52 53 54 55]]
+'''
+print(fancyindexing[[0,1,2,3,4],[1,2,3,4,5]]) #print [ 1 12 23 34 45]
+print(fancyindexing[3:,[0,2,5]])
+'''
+[[30 32 35]
+ [40 42 45]
+ [50 52 55]]
+'''
+booleanindexing = np.array([1,0,1,0,0,1], dtype=bool)
+print(booleanindexing) #print [ True False  True False False  True]
+print(fancyindexing[booleanindexing,2:3])
+'''
+[[ 2]
+ [22]
+ [52]]
+ '''
+
+blueelements = np.arange(0,25).reshape(5,5)
+print(blueelements)
+'''
+[[ 0  1  2  3  4]
+ [ 5  6  7  8  9]
+ [10 11 12 13 14]
+ [15 16 17 18 19]
+ [20 21 22 23 24]]
+ '''
+print(blueelements[[0,2,3,3],[2,3,1,4]]) #print [ 2 13 16 19]
+print(blueelements[[0,3,3,3],[2,4,1,3]]) #print [ 2 19 16 18]
+divisibleby3 = blueelements % 3 == 0
+print(divisibleby3)
+'''
+[[ True False False  True False]
+ [False  True False False  True]
+ [False False  True False False]
+ [ True False False  True False]
+ [False  True False False  True]]
+'''
+print(blueelements[divisibleby3]) #print [ 0  3  6  9 12 15 18 21 24]
