@@ -1346,3 +1346,52 @@ print(divisibleby3)
  [False  True False False  True]]
 '''
 print(blueelements[divisibleby3]) #print [ 0  3  6  9 12 15 18 21 24]
+
+#Array broadcasting
+mainarray = np.array([[0,0,0],[10,10,10],[20,20,20],[30,30,30]])
+print(mainarray)
+'''
+[[ 0  0  0]
+ [10 10 10]
+ [20 20 20]
+ [30 30 30]]
+'''
+theaddarray = np.array([[0,1,2],[0,1,2],[0,1,2],[0,1,2]])
+print(theaddarray)
+'''
+[[0 1 2]
+ [0 1 2]
+ [0 1 2]
+ [0 1 2]]
+'''
+print(mainarray+theaddarray)
+'''
+[[ 0  1  2]
+ [10 11 12]
+ [20 21 22]
+ [30 31 32]]
+'''
+theaddarrayfirstrow = theaddarray[0:1,0:]
+print(theaddarrayfirstrow) #print [[0 1 2]]
+mainarrayfirstcolumn = mainarray[0:,0:1]
+print(mainarrayfirstcolumn)
+'''
+[[ 0]
+ [10]
+ [20]
+ [30]]
+'''
+print(mainarray+theaddarrayfirstrow)
+'''
+[[ 0  1  2]
+ [10 11 12]
+ [20 21 22]
+ [30 31 32]]
+'''
+print(mainarrayfirstcolumn+theaddarrayfirstrow)
+'''
+[[ 0  1  2]
+ [10 11 12]
+ [20 21 22]
+ [30 31 32]]
+'''
