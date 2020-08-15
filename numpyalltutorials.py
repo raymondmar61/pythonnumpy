@@ -1395,3 +1395,61 @@ print(mainarrayfirstcolumn+theaddarrayfirstrow)
  [20 21 22]
  [30 31 32]]
 '''
+
+string_array = np.array(["1.1", "2.2", "3.3"])
+float_array = string_array.astype(np.float)
+print(float_array) #print [1.1 2.2 3.3]
+
+#Python for Spreadsheets and CSV File manipulation - Part 1 Basics
+csvfile = "Google Stock Market Data - google_stock_data.csv.csv"
+def main():
+  try:
+    #Date, Open, High, Low, Close, Volume, Adj Close = np.loadtxt(csvfile,delimiter=",",unpack=True, dtype="str")
+    #print(Date)
+    googlestock = np.loadtxt(csvfile,delimiter=",",unpack=True, dtype="str")
+    googlestockdate = googlestock[0] #extract first column Date
+    googlestockdatenoheader = googlestockdate[1:] #extract first column no header
+    print(googlestockdatenoheader) #['8/19/2014' '8/18/2014' '8/15/2014' ... '8/23/2004' '8/20/2004' '8/19/2004']
+    googlestockopen = googlestock[1]
+    googlestockhigh = googlestock[2]
+    googlestocklow = googlestock[3]
+    googlestockclose = googlestock[4]
+    print(googlestockdate[5]) #print 8/13/2014
+    print(googlestockopen[5], googlestockhigh[5], googlestocklow[5]) #print 567.312567 575.002602 565.752564
+  except:
+    print("oops")
+main()
+
+#Python for Spreadsheets and CSV File manipulation - Part 2 Row Manipulation
+csvfile = "Google Stock Market Data - google_stock_data.csv.csv"
+def main():
+  googlestock = np.loadtxt(csvfile,delimiter=",",unpack=True, dtype="str")
+  googlestockdate = googlestock[0] #extract first column Date
+  googlestockopen = googlestock[1] #extract second column Open
+  googlestockhigh = googlestock[2] #extract third column High
+  googlestocklow = googlestock[3] #extract fourth column Low
+  googlestockclose = googlestock[4] #extract fifth column Close
+  googlestockvolume = googlestock[5] #extract sixth column Volumne
+  googlestockadjustedclose = googlestock[6] #extract seventh column Adj Close
+  print(googlestockadjustedclose) #print ['Adj Close' '586.862643' '582.162619' ... '54.645447' '54.10099' '50.119968']
+  print(type(googlestockadjustedclose)) #print <class 'numpy.ndarray'>
+  print(googlestockdate[8]+","+googlestockclose[8]+","+googlestockvolume[8]) #print 8/8/2014,568.772565,1494700
+  print(len(googlestock)) #print 7.  RM:  seven columns
+  columnheaders = open("tempcsvgoogle.csv","a")
+  columnheaders.write("Date,Close,Volume,Adj Close,Adj Close Divided By Ten\n")
+  columnheaders.close()
+  counter = 1
+  while counter < 2519: #2,519 rows
+    floattype = googlestockadjustedclose[counter].astype(np.float32)
+    print(floattype) #print 586.8627
+    print(type(floattype)) #print <class 'numpy.float32'>
+    googlestockadjustedclosedivideby10 = floattype/10
+    googlestockadjustedclosedivideby10string = str(googlestockadjustedclosedivideby10)
+    print(googlestockdate[counter]+","+googlestockclose[counter]+","+googlestockvolume[counter]+","+googlestockadjustedclose[counter]+","+googlestockadjustedclosedivideby10string)
+    saveline = googlestockdate[counter]+","+googlestockclose[counter]+","+googlestockvolume[counter]+","+googlestockadjustedclose[counter]+","+googlestockadjustedclosedivideby10string+"\n"
+    savefile = open("tempcsvgoogle.csv","a")
+    savefile.write(saveline)
+    savefile.close()
+    counter+=1
+main()
+
