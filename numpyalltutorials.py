@@ -328,7 +328,7 @@ print(numpyrangetranspose)
 '''
 numpyrange = np.arange(0,12,2)
 print(numpyrange) #print [ 0  2  4  6  8 10]
-arangenumberofelements = np.linspace(1,25) #RM:  50 elemenets is default
+arangenumberofelements = np.linspace(1,25) #RM:  50 elements is default
 print(arangenumberofelements)
 '''
 [ 1.          1.48979592  1.97959184  2.46938776  2.95918367  3.44897959
@@ -681,6 +681,12 @@ averagenumber = randomarrayintegers.mean()
 print(averagenumber) #print 7.6
 variancenumber = randomarrayintegers.var()
 print(variancenumber) #print 5.04
+indexminimumnumber = randomarrayintegers.argmin()
+print(indexminimumnumber) #print 0
+indexmaximumnumber = randomarrayintegers.argmax()
+print(indexmaximumnumber) #print 1
+print(np.unravel_index(randomarrayintegers.argmin(), randomarrayintegers.shape)) #print (0,0)
+print(np.unravel_index(randomarrayintegers.argmax(), randomarrayintegers.shape)) #print (1,2)
 standarddeviationnumber = randomarrayintegers.std()
 print(standarddeviationnumber) #print 2.244994432064365
 print(np.std(randomarrayintegers)) #print 2.244994432064365
@@ -702,6 +708,17 @@ print(np.max(statistics)) #print 6
 print(np.max(statistics, axis=1)) #print [3 6]
 print(np.sum(statistics)) #print 21
 print(np.sum(statistics, axis=0)) #print [5 7 9]
+print(np.prod(statistics)) #print 720
+print(np.argmin(statistics)) #print 0.  Index number minimum value.
+print(np.argmax(statistics)) #print 5.  Index number maximum value.
+print(statistics.argmax(axis=0)) #print [1 1 1].  By column first indexes
+print(statistics.argmax(axis=1)) #print [2 2].  By row second indexes
+print(np.ptp(statistics)) #print 5.  max - min
+print(np.mean(statistics)) #print 3.5
+print(np.std(statistics)) #print 1.707825127659933
+print(np.var(statistics)) #print 2.9166666666666665
+print(np.any(statistics)) #print True
+print(np.all(statistics)) #print True
 sumpartofarray = np.array([3,8,4,5,3,8], dtype=np.int8)
 print(sumpartofarray) #print [3 8 4 5 3 8]
 sumpartofarray = sumpartofarray.reshape(3,2)
@@ -1206,6 +1223,21 @@ Indexes of missing values: [[2 8]
  [6 9]
  [8 0]]
 '''
+wherearray = np.array([-1,2,5,5])
+print(wherearray) #orint [-1  2  5  5]
+print(wherearray == wherearray.max()) #print [False False  True  True]
+print(np.where(wherearray == wherearray.max())) #print (array([2, 3]),)
+print(np.where(wherearray > 0)) #print (array([1, 2, 3]),)
+wherearray2d = np.array([[1,6,3],[-4,5,6]])
+print(wherearray2d) #print [[ 1  6  3]\n  [-4  5  6]]
+print(np.where(wherearray2d == wherearray2d.max())) #print (array([0, 1]), array([1, 2]))
+print(np.where(wherearray2d >= 5)) #print (array([0, 1, 1]), array([1, 1, 2]))
+print(type(np.where(wherearray2d >= 5))) #print <class 'tuple'>
+extracttuple = np.where(wherearray2d >= 5)
+print(extracttuple[0]) #print [0 1 1]
+print(extracttuple[1]) #print [1 1 2]
+print(extracttuple[0][0]) #print 0
+print(extracttuple[1][0]) #print 1
 splitarraytotwoarraysrowsandcolumns = np.where(np.isnan(missingvaluesrandomintegers))
 print(splitarraytotwoarraysrowsandcolumns) #print (array([2, 3, 5, 6, 8]), array([8, 4, 3, 9, 0]))
 missingvaluesrandomintegers[splitarraytotwoarraysrowsandcolumns] = 0
@@ -1395,6 +1427,42 @@ print(mainarrayfirstcolumn+theaddarrayfirstrow)
  [20 21 22]
  [30 31 32]]
 '''
+
+#Print options or display options
+np.set_printoptions(precision=2) #Set decimals or floating point precision
+randomarraybetweenzeroandone = np.random.random([3,3])
+print(randomarraybetweenzeroandone)
+np.set_printoptions(edgeitems=3, infstr='inf', linewidth=75, nanstr='nan', precision=8, suppress=False, threshold=1000, formatter=None) #Set default
+showeightnumbers = np.arange(0,21)
+print(showeightnumbers) #print [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20]
+np.set_printoptions(threshold=8) #Set display how many numbers to display
+print(showeightnumbers) #print [ 0  1  2 ... 18 19 20]
+np.set_printoptions(edgeitems=3, infstr='inf', linewidth=75, nanstr='nan', precision=8, suppress=False, threshold=1000, formatter=None) #Set default
+showtenthousand = np.arange(0,100000)
+print(showtenthousand)
+np.set_printoptions(threshold=1000000)
+print(showtenthousand)
+'''
+[    0     1     2     3     4     5     6     7     8     9    10    11
+    12    13    14    15    16    17    18    19    20    21    22    23
+    24    25    26    27    28    29    30    31    32    33    34    35
+    36    37    38    39    40    41    42    43    44    45    46    47
+    48    49    50    51    52    53    54    55    56    57    58    59
+    60    61    62    63    64    65    66    67    68    69    70    71
+    72    73    74    75    76    77    78    79    80    81    82    83
+    84    85    86    87    88    89    90    91    92    93    94    95
+    96    97    98    99   100   101   102   103   104   105   106   107
+    ...
+ 99912 99913 99914 99915 99916 99917 99918 99919 99920 99921 99922 99923
+ 99924 99925 99926 99927 99928 99929 99930 99931 99932 99933 99934 99935
+ 99936 99937 99938 99939 99940 99941 99942 99943 99944 99945 99946 99947
+ 99948 99949 99950 99951 99952 99953 99954 99955 99956 99957 99958 99959
+ 99960 99961 99962 99963 99964 99965 99966 99967 99968 99969 99970 99971
+ 99972 99973 99974 99975 99976 99977 99978 99979 99980 99981 99982 99983
+ 99984 99985 99986 99987 99988 99989 99990 99991 99992 99993 99994 99995
+ 99996 99997 99998 99999]
+'''
+np.set_printoptions(edgeitems=3, infstr='inf', linewidth=75, nanstr='nan', precision=8, suppress=False, threshold=1000, formatter=None) #Set default
 
 string_array = np.array(["1.1", "2.2", "3.3"])
 float_array = string_array.astype(np.float)
