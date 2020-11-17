@@ -224,3 +224,232 @@ changesign915 = np.arange(0, 21)
 print(changesign915) #print [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20]
 changesign915[(changesign915 >= 9) & (changesign915 <= 15)] *= -1
 print(changesign915) #print [  0   1   2   3   4   5   6   7   8  -9 -10 -11 -12 -13 -14 -15  16  17  18  19  20]
+
+import numpy as np
+
+#23. Write a NumPy program to create a vector of length 5 filled with arbitrary integers from 0 to 10.
+lengthfive = np.random.randint(0, 10, size=(1, 5))
+print(lengthfive) #print [[2 9 6 8 6]]
+lengthfive = np.random.randint(0, 10, 5)
+print(lengthfive) #print [4 7 6 5 8]
+
+#24. Write a NumPy program to multiply the values of two given vectors.
+multiplyone = np.array([[0, 1, 2], [3, 4, 5], [6, 7, 8]])
+multiplytwo = np.array([10, 11, 12])
+print(np.multiply(multiplyone, multiplytwo))
+'''
+[[ 0 11 24]
+ [30 44 60]
+ [60 77 96]]
+'''
+result = multiplyone * multiplytwo
+print(result)
+'''
+[[ 0 11 24]
+ [30 44 60]
+ [60 77 96]]
+'''
+
+#25. Write a NumPy program to create a 3x4 matrix filled with values from 10 to 21.
+threebyfour = np.arange(10, 22).reshape(3, 4)
+print(threebyfour)
+'''
+[[10 11 12 13]
+ [14 15 16 17]
+ [18 19 20 21]]
+'''
+
+#26. Write a NumPy program to find the number of rows and columns of a given matrix.
+threebyfour = np.arange(10, 22).reshape(3, 4)
+print(threebyfour.shape) #print (3, 4)
+
+#27. Write a NumPy program to create a 3x3 identity matrix, i.e. diagonal elements are 1, the rest are 0.  #RM:  #An identity matrix is always a square with a diagonal 1 in lament terms.
+identitymatrix = np.identity(3, dtype="int8")
+print(identitymatrix)
+'''
+[[1 0 0]
+ [0 1 0]
+ [0 0 1]]
+'''
+
+#28. Write a NumPy program to create a 10x10 matrix, in which the elements on the borders will be equal to 1, and inside 0.
+bordersones = np.zeros([10, 10], dtype="int8")
+bordersones[0:1, ] = 1
+bordersones[9:, ] = 1
+bordersones[:, 0] = 1
+bordersones[:, 9] = 1
+print(bordersones)
+'''
+[[1 1 1 1 1 1 1 1 1 1]
+ [1 0 0 0 0 0 0 0 0 1]
+ [1 0 0 0 0 0 0 0 0 1]
+ [1 0 0 0 0 0 0 0 0 1]
+ [1 0 0 0 0 0 0 0 0 1]
+ [1 0 0 0 0 0 0 0 0 1]
+ [1 0 0 0 0 0 0 0 0 1]
+ [1 0 0 0 0 0 0 0 0 1]
+ [1 0 0 0 0 0 0 0 0 1]
+ [1 1 1 1 1 1 1 1 1 1]]
+'''
+#official solution
+bordersones = np.ones([10, 10], dtype="int8")
+bordersones[1:-1, 1:-1] = 0
+
+#29. Write a NumPy program to create a 5x5 zero matrix with elements on the main diagonal equal to 1, 2, 3, 4, 5.
+fivesquarezero = np.zeros([5, 5], dtype="int8")
+for x in range(0, 5):
+    fivesquarezero[x, x] = x + 1
+print(fivesquarezero)
+'''
+[[1 0 0 0 0]
+ [0 2 0 0 0]
+ [0 0 3 0 0]
+ [0 0 0 4 0]
+ [0 0 0 0 5]]
+'''
+#official solution
+diagnpfunction = np.diag([1, 2, 3, 4, 5])
+print(diagnpfunction)
+'''
+[[1 0 0 0 0]
+ [0 2 0 0 0]
+ [0 0 3 0 0]
+ [0 0 0 4 0]
+ [0 0 0 0 5]]
+'''
+
+#30. Write a NumPy program to create a 4x4 matrix in which 0 and 1 are staggered, with zeros on the main diagonal.
+zerosmaindiagonal = np.random.randint(0, 2, size=(4, 4))
+for x in range(0, 4):
+    zerosmaindiagonal[x, x] = 0
+print(zerosmaindiagonal)
+'''
+[[0 0 1 1]
+ [1 0 0 1]
+ [0 0 0 0]
+ [0 1 0 0]]
+'''
+#official solution
+x = np.zeros((4, 4))
+x[::2, 1::2] = 1
+x[1::2, ::2] = 1
+print(x)
+'''
+[[ 0.  1.  0.  1.]
+ [ 1.  0.  1.  0.]
+ [ 0.  1.  0.  1.]
+ [ 1.  0.  1.  0.]]
+'''
+
+#31. Write a NumPy program to create a 3x3x3 array filled with arbitrary values.
+randomthreebythreebythree = np.random.randint(0, 9, size=(3, 3, 3))
+print(randomthreebythreebythree)
+'''
+[[[1 2 0]
+  [7 3 8]
+  [5 6 3]]
+
+ [[4 1 1]
+  [1 1 5]
+  [1 0 3]]
+
+ [[4 5 8]
+  [1 7 6]
+  [2 0 7]]]
+'''
+#official solution
+randomfunctionthreebythreebythree = np.random.random([3, 3, 3])
+print(randomfunctionthreebythreebythree)
+'''
+[[[0.03563651 0.07876963 0.44267745]
+  [0.20929066 0.67221495 0.64223085]
+  [0.89920173 0.66818071 0.69738417]]
+
+ [[0.99229119 0.56717686 0.19997   ]
+  [0.63064619 0.18210131 0.67718461]
+  [0.91287784 0.26657287 0.75128358]]
+
+ [[0.54943148 0.24040582 0.66841699]
+  [0.75833621 0.98582855 0.71226856]
+  [0.80292768 0.34143496 0.05404068]]]
+'''
+
+#32. Write a NumPy program to compute sum of all elements, sum of each column and sum of each row of a given array.
+onedigitarray = np.random.randint(0, 9, size=(3, 4))
+print(onedigitarray)
+'''
+[[7 4 5 7]
+ [2 2 4 0]
+ [6 2 6 5]]
+'''
+sumall = onedigitarray.sum()
+print(sumall) #print 50
+sumbyrow = onedigitarray.sum(axis=1)
+print(sumbyrow) #print [23  8 19]
+sumbycolumn = onedigitarray.sum(axis=0)
+print(sumbycolumn) #print [15  8 15 12]
+
+#33. Write a NumPy program to compute the inner product of two given vectors.  #RM:  dot matrix or dot product
+fourarray = np.array([[1, 2], [3, 4]])
+eightarray = np.array([[5, 6], [7, 8]])
+dotmatrix = fourarray.dot(eightarray)
+print(dotmatrix)
+'''
+[[19 22]  (1*5)+(2*7); (1*6)+(2*8)
+ [43 50]]  (3*5)+(4*7); (3*6)+(4*8)
+'''
+
+#34. Write a NumPy program to add a vector to each row of a given matrix.
+mainarray = np.array([[0, 0, 0], [10, 10, 10], [20, 20, 20], [30, 30, 30]])
+print(mainarray)
+'''
+[[ 0  0  0]
+ [10 10 10]
+ [20 20 20]
+ [30 30 30]]
+'''
+theaddarray = np.array([[0, 1, 2], [0, 1, 2], [0, 1, 2], [0, 1, 2]])
+print(theaddarray)
+'''
+[[0 1 2]
+ [0 1 2]
+ [0 1 2]
+ [0 1 2]]
+'''
+print(mainarray + theaddarray)
+'''
+[[ 0  1  2]
+ [10 11 12]
+ [20 21 22]
+ [30 31 32]]
+'''
+#https://numpy.org/doc/stable/reference/generated/numpy.empty_like.html
+whatisempty_like = np.empty_like(mainarray + theaddarray) #Return a new array with the same shape and type as a given array.
+print(whatisempty_like)
+'''
+[[140680753409328        41397456 140680753630488]
+ [140680753656240 140680753630432 140680753656176]
+ [140680753656368 140680753656432 140680503476720]
+ [140680503477056 140680503477224 140680730845288]]
+'''
+whatisempty_like = np.ones_like(mainarray + theaddarray) #Return a new array with the same shape and type as a given array.
+print(whatisempty_like)
+'''
+[[1 1 1]
+ [1 1 1]
+ [1 1 1]
+ [1 1 1]]
+'''
+whatisempty_like = np.zeros_like(mainarray + theaddarray) #Return a new array with the same shape and type as a given array.
+print(whatisempty_like)
+'''
+[[0 0 0]
+ [0 0 0]
+ [0 0 0]
+ [0 0 0]]
+'''
+
+#35. Write a NumPy program to save a given array to a binary file.
+savethearray = np.random.randint(0, 9, 6)
+print(savethearray) #print [3 2 3 8 2 7]
+np.save("tempnumpyarray.txt", savethearray) #saves file as tempnumpyarray.txt.npy
