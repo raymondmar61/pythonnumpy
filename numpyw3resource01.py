@@ -98,7 +98,7 @@ a = np.array([1, 6, 90, -4, 2468, 5209, 10002])
 b = np.array([2, 7, 89, -5, 2468, 9999, 10001])
 print(len(a)) #print 6
 for eachelement in range(0, len(a)):
-    print(a[eachelement] > b[eachelement]) #print False\n False\n True\n True\n False\n False\n True
+  print(a[eachelement] > b[eachelement]) #print False\n False\n True\n True\n False\n False\n True
 truefalsearraygreater = a > b
 print(truefalsearraygreater) #print [False False  True  True False False  True]
 truefalsearraygreaterequal = a >= b
@@ -196,19 +196,19 @@ print(numbers12)
 [ 9 10 11 12]]
 '''
 for eachnumbers12 in numbers12:
-    print(eachnumbers12)
-    '''
+  print(eachnumbers12)
+  '''
     [1 2 3 4]
     [5 6 7 8]
     [ 9 10 11 12]
     '''
 for eachnumbers12 in numbers12.flat:
-    print(eachnumbers12) #print 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n 10\n 11\n 12
+  print(eachnumbers12) #print 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n 10\n 11\n 12
 numbers12flatten = numbers12.flatten()
 for eachnumbers12flatten in numbers12flatten:
-    print(eachnumbers12flatten) #print 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n 10\n 11\n 12
+  print(eachnumbers12flatten) #print 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n 10\n 11\n 12
 for x in np.nditer(numbers12):
-    print(x, end=",") #print 1,2,3,4,5,6,7,8,9,10,11,12,
+  print(x, end=",") #print 1,2,3,4,5,6,7,8,9,10,11,12,
 
 #21. Write a NumPy program to create a vector of length 10 with values evenly distributed between 5 and 50.
 evendistribution550 = np.linspace(5, 50, 10, dtype="int8")
@@ -298,7 +298,7 @@ bordersones[1:-1, 1:-1] = 0
 #29. Write a NumPy program to create a 5x5 zero matrix with elements on the main diagonal equal to 1, 2, 3, 4, 5.
 fivesquarezero = np.zeros([5, 5], dtype="int8")
 for x in range(0, 5):
-    fivesquarezero[x, x] = x + 1
+  fivesquarezero[x, x] = x + 1
 print(fivesquarezero)
 '''
 [[1 0 0 0 0]
@@ -321,7 +321,7 @@ print(diagnpfunction)
 #30. Write a NumPy program to create a 4x4 matrix in which 0 and 1 are staggered, with zeros on the main diagonal.
 zerosmaindiagonal = np.random.randint(0, 2, size=(4, 4))
 for x in range(0, 4):
-    zerosmaindiagonal[x, x] = 0
+  zerosmaindiagonal[x, x] = 0
 print(zerosmaindiagonal)
 '''
 [[0 0 1 1]
@@ -453,3 +453,56 @@ print(whatisempty_like)
 savethearray = np.random.randint(0, 9, 6)
 print(savethearray) #print [3 2 3 8 2 7]
 np.save("tempnumpyarray.txt", savethearray) #saves file as tempnumpyarray.txt.npy
+
+#36. Write a NumPy program to save two given arrays into a single file in compressed format (.npz format) and load it.
+#Source:  https://numpy.org/devdocs/reference/generated/numpy.savez_compressed.html
+givenarrayone = np.array([1, 2, 3])
+givenarraytwo = np.array([4, 5, 6])
+np.savez_compressed("/home/mar/python/savednumpyfilename.npz", filename1=givenarrayone, filename2=givenarraytwo)
+loadcompressednumpy = np.load("/home/mar/python/savednumpyfilename.npz")
+print(np.array_equal(givenarrayone, loadcompressednumpy["filename1"])) #print True
+print(np.array_equal(givenarrayone, loadcompressednumpy["filename2"])) #print False
+print(np.array_equal(givenarraytwo, loadcompressednumpy["filename2"])) #print True
+with np.load("/home/mar/python/savednumpyfilename.npz") as loadnumpydata:
+  printgivenarrayone = loadnumpydata["filename1"]
+  print(printgivenarrayone) #print [1 2 3]
+  printgivenarraytwo = loadnumpydata["filename2"]
+  print(printgivenarraytwo) #print [4 5 6]
+
+#37. Write a NumPy program to save a given array to a text file and load it.
+#Source:  https://numpy.org/doc/stable/reference/generated/numpy.savetxt.html, https://www.geeksforgeeks.org/how-to-save-a-numpy-array-to-a-text-file/
+arraytextfile = np.array([[100, 200, 300], [345, 678, 901]])
+np.savetxt("/home/mar/python/savetextarray.txt", arraytextfile)
+displaynumpytext = np.loadtxt("/home/mar/python/savetextarray.txt")
+print(displaynumpytext) #print [[100. 200. 300.]\n [345. 678. 901.]]
+
+#38. Write a NumPy program to convert a given array into bytes, and load it as array.
+#Source:  https://numpy.org/doc/stable/reference/generated/numpy.ndarray.tobytes.html
+arraytobytes = np.array([[0, 1], [2, 3]])
+arraytobytes.tobytes()
+print(arraytobytes.tobytes("C"))  #C language print b'\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00'
+print(arraytobytes.tobytes("F"))  #Fortran language print b'\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00'
+
+#39. Write a NumPy program to convert a given array into a list and then convert it into a list again.
+givenarray = np.array([2, 3, 4, 5, 6])
+print(givenarray) #print [2 3 4 5 6]
+print(list(givenarray)) #print [2, 3, 4, 5, 6]
+numpyfunctiontolist = givenarray.tolist()
+print(numpyfunctiontolist) #print [2, 3, 4, 5, 6]
+print(type(numpyfunctiontolist)) #print < class 'list' >
+
+#40. Write a NumPy program to compute the x and y coordinates for points on a sine curve and plot the points using matplotlib.
+
+#41. Write a NumPy program to convert numpy dtypes to native python types.
+#Source:  https://stackoverflow.com/questions/9452775/converting-numpy-dtypes-to-native-python-types
+numpynumber = np.array([5, 7, 9])
+print(numpynumber) #print [5 7 9]
+numpyfloat = np.float32([5, 7, 9])
+print(numpyfloat) #print [5. 7. 9.]
+print(np.float64(numpyfloat)) #print [5. 7. 9.]
+#print(type(np.float64(numpyfloat).item())) #print ValueError: can only convert an array of size 1 to a Python scalar
+print(type(np.float64(0).item())) #print <class 'float'>
+print(np.uint32(numpyfloat)) #print [5 7 9]
+print(type(np.uint32(0).item())) #print <class 'int'>
+print(np.cfloat(numpyfloat)) #print [5.+0.j 7.+0.j 9.+0.j]  RM:  complex
+print(type(np.cfloat(0).item())) #print <class 'complex'>
