@@ -136,3 +136,117 @@ x = np.zeros((8, 8), dtype=int)
 x[1::2, ::2] = 1
 x[::2, 1::2] = 1
 print(x)
+
+#11. Write a NumPy program to convert a list and tuple into arrays.
+listtoarray = [1, 2, 3, 4, 5, 6, 7, 8]
+tupletoarray = (8, 4, 6, 1, 2, 3)
+print(listtoarray) #print [1, 2, 3, 4, 5, 6, 7, 8]
+print(tupletoarray) #print (8, 4, 6, 1, 2, 3)
+print(np.array(listtoarray)) #print [1 2 3 4 5 6 7 8]
+print(type(np.array(listtoarray))) #print <class 'numpy.ndarray'>
+print(np.array(tupletoarray)) #print [8 4 6 1 2 3]
+print(type(np.array(tupletoarray))) #print <class 'numpy.ndarray'>
+tupletoarray2by3 = np.array(tupletoarray).reshape(2, 3)
+print(tupletoarray2by3) #print [[8 4 6]\n [1 2 3]]
+#official solution
+print(np.asarray(listtoarray)) #print [1, 2, 3, 4, 5, 6, 7, 8]
+
+#12. Write a NumPy program to append values to the end of an array. Expected Output: Original array: [10, 20, 30] After append values to the end of the array: [10 20 30 40 50 60 70 80 90]
+originalarray = np.array([10, 20, 30])
+print(originalarray) #print [10 20 30]
+originalarray = np.append(originalarray, [40, 50])
+print(originalarray) #print [10 20 30 40 50]
+for n in range(60, 100, 10):
+    originalarray = np.append(originalarray, n)
+print(originalarray) #print [10 20 30 40 50 60 70 80 90]
+
+#13. Write a NumPy program to create an empty and a full array.
+'''
+Expected Output:
+[ 6.93270651e-310 1.59262180e-316 6.93270559e-310 6.93270665e-310]
+[ 6.93270667e-310 6.93270671e-310 6.93270668e-310 6.93270483e-310]
+[ 6.93270668e-310 6.93270671e-310 6.93270370e-310 6.93270488e-310]]
+[[6 6 6]
+[6 6 6]
+[6 6 6]]
+'''
+emptyarray = np.empty((3, 3))
+print(emptyarray)
+'''
+[[6.93556384e-310 1.40349188e-316 4.41322039e-143]
+ [6.93555378e-310 6.93555150e-310 6.01377908e-180]
+ [6.93555378e-310 6.93555150e-310 3.95252517e-322]]
+'''
+sixemptyarray = np.ones([3, 3], dtype="int8")
+print(sixemptyarray)
+'''
+[[1 1 1]
+ [1 1 1]
+ [1 1 1]]
+'''
+multiplybysixemptyarray = sixemptyarray * 6
+print(multiplybysixemptyarray)
+'''
+[[6 6 6]
+ [6 6 6]
+ [6 6 6]]
+'''
+number6 = np.full([3, 3], 6, dtype="int16")
+print(number6)
+'''
+[[6 6 6]
+ [6 6 6]
+ [6 6 6]]
+'''
+
+#14. Write a NumPy program to convert the values of Centigrade degrees into Fahrenheit degrees. Centigrade values are stored into a NumPy array.  Sample Array [0, 12, 45.21 ,34, 99.91] Expected Output: Values in Fahrenheit degrees: [ 0. 12. 45.21 34. 99.91] Values in Centigrade degrees: [-17.77777778 -11.11111111 7.33888889 1.11111111 37.72777778]
+samplearrayinfahrenheit = np.array([0, 12, 45.21, 34, 99.91])
+print(samplearrayinfahrenheit) #print [ 0.   12.   45.21 34.   99.91]
+converttocentigrade = ((samplearrayinfahrenheit - 32) * (5 / 9))
+print(converttocentigrade) #print [-17.77777778 -11.11111111   7.33888889   1.11111111  37.72777778]
+
+#15. Write a NumPy program to find the real and imaginary parts of an array of complex numbers.  Expected Output: Original array [ 1.00000000+0.j 0.70710678+0.70710678j] Real part of the array: [ 1. 0.70710678] Imaginary part of the array: [ 0. 0.70710678]
+originalarray = np.array([1.00000000 + 0.j, 0.70710678 + 0.70710678j])
+print(originalarray) #print [1.        +0.j         0.70710678+0.70710678j]
+print(originalarray.real) #print [1.         0.70710678]
+print(originalarray.imag) #print [0.         0.70710678]
+
+#16. Write a NumPy program to find the number of elements of an array, length of one array element in bytes and total bytes consumed by the elements.
+sizethreearray = np.array([1, 2, 3])
+print(sizethreearray) #print [1 2 3]
+print(sizethreearray.size) #print 3
+#length of one array element in bytes
+print(sizethreearray.itemsize) #print 8
+#total bytes consumed
+print(sizethreearray.nbytes) #print 24
+
+#17. Write a NumPy program to test whether each element of a 1-D array is also present in a second array.  Expected Output: Array1: [ 0 10 20 40 60] Array2: [0, 40] Compare each element of array1 and array2 [ True False False True False].  RM:  Array2: [0, 40] is a list.  Confusing.
+array1 = np.array([0, 10, 20, 40, 60])
+array2 = np.array([0, 40])
+comparearray1array2 = array1 = array2
+print(comparearray1array2) #print [ 0 40]
+comparearray1array2true = array1 == array2
+print(comparearray1array2true) #print [ True  True]
+comparearray1array2all = np.all(array1 == array2, axis=0)
+print(comparearray1array2all) #print True
+comparearray1array2any = np.any(array1 == array2, axis=0)
+print(comparearray1array2any) #print True
+comparearray2array1all = np.all(array2 == array1, axis=0)
+print(comparearray2array1all) #print True
+comparearray2array1any = np.any(array2 == array1, axis=0)
+print(comparearray2array1any) #print True
+#official solution
+completecomparison = np.in1d(array1, array2)
+print(completecomparison) #print [ True  True]
+array1 = np.array([0, 10, 20, 40, 60])
+list1 = [0, 40]
+completecomparison = np.in1d(array1, list1)
+print(completecomparison) #print [ True False False  True False]
+completecomparison = np.isin(array1, list1) #isin can be used with a matrix of any shape
+print(completecomparison) #print [ True False False  True False]
+#user solution
+x = np.array([0, 10, 20, 40, 60])
+y = np.array([0, 40])
+print(np.array([item in y for item in x])) #print [ True False False  True False]
+
+
