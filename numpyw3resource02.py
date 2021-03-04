@@ -249,4 +249,48 @@ x = np.array([0, 10, 20, 40, 60])
 y = np.array([0, 40])
 print(np.array([item in y for item in x])) #print [ True False False  True False]
 
+#18. Write a NumPy program to find common values between two arrays.  Expected Output:  Array1: [ 0 10 20 40 60]  Array2: [10, 30, 40]  Common values between two arrays: [10 40]
+array1 = np.array([0, 10, 20, 40, 60])
+array2 = np.array([10, 30, 40])
+print(np.intersect1d(array1, array2)) #print [10 40]
 
+#19. Write a NumPy program to get the unique elements of an array.  Source:  https://numpy.org/doc/stable/reference/generated/numpy.unique.html
+tensarray = np.array([10, 10, 20, 20, 30, 30])
+twodarray = np.array([[1, 1], [2, 3]])
+print(np.unique(tensarray)) #print [10 20 30]
+print(np.unique(twodarray, axis=None)) #print [1 2 3]
+print(np.unique(twodarray, axis=0)) #print [[1 1] [2 3]]
+print(np.unique(twodarray, axis=1)) #print [[1 1] [2 3]]
+
+#20. Write a NumPy program to find the set difference of two arrays. The set difference will return the sorted, unique values in array1 that are not in array2.  Expected Output: Array1: [ 0 10 20 40 60 80] Array2: [10, 30, 40, 50, 70, 90] Set difference between two arrays: [ 0 20 60 80].  RM:  what values in array1 not in array2.  Source:  https://numpy.org/doc/stable/reference/generated/numpy.setdiff1d.html
+array1 = np.array([0, 10, 20, 40, 60, 80])
+array2 = np.array([10, 30, 40, 50, 70, 90])
+print(np.setdiff1d(array1, array2)) #print [ 0 20 60 80]
+
+#21. Write a NumPy program to find the set exclusive-or of two arrays. Set exclusive-or will return the sorted, unique values that are in only one (not both) of the input arrays. Array1: [ 0 10 20 40 60 80] Array2: [10, 30, 40, 50, 70] Unique values that are in only one (not both) of the input arrays: [ 0 20 30 50 60 70 80].  RM:  Include unique values in both arrays.  Exclude values in both values.
+array1 = np.array([0, 10, 20, 40, 60, 80])
+array2 = np.array([10, 30, 40, 50, 70])
+print(np.setxor1d(array1, array2)) #print [ 0 20 30 50 60 70 80]
+
+#22. Write a NumPy program to find the union of two arrays. Union will return the unique, sorted array of values that are in either of the two input arrays. Array1: [ 0 10 20 40 60 80] Array2: [10, 30, 40, 50, 70] Unique sorted array of values that are in either of the two input arrays: [ 0 10 20 30 40 50 60 70 80]
+array1 = np.array([0, 10, 20, 40, 60, 80])
+array2 = np.array([10, 30, 40, 50, 70])
+print(np.union1d(array1, array2)) #print [ 0 10 20 30 40 50 60 70 80]
+print(np.in1d(array1, array2)) #print [False  True False  True False False]  Test whether each element of a 1-D array is also present in a second array.  0 False, 10, True, 20 False, 40, True, 60 False 80 False
+
+#23. Write a NumPy program to test whether all elements in an array evaluate to True.
+zerotonine = np.random.randint(0, 10, size=(1, 6))
+print(zerotonine) #print [[9 0 0 7 3 4]]
+print(zerotonine >= 1) #print [[ True False False  True  True  True]]
+#official solution
+print(np.all([[True, False], [True, False]])) #False
+print(np.all([True, True])) #True
+print(np.all([10, 20, 0, -50])) #False
+print(np.all([10, 20, -50])) #True
+
+#24. Write a NumPy program to test whether any array element along a given axis evaluates to True.
+print(np.any([[False, False], [False, False]])) #False
+print(np.any([True, True])) #True
+print(np.any([10, 20, 0, -50])) #True
+print(np.any([10, 20, -50])) #True
+print(np.any([0, 0, 0])) #False
