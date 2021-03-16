@@ -294,3 +294,116 @@ print(np.any([True, True])) #True
 print(np.any([10, 20, 0, -50])) #True
 print(np.any([10, 20, -50])) #True
 print(np.any([0, 0, 0])) #False
+
+#25. Write a NumPy program to construct an array by repeating.  Sample array: [1, 2, 3, 4] Expected Output: Original array [1, 2, 3, 4] Repeating 2 times [1 2 3 4 1 2 3 4] Repeating 3 times [1 2 3 4 1 2 3 4 1 2 3 4]
+originalarray = np.array([1, 2, 3, 4])
+print(originalarray) #print [1 2 3 4]
+repeattwotimesnosequence = np.repeat(originalarray, 2)
+print(repeattwotimesnosequence) #print [1 1 2 2 3 3 4 4]
+repeattwotimesyessequence = np.tile(originalarray, 2)
+print(repeattwotimesyessequence) #print [1 2 3 4 1 2 3 4]
+repeatthreetimesyessequence = np.tile(originalarray, 3)
+print(repeatthreetimesyessequence) #print [1 2 3 4 1 2 3 4 1 2 3 4]
+
+#26. Write a NumPy program to repeat elements of an array. Expected Output: [3 3 3 3] [1 1 2 2 3 3 4 4]
+fourthrees = np.repeat(3, 4, axis=0) #axis=0 is default no need to mention
+print(fourthrees) #print [3 3 3 3]
+originalarray = np.array([1, 2, 3, 4])
+repeatoriginalarray = np.repeat(originalarray, 2, axis=0) #axis=0 is default no need to mention
+print(repeatoriginalarray) #print [1 1 2 2 3 3 4 4]
+
+#27. Write a NumPy program to find the indices of the maximum and minimum values along the given axis of an array. Original array: [1 2 3 4 5 6] Maximum Values: 5 Minimum Values: 0.  #RM:  find the minimum index value and the maximum index value.  Not minimum number and maximum number.
+numbersarray = np.arange(1, 7)
+print(numbersarray.min()) #print 1
+print(numbersarray.max()) #print 6
+print(numbersarray.argmin()) #print 0
+print(numbersarray.argmax()) #print 5
+indexgreatestnumber = np.array([1, 454, 2090, 0, 35])
+print(indexgreatestnumber.argmin()) #print 3
+print(indexgreatestnumber.argmax()) #print 2
+
+#28. Write a NumPy program compare two given arrays. Array a: [1 2] Array b: [4 5] a > b [False False] a >= b [False False] a < b [ True True] a <= b [ True True]
+arraya = np.array([1, 2])
+arrayb = np.array([4, 5])
+print(arraya > arrayb) #print [False False]
+print(arraya >= arrayb) #print [False False]
+print(arraya < arrayb) #print [ True True]
+print(arraya <= arrayb) #print [ True True]
+print(np.greater(arraya, arrayb)) #print [False False]
+print(np.greater_equal(arraya, arrayb)) #print [False False]
+print(np.less(arraya, arrayb)) #print [ True True]
+print(np.less_equal(arraya, arrayb)) #print [ True True]
+bonusarraya = np.array([10, 20, 345])
+bonusarrayb = np.array([8, 35, 345])
+print(np.greater(bonusarraya, bonusarrayb)) #print [ True False False]
+print(np.greater_equal(bonusarraya, bonusarrayb)) #print [ True False True]
+print(np.less(bonusarraya, bonusarrayb)) #print [False True False]
+print(np.less_equal(bonusarraya, bonusarrayb)) #print [False  True  True]
+
+#29. Write a NumPy program to sort an along the first, last axis of an array. Sample array: [[2,5],[4,4]] Expected Output: Original array: [[4 6] [2 1]] Sort along the first axis: [[2 1] [4 6]] Sort along the last axis: [[1 2] [4 6]  RM:  is first axis the zero axis axis 0?
+'''
+https://numpy.org/doc/stable/reference/generated/numpy.sort.html
+np.sort(array, axis=integer which axis to sort or None to flat array default -1 sorts last axis, kind={‘quicksort’, ‘mergesort’, ‘heapsort’, ‘stable’} optional, order=a string or a list of strings optional) returns a sorted copy of an array.
+#also axis 0 is the rows going from up to down.  axis 1 is the columns going from left to right.
+'''
+originalarray = np.array([[4, 6], [2, 1]])
+print(originalarray)
+'''
+[[4 6]
+ [2 1]]
+'''
+sortfirstaxiswhichisaxis0 = np.sort(originalarray, axis=0)
+print(sortfirstaxiswhichisaxis0)
+'''
+[[2 1]
+ [4 6]]
+'''
+sortlastaxiswhichisaxis1 = np.sort(originalarray, axis=1)
+print(sortlastaxiswhichisaxis1)
+'''
+[[4 6]
+ [1 2]]
+'''
+sortflatoriginalarray = np.sort(originalarray, axis=None)
+print(sortflatoriginalarray) #print [1 2 4 6]
+
+#30. Write a NumPy program to sort pairs of first name and last name return their indices. (first by last name, then by first name). first_names = (Betsey, Shelley, Lanell, Genesis, Margery) last_names = (Battle, Brien, Plotner, Stahl, Woolum) Expected Output: [1 3 2 4 0]
+firstname = np.array(["Betsey", "Shelley", "Lanell", "Genesis", "Margery"])
+lastname = np.array(["Battle", "Brien", "Plotner", "Stahl", "Woolum"])
+print(np.char.add(firstname, lastname)) #print ['BetseyBattle' 'ShelleyBrien' 'LanellPlotner' 'GenesisStahl' 'MargeryWoolum']
+print(np.sort(np.char.add(firstname, lastname))) #print ['BetseyBattle' 'GenesisStahl' 'LanellPlotner' 'MargeryWoolum' 'ShelleyBrien']
+print(np.lexsort((firstname, lastname))) #print [0 1 2 3 4]
+print(np.lexsort(np.char.add(firstname, lastname))) #print 0
+#official solution
+firstname = ('Margery', 'Betsey', 'Shelley', 'Lanell', 'Genesis')
+lastname = ('Woolum', 'Battle', 'Plotner', 'Brien', 'Stahl')
+print(np.lexsort((firstname, lastname))) #print [1 3 2 4 0]
+
+#31. Write a NumPy program to get the values and indices of the elements that are bigger than 10 in a given array. Original array: [[ 0 10 20] [20 30 40]] Values bigger than 10 = [20 20 30 40] Their indices are (array([0, 1, 1, 1]), array([2, 0, 1, 2]))
+originalarray = np.array([[0, 10, 20], [20, 30, 40]])
+print(originalarray)
+'''
+[[ 0 10 20]
+ [20 30 40]]
+'''
+greaterthanten = originalarray[originalarray > 10]
+print(greaterthanten) #print [20 20 30 40]
+indexindicesgreaterthanten = np.nonzero(originalarray > 10)
+print(indexindicesgreaterthanten) #print (array([0, 1, 1, 1]), array([2, 0, 1, 2]))
+bonusoriginalarray = np.array([778, 0, 10, 20, 40, 30, 10, 500])
+indexindicesgreaterthanten = np.nonzero(bonusoriginalarray > 10)
+print(indexindicesgreaterthanten) #print (array([0, 3, 4, 5, 7]),)
+print(indexindicesgreaterthanten[0]) #print [0 3 4 5 7]
+
+#32. Write a NumPy program to save a NumPy array to a text file.
+originalarray = np.arange(0, 21)
+print(originalarray)
+np.savetxt("arraytextfilename.txt", originalarray, delimiter=",") #delimiter is the string or character separating columns.
+
+#33. Write a NumPy program to find the memory size of a NumPy array.
+originalarray = np.arange(0, 11)
+memoryinbyteseachelementtakes = originalarray.itemsize
+print(memoryinbyteseachelementtakes) #print 8
+totalitemsize = originalarray.size * originalarray.itemsize
+print(totalitemsize) #print 88
+
