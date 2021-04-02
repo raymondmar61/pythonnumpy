@@ -407,3 +407,235 @@ print(memoryinbyteseachelementtakes) #print 8
 totalitemsize = originalarray.size * originalarray.itemsize
 print(totalitemsize) #print 88
 
+import numpy as np
+
+#34. Write a NumPy program to create an array of ones and an array of zeros. Expected Output: Create an array of zeros Default type is float [[ 0. 0.]] Type changes to int [[0 0]] Create an array of ones Default type is float [[ 1. 1.]] Type changes to int [[1 1]]
+arrayzeros = np.zeros([1, 2])
+print(arrayzeros) #print [[0. 0.]]
+arrayzerosinteger = np.zeros([1, 2], dtype="uint8")
+print(arrayzerosinteger) #print [[0 0]]
+arrayones = np.ones([1, 2])
+print(arrayones) #print [[1. 1.]]
+arrayonesinteger = np.ones([1, 2], dtype="uint8")
+print(arrayonesinteger) #print [[1 1]]
+
+#35. Write a NumPy program to change the dimension of an array. Expected Output: 6 rows and 0 columns (6,) (3, 3) -> 3 rows and 3 columns [[1 2 3] [4 5 6] [7 8 9]] Change array shape to (3, 3) -> 3 rows and 3 columns [[1 2 3] [4 5 6] [7 8 9]]
+sixrows = np.arange(1, 7)
+print(sixrows) #print [1 2 3 4 5 6]
+sixrowsactual = sixrows.reshape(6, 1)
+print(sixrowsactual)
+'''
+[[1]
+ [2]
+ [3]
+ [4]
+ [5]
+ [6]]
+'''
+threerowsthreecolumns = np.arange(1, 10)
+print(threerowsthreecolumns) #print [1 2 3 4 5 6 7 8 9]
+threerowsthreecolumnsactual = threerowsthreecolumns.reshape(3, 3)
+print(threerowsthreecolumnsactual)
+'''
+[[1 2 3]
+ [4 5 6]
+ [7 8 9]]
+'''
+
+#36. Write a NumPy program to create a contiguous flattened array. Original array: [[10 20 30] [20 40 50]] New flattened array: [10 20 30 20 40 50]
+originalarray = np.array([[10, 20, 30], [20, 40, 50]])
+print(originalarray)
+'''
+[[10 20 30]
+ [20 40 50]]
+'''
+flatoriginalarray = originalarray.ravel()
+print(flatoriginalarray) #print [10 20 30 20 40 50]
+
+#37. Write a NumPy program to create a 2-dimensional array of size 2 x 3 (composed of 4-byte integer elements), also print the shape, type and data type of the array. Expected Output: (2, 3) int32
+sizetwobythree = np.array([[45, 67, 89], [13, 46, 79]], np.int32)
+print(sizetwobythree)
+print(sizetwobythree.shape) #print (2, 3)
+print(sizetwobythree.dtype) #print int32
+
+#38. Write a NumPy program to create a new shape to an array without changing its data. Reshape 3x2: [[1 2] [3 4] [5 6]] Reshape 2x3: [[1 2 3] [4 5 6]]
+originalarray = np.arange(1, 7)
+print(originalarray) #print [1 2 3 4 5 6]
+print(originalarray.reshape(3, 2))
+'''
+[[1 2]
+ [3 4]
+ [5 6]]
+'''
+print(originalarray.reshape(2, 3))
+'''
+[[1 2 3]
+ [4 5 6]]
+'''
+
+#39. Write a NumPy program to change the data type of an array. Expected Output: [[ 2 4 6] [ 6 8 10]] Data type of the array x is: int32 New Type: float64 [[ 2. 4. 6.] [ 6. 8. 10.]]
+datatypearrayint64 = np.array([[2, 4, 6], [6, 8, 10]])
+print(datatypearrayint64.dtype) #print int64
+datatypearrayfloat64 = datatypearrayint64.astype("float64")
+print(datatypearrayfloat64.dtype) #print float64
+
+#40. Write a NumPy program to create a new array of 3*5, filled with 2. Expected Output: [[2 2 2 2 2] [2 2 2 2 2] [2 2 2 2 2]]
+twosarray = np.ones([3, 5], dtype="int8") * 2
+print(twosarray)
+'''
+[[2 2 2 2 2]
+ [2 2 2 2 2]
+ [2 2 2 2 2]]
+'''
+
+#41. Write a NumPy program to create an array of 10's with the same shape and type of a given array. Sample array: x = np.arange(4, dtype=np.int64) Expected Output: [10 10 10 10]
+samplearray = np.arange(4, dtype=np.int64)
+print(samplearray) #print [0 1 2 3]
+samplearray.fill(10)
+print(samplearray) #print [10 10 10 10]
+
+#42. Write a NumPy program to create a 3-D array with ones on a diagonal and zeros elsewhere. Expected Output: [[ 1. 0. 0.] [ 0. 1. 0.] [ 0. 0. 1.]]
+zerosarray = np.zeros([3, 3], dtype=np.int8)
+print(zerosarray)
+'''
+[[0 0 0]
+ [0 0 0]
+ [0 0 0]]
+'''
+print(zerosarray.shape[1]) #print 3
+for n in range(0, zerosarray.shape[1]):
+    zerosarray[n, n] = 1
+print(zerosarray)
+'''
+[[1 0 0]
+ [0 1 0]
+ [0 0 1]]
+'''
+#official solution
+zerosarray = np.zeros([3, 3], dtype=np.int8)
+zerosarrayeye = np.eye(3)
+print(zerosarrayeye)
+'''
+[[1. 0. 0.]
+ [0. 1. 0.]
+ [0. 0. 1.]]
+'''
+#RM:  np.identity(3) works, too.
+
+#43. Write a NumPy program to create a 2-D array whose diagonal equals [4, 5, 6, 8] and 0's elsewhere. Expected Output: [[4 0 0 0] [0 5 0 0] [0 0 6 0] [0 0 0 8]]
+zerosfourbyfour = np.zeros([4, 4], dtype=np.int8)
+print(zerosfourbyfour)
+'''
+[[0 0 0 0]
+ [0 0 0 0]
+ [0 0 0 0]
+ [0 0 0 0]]
+'''
+questionisaclue = np.array([4, 5, 6, 8], dtype=np.int8)
+print(questionisaclue) #print [4 5 6 8]
+print(zerosfourbyfour.shape[1]) #print 4
+for n in range(0, zerosfourbyfour.shape[1]):
+    zerosfourbyfour[n, n] = questionisaclue[n]
+print(zerosfourbyfour)
+'''
+[[4 0 0 0]
+ [0 5 0 0]
+ [0 0 6 0]
+ [0 0 0 8]]
+'''
+#official solution
+x = np.diagflat([4, 5, 6, 8])
+print(x)
+'''
+[[4 0 0 0]
+ [0 5 0 0]
+ [0 0 6 0]
+ [0 0 0 8]]
+'''
+
+#44. Write a NumPy program to create a 1-D array going from 0 to 50 and an array from 10 to 50. Expected Output: Array from 0 to 50: [ 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49] Array from 10 to 50: [10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49]
+array0to50 = np.arange(0, 51)  #RM:  faster and python way is np.arange(51)
+print(array0to50) #print [ 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50]
+array10to50 = np.arange(10, 51)
+print(array10to50) #print [10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50]
+
+#45. Write a NumPy program to Create a 1-D array of 30 evenly spaced elements between 2.5. and 6.5, inclusive. Expected Output: [ 2.5 2.63793103 2.77586207 2.9137931 3.05172414 3.18965517 ................. 5.81034483 5.94827586 6.0862069 6.22413793 6.36206897 6.5 ]
+thirtyevenlyspacedvalues = np.linspace(2.5, 6.5, 30)
+print(thirtyevenlyspacedvalues)
+'''
+[2.5        2.63793103 2.77586207 2.9137931  3.05172414 3.18965517
+ 3.32758621 3.46551724 3.60344828 3.74137931 3.87931034 4.01724138
+ 4.15517241 4.29310345 4.43103448 4.56896552 4.70689655 4.84482759
+ 4.98275862 5.12068966 5.25862069 5.39655172 5.53448276 5.67241379
+ 5.81034483 5.94827586 6.0862069  6.22413793 6.36206897 6.5       ]
+'''
+
+#46. Write a NumPy program to to create a 1-D array of 20 element spaced evenly on a log scale between 2. and 5., exclusive. Expected Output: [ 100. 141.25375446 199.5262315 281.83829313 ...................... 25118.8643151 35481.33892336 50118.72336273 70794.57843841]
+twentyevenlyspacedvalues = np.linspace(2, 6, 20)
+print(twentyevenlyspacedvalues)
+logscale = np.log10(twentyevenlyspacedvalues)
+print(logscale)
+'''
+[0.30103    0.34449569 0.38400423 0.4202164  0.45364016 0.48467439
+ 0.51363809 0.54079033 0.56634444 0.59047812 0.613341   0.63506025
+ 0.65574485 0.67548891 0.69437425 0.71247247 0.72984657 0.74655226
+ 0.76263908 0.77815125]
+ '''
+logspaceinclusive = np.logspace(2, 5, 20, endpoint=True)
+print(logspaceinclusive)
+'''
+[ 100. 143.84498883 206.91380811 297.63514416 428.13323987 615.84821107 885.86679041 1274.2749857 1832.98071083 2636.65089873 3792.69019073 5455.59478117 7847.59970351 11288.37891685 16237.76739189 23357.2146909 33598.18286284 48329.30238572 69519.27961776 100000. ] 
+'''
+logspaceexclusivecorrectanswer = np.logspace(2, 5, 20, endpoint=False)
+print(logspaceexclusivecorrectanswer)
+'''
+[  100.           141.25375446   199.5262315    281.83829313
+   398.10717055   562.34132519   794.32823472  1122.0184543
+  1584.89319246  2238.72113857  3162.27766017  4466.83592151
+  6309.5734448   8912.50938134 12589.25411794 17782.79410039
+ 25118.8643151  35481.33892336 50118.72336273 70794.57843841]
+'''
+
+#47. Write a NumPy program to create an array which looks like below array. Expected Output: [[ 0. 0. 0.] ........... [ 1. 1. 1.]].  RM:  create a triangle of zeros and ones.  Reference https://numpy.org/doc/stable/reference/generated/numpy.tri.html
+zerostoprightonesbottomleft = np.tri(4, 3, -1)
+print(zerostoprightonesbottomleft)
+'''
+[[0. 0. 0.]
+ [1. 0. 0.]
+ [1. 1. 0.]
+ [1. 1. 1.]]
+'''
+defaultzero = np.tri(4, 3, 0)
+print(defaultzero)
+'''
+[[1. 0. 0.]
+ [1. 1. 0.]
+ [1. 1. 1.]
+ [1. 1. 1.]]
+'''
+
+#48. Write a NumPy program to create an array which looks like below array. Expected Output: [[ 2 3 4] [ 5 6 7] [ 0 9 10] [ 0 0 13]] Reference https://numpy.org/doc/stable/reference/generated/numpy.triu.html
+x = np.triu(np.arange(2, 14))
+print(x)
+'''
+[[ 2  3  4  5  6  7  8  9 10 11 12 13]
+ [ 0  3  4  5  6  7  8  9 10 11 12 13]
+ [ 0  0  4  5  6  7  8  9 10 11 12 13]
+ [ 0  0  0  5  6  7  8  9 10 11 12 13]
+ [ 0  0  0  0  6  7  8  9 10 11 12 13]
+ [ 0  0  0  0  0  7  8  9 10 11 12 13]
+ [ 0  0  0  0  0  0  8  9 10 11 12 13]
+ [ 0  0  0  0  0  0  0  9 10 11 12 13]
+ [ 0  0  0  0  0  0  0  0 10 11 12 13]
+ [ 0  0  0  0  0  0  0  0  0 11 12 13]
+ [ 0  0  0  0  0  0  0  0  0  0 12 13]
+ [ 0  0  0  0  0  0  0  0  0  0  0 13]]
+'''
+x = np.triu(np.arange(2, 14).reshape(4, 3), -1)
+print(x)
+'''
+[[ 2  3  4]
+ [ 5  6  7]
+ [ 0  9 10]
+ [ 0  0 13]]
+'''
