@@ -639,3 +639,188 @@ print(x)
  [ 0  9 10]
  [ 0  0 13]]
 '''
+#49. Write a NumPy program to collapse a 3-D array into one dimension array. Expected Output: 3-D array: [[ 1. 0. 0.] [ 0. 1. 0.] [ 0. 0. 1.]] One dimension array: [ 1. 0. 0. 0. 1. 0. 0. 0. 1.]
+array3d = np.diagflat([1., 1., 1.], k=0)
+print(array3d)
+'''
+[[1 0 0]
+ [0 1 0]
+ [0 0 1]]
+'''
+print(array3d.shape) #print (3, 3)
+print("Number of dimensions", array3d.ndim) #print Number of dimensions 2
+print(array3d.flatten()) #print [1. 0. 0. 0. 1. 0. 0. 0. 1.]
+#official solution
+diagonalonefloats = np.eye(3)
+print(diagonalonefloats)
+'''
+[[1. 0. 0.]
+ [0. 1. 0.]
+ [0. 0. 1.]]
+'''
+print("Number of dimensions", diagonalonefloats.ndim) #print Number of dimensions 2
+print(np.ravel(diagonalonefloats, order="F")) #print [1. 0. 0. 0. 1. 0. 0. 0. 1.]
+
+#50. Write a NumPy program to find the 4th element of a specified array. Expected Output: [[ 2 4 6] [ 6 8 10]] Forth e1ement of the array: 6
+findfourthelement = np.array([[2, 4, 6], [6, 8, 10]])
+print(findfourthelement)
+'''
+[[ 2  4  6]
+ [ 6  8 10]]
+'''
+print(findfourthelement[1, 0]) #print 6
+#official solution
+flatfindfourthelement = findfourthelement.flat[3]
+print(flatfindfourthelement) #print 6
+flatfindfourthelement = findfourthelement.flat
+print(flatfindfourthelement) #print <numpy.flatiter object at 0x279ce40>
+flatfindfourthelement = findfourthelement.flat[0:]
+print(flatfindfourthelement) #print [ 2  4  6  6  8 10]
+print(type(flatfindfourthelement)) #print <class 'numpy.ndarray'>
+
+#51. Write a NumPy program to interchange two axes of an array. Sample array: [[1 2 3]] Expected Output: [[1] [2] [3]]
+samplearray = np.array([1, 2, 3])
+print(samplearray) #print [1 2 3]
+expectedoutputarray = samplearray.reshape(3, 1)
+print(expectedoutputarray)
+'''
+[[1]
+ [2]
+ [3]]
+'''
+#official solution
+twobracketssamplearray = np.array([[1, 2, 3]])
+print(twobracketssamplearray) #print [[1 2 3]]
+print(twobracketssamplearray.shape) #print (1,3)
+print("Number of dimensions", twobracketssamplearray.ndim) #print Number of dimensions 2
+print(np.swapaxes(twobracketssamplearray, 0, 1))
+'''
+[[1]
+ [2]
+ [3]]
+'''
+
+#52. Write a NumPy program to move axes of an array to new positions. Other axes remain in their original order. Expected Output: (3, 4, 2) (4, 2, 3).  RM:  I don't understand the question.  Looked at answer.  Create a two 3 rows and 4 columns of zeros numpy.  Then reshape to three 4 rows and 2 columns and reshape to four 2 rows and 3 columns.  I sitll don't understand.
+x = np.zeros([2, 3, 4], dtype="int8")
+print(x)
+'''
+[[[0 0 0 0]
+  [0 0 0 0]
+  [0 0 0 0]]
+
+ [[0 0 0 0]
+  [0 0 0 0]
+  [0 0 0 0]]]
+'''
+print(np.moveaxis(x, 0, -1))
+'''
+[[[0. 0.]
+  [0. 0.]
+  [0. 0.]
+  [0. 0.]]
+
+ [[0. 0.]
+  [0. 0.]
+  [0. 0.]
+  [0. 0.]]
+
+ [[0. 0.]
+  [0. 0.]
+  [0. 0.]
+  [0. 0.]]]
+'''
+print(np.moveaxis(x, 0, -1).shape) #print (3, 4, 2)
+print(np.moveaxis(x, -1, 0))
+'''
+[[[0 0 0]
+  [0 0 0]]
+
+ [[0 0 0]
+  [0 0 0]]
+
+ [[0 0 0]
+  [0 0 0]]
+
+ [[0 0 0]
+  [0 0 0]]]
+'''
+print(np.moveaxis(x, -1, 0).shape) #print (4, 2, 3)
+
+#53. Write a NumPy program to move the specified axis backwards, until it lies in a given position. Move the following 3rd array axes to first position. (2,3,4,5) Sample Expected Output: (2, 5, 3, 4)
+initialarray = np.ones([2, 3, 4, 5])
+print(initialarray)
+'''
+[[[[1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]]
+
+  [[1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]]
+
+  [[1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]]]
+
+
+ [[[1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]]
+
+  [[1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]]
+
+  [[1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]
+   [1. 1. 1. 1. 1.]]]]
+'''
+print(np.rollaxis(initialarray, 3, 1))
+'''
+[[[[1. 1. 1. 1.]
+   [1. 1. 1. 1.]
+   [1. 1. 1. 1.]]
+
+  [[1. 1. 1. 1.]
+   [1. 1. 1. 1.]
+   [1. 1. 1. 1.]]
+
+  [[1. 1. 1. 1.]
+   [1. 1. 1. 1.]
+   [1. 1. 1. 1.]]
+
+  [[1. 1. 1. 1.]
+   [1. 1. 1. 1.]
+   [1. 1. 1. 1.]]
+
+  [[1. 1. 1. 1.]
+   [1. 1. 1. 1.]
+   [1. 1. 1. 1.]]]
+
+
+ [[[1. 1. 1. 1.]
+   [1. 1. 1. 1.]
+   [1. 1. 1. 1.]]
+
+  [[1. 1. 1. 1.]
+   [1. 1. 1. 1.]
+   [1. 1. 1. 1.]]
+
+  [[1. 1. 1. 1.]
+   [1. 1. 1. 1.]
+   [1. 1. 1. 1.]]
+
+  [[1. 1. 1. 1.]
+   [1. 1. 1. 1.]
+   [1. 1. 1. 1.]]
+
+  [[1. 1. 1. 1.]
+   [1. 1. 1. 1.]
+   [1. 1. 1. 1.]]]]
+'''
