@@ -824,3 +824,142 @@ print(np.rollaxis(initialarray, 3, 1))
    [1. 1. 1. 1.]
    [1. 1. 1. 1.]]]]
 '''
+
+import numpy as np
+
+#54. Write a NumPy program to convert specified inputs to arrays with at least one dimension.
+x = 12.0
+print(np.atleast_1d(x)) #print 12.
+x2 = np.arange(6).reshape(2, 3)
+print(x2)
+'''
+[[0 1 2]
+ [3 4 5]]
+'''
+print(np.atleast_1d(x2))
+'''
+[[0 1 2]
+ [3 4 5]]
+'''
+print(np.atleast_1d(1)) #print [1]
+print(np.atleast_1d([3, 4])) #print [3 4]
+print(np.atleast_1d(1, [3, 4])) #print [array([1]), array([3, 4])]
+
+#55. Write a NumPy program to view inputs as arrays with at least two dimensions, three dimensions.
+print(np.atleast_1d(10)) #print [10]
+print(np.atleast_2d(10)) #print [[10]]
+tenx = 10
+print(np.atleast_2d(tenx)) #print [[10]]
+threesx = np.arange(4).reshape(2, 2)
+print(threesx)
+'''
+[[0 1]
+ [2 3]]
+'''
+print(np.atleast_1d(threesx))
+'''
+[[0 1]
+ [2 3]]
+'''
+print(np.atleast_2d(threesx))
+'''
+[[0 1]
+ [2 3]]
+'''
+print(np.atleast_3d(tenx)) #print [[[10]]]
+threedimensionx = np.arange(3)
+print(np.atleast_3d(threedimensionx))
+'''
+[[[0]
+  [1]
+  [2]]]
+'''
+
+#56. Write a NumPy program to insert a new axis within a 2-D array.
+#official solution
+x = np.zeros([3, 4])
+print(x)
+'''
+[[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+'''
+y = np.expand_dims(x, axis=1)
+print(y)
+'''
+[[[0. 0. 0. 0.]]
+
+ [[0. 0. 0. 0.]]
+
+ [[0. 0. 0. 0.]]]
+'''
+print(y.shape) #print (3, 1, 4)
+
+#57. Write a NumPy program to remove single-dimensional entries from a specified shape.
+#official solution
+zeros314 = np.zeros([3, 1, 4])
+print(zeros314)
+'''
+[[[0. 0. 0. 0.]]
+
+ [[0. 0. 0. 0.]]
+
+ [[0. 0. 0. 0.]]]
+'''
+zeros34 = np.squeeze(zeros314)
+print(zeros34)
+'''
+[[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+'''
+#58. Write a NumPy program to concatenate two 2-dimensional arrays.  Expected Output:[[ 0 1 3 0 2 4] [ 5 7 9 6 8 10]]
+samplearray = np.array([[[0, 1, 3], [5, 7, 9]], [[0, 2, 4], [6, 8, 10]]])
+print(samplearray)
+'''
+[[[ 0  1  3]
+  [ 5  7  9]]
+
+ [[ 0  2  4]
+  [ 6  8 10]]]
+'''
+print(samplearray.ndim) #print 3
+print(samplearray.shape) #print (2, 2, 3) two arrays per dimension or groups of arrays(?), two rows per array, three columns per array
+print(samplearray.flatten()) #print [ 0  1  3  5  7  9  0  2  4  6  8 10]
+print(samplearray.reshape(2, 6)) #print [ 0  1  3  5  7  9  0  2  4  6  8 10]
+#official solution
+arraya = np.array([[0, 1, 3], [5, 7, 9]])
+arrayb = np.array([[0, 2, 4], [6, 8, 10]])
+concatenateab = np.concatenate((arraya, arrayb), axis=1)
+print(concatenateab)
+'''
+[[ 0  1  3  0  2  4]
+ [ 5  7  9  6  8 10]]
+'''
+
+#59. Write a NumPy program to convert 1-D arrays as columns into a 2-D array.  Sample array: (10,20,30), (40,50,60) Expected Output: [[10 40] [20 50] [30 60]]
+array10 = np.array([10, 20, 30])
+array40 = np.array([40, 50, 60])
+print(array10) #print [10 20 30]
+print(array40) #print [40 50 60]
+print(np.column_stack((array10, array40)))
+'''
+[[10 40]
+ [20 50]
+ [30 60]]
+'''
+print(np.concatenate((array10, array40), axis=0)) #print [10 20 30 40 50 60]
+
+#60. Write a NumPy program to convert (in sequence depth wise (along third axis)) two 1-D arrays into a 2-D array. Sample array: (10,20,30), (40,50,60)
+#official solution
+a = np.array([[10], [20], [30]])
+b = np.array([[40], [50], [60]])
+c = np.dstack((a, b))
+print(c)
+'''
+[[[10 40]]
+
+ [[20 50]]
+
+ [[30 60]]]
+'''
