@@ -963,3 +963,189 @@ print(c)
 
  [[30 60]]]
 '''
+
+#61. Write a NumPy program to split an array of 14 elements into 3 arrays, each of which has 2, 4, and 8 elements in the original order. Expected Output: Original array: [ 1 2 3 4 5 6 7 8 9 10 11 12 13 14] After splitting: [array([1, 2]), array([3, 4, 5, 6]), array([ 7, 8, 9, 10, 11, 12, 13, 14])]
+originalarray = np.arange(1, 15)
+print(originalarray) #print [ 1 2 3 4 5 6 7 8 9 10 11 12 13 14]
+split248 = np.split(originalarray, [2, 6])
+print(split248) #print [array([1, 2]), array([3, 4, 5, 6]), array([ 7,  8,  9, 10, 11, 12, 13, 14])]
+
+#62. Write a NumPy program to split of an array of shape 4x4 it into two arrays along the second axis.  Sample array: [[ 0 1 2 3] ........ [12 13 14 15]] Expected Output: [array([[ 0, 1], [ 4, 5], [ 8, 9], [12, 13]]), array([[ 2, 3], [ 6, 7], [10, 11], [14, 15]]), array([], shape=(4, 0), dtype=int64)]
+samplearray = np.arange(16).reshape(4, 4)
+print(samplearray)
+'''
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]
+ [12 13 14 15]]
+'''
+split2 = np.hsplit(samplearray, [2])
+print(split2)
+'''
+[array([[ 0,  1],
+       [ 4,  5],
+       [ 8,  9],
+       [12, 13]]), array([[ 2,  3],
+       [ 6,  7],
+       [10, 11],
+       [14, 15]])]
+'''
+split26 = np.hsplit(samplearray, [2, 6])
+print(split26)
+'''
+[array([[ 0,  1],
+       [ 4,  5],
+       [ 8,  9],
+       [12, 13]]), array([[ 2,  3],
+       [ 6,  7],
+       [10, 11],
+       [14, 15]]), array([], shape=(4, 0), dtype=int64)]
+'''
+
+#63. Write a NumPy program to get the number of nonzero elements in an array. Original array: [[ 0 10 20] [20 30 40]] Number of non zero elements in the above array: 5
+nonzeroarrayelements = np.array([0, 10, 20, 20, 30, 40]).reshape(2, 3)
+print(nonzeroarrayelements)
+'''
+[[ 0 10 20]
+ [20 30 40]]
+'''
+counter = 1
+for eachnonzero in nonzeroarrayelements:
+    print("row", counter, eachnonzero)
+    '''
+    row 1 [ 0 10 20]
+    row 2 [20 30 40]
+	'''
+    counter += 1
+countnonzero = 0
+for x in nonzeroarrayelements:
+    for y in x:
+        print(y) #print 0\n 10\n 20\n 20\n 30\n 40
+        if y != 0:
+            countnonzero += 1
+print(countnonzero) #print 5
+countnonzero = 0
+for x in np.nditer(nonzeroarrayelements, order="C"):
+    print(x)  #print 0\n 10\n 20\n 20\n 30\n 40
+    if x != 0:
+        countnonzero += 1
+print(countnonzero) #print 5
+print("Quickest way np function", np.count_nonzero(nonzeroarrayelements)) #print Quickest way np function 5
+
+#64. Write a NumPy program to create a 5x5 matrix with row values ranging from 0 to 4.  Original array: [[ 0. 0. 0. 0. 0.] ......... [ 0. 0. 0. 0. 0.]] Row values ranging from 0 to 4. [[ 0. 1. 2. 3. 4.] .......... [ 0. 1. 2. 3. 4.]]
+rowvalueszerotofour = np.arange(5)
+print(rowvalueszerotofour) #print [0 1 2 3 4]
+duplicaterowvalueszerotofour = np.repeat(rowvalueszerotofour, 5, axis=0)
+print(duplicaterowvalueszerotofour) #print [0 0 0 0 0 1 1 1 1 1 2 2 2 2 2 3 3 3 3 3 4 4 4 4 4]
+originalzeros = np.zeros([5, 5])
+print(originalzeros)
+'''
+[[0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0.]]
+'''
+blankarray = np.array([])
+print(blankarray) #print []
+for x in originalzeros:
+    x = x + rowvalueszerotofour
+    blankarray = np.append(blankarray, x)
+print(blankarray) #print [0. 1. 2. 3. 4. 0. 1. 2. 3. 4. 0. 1. 2. 3. 4. 0. 1. 2. 3. 4. 0. 1. 2. 3. 4.]
+print(blankarray.reshape(5, 5))
+'''
+[[0. 1. 2. 3. 4.]
+ [0. 1. 2. 3. 4.]
+ [0. 1. 2. 3. 4.]
+ [0. 1. 2. 3. 4.]
+ [0. 1. 2. 3. 4.]]
+'''
+#official solution  RM:  no need a for loop
+officialsolution = originalzeros + rowvalueszerotofour
+print(officialsolution)
+'''
+[[0. 1. 2. 3. 4.]
+ [0. 1. 2. 3. 4.]
+ [0. 1. 2. 3. 4.]
+ [0. 1. 2. 3. 4.]
+ [0. 1. 2. 3. 4.]]
+'''
+
+#65. Write a NumPy program to test whether specified values are present in an array.  #RM:  stupid question
+originalarray = np.array([[1.12, 2., 3.45], [2.33, 5.12, 6.]])
+print(originalarray)
+'''
+[[1.12 2.   3.45]
+ [2.33 5.12 6.  ]]
+'''
+flatoriginalarray = originalarray.flatten()
+print(flatoriginalarray) #print [1.12 2.   3.45 2.33 5.12 6.  ]
+#official solution
+print(2 in originalarray) #print True
+print(0 in originalarray) #print False
+print(6 in originalarray) #print True
+print(2.3 in originalarray) #print False
+print(5.12 in originalarray) #print True
+
+#66. Write a NumPy program to create a vector of size 10 with values ranging from 0 to 1, both excluded.
+vectortenbetweenzeroandone = np.random.random([1, 10])
+print(vectortenbetweenzeroandone) #print [[0.97410434 0.48697155 0.48658977 0.4015471  0.42917672 0.46705215 0.32546243 0.55157408 0.02361853 0.69659801]]
+#official solution.  RM:  solution wanted linespace starting from zero to one and between 0 and 1 use index to exclude 0 and 1
+vectorascendingbetweenzeroandonesize10 = np.linspace(0, 1, 10, endpoint=False)
+print(vectorascendingbetweenzeroandonesize10) #print [0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9]
+vectorascendingbetweenzeroandonesize10 = np.linspace(0, 1, 10, endpoint=True)
+print(vectorascendingbetweenzeroandonesize10) #print [0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9]
+vectorascendingbetweenzeroandonesize12index = np.linspace(0, 1, 12, endpoint=True)[1:-1]
+print(vectorascendingbetweenzeroandonesize12index) #print [0.09090909 0.18181818 0.27272727 0.36363636 0.45454545 0.54545455 0.63636364 0.72727273 0.81818182 0.90909091]
+
+#67. Write a NumPy program to make an array immutable (read-only).
+#official solution
+# x = np.zeros(10)
+# x.flags.writeable = False
+# x[0] = 1
+'''
+Traceback (most recent call last):
+  File "yywork.py", line 141, in <module>
+    x[0] = 1
+ValueError: assignment destination is read-only
+'''
+
+#68. Write a NumPy program (using NumPy) to sum of all the multiples of 3 or 5 below 100.
+numpyarraytohundred = np.arange(100)
+print(numpyarraytohundred)
+'''
+[  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
+  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35
+  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53
+  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71
+  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89
+  90  91  92  93  94  95  96  97  98  99]
+'''
+sumanswer = 0
+for eachnumpyarraytohundred in numpyarraytohundred:
+    if eachnumpyarraytohundred % 3 == 0 or eachnumpyarraytohundred % 5 == 0:
+        sumanswer += eachnumpyarraytohundred
+print(sumanswer) #print 2318
+
+#69. Write a NumPy program to create an array with 10^3 elements.
+array1000 = np.arange(1000, dtype=np.float)
+#or
+#array1000 = np.arange(1000, dtype="float")
+print(array1000)
+array1e3 = np.arange(1e3)
+print(array1e3)
+
+#70. Write a NumPy program to create display every element of a NumPy array.
+array11 = np.arange(12)
+for eacharray11 in array11:
+    print(eacharray11) #print 0\n 1\n 2\n 3\n 4\n 5\n 6\n 7\n 8\n 9\n 10\n 11
+
+#71. Write a NumPy program to create and display every element of a NumPy array in Fortran order.
+array11 = np.arange(12).reshape(3, 4)
+print(np.nditer(array11, order="F")) #<numpy.nditer object at 0x7f2e96bd6a30>
+for eacharray11 in np.nditer(array11, order="F"):
+    print(eacharray11, end=",") #print 0,4,8,1,5,9,2,6,10,3,7,11,
+
+#72. Write a NumPy program to create a 5x5x5 cube of 1's.
+cubeofones = np.ones([5, 5, 5], dtype="uint8")
+print(cubeofones)
