@@ -1149,3 +1149,161 @@ for eacharray11 in np.nditer(array11, order="F"):
 #72. Write a NumPy program to create a 5x5x5 cube of 1's.
 cubeofones = np.ones([5, 5, 5], dtype="uint8")
 print(cubeofones)
+
+#73. Write a NumPy program to create an array of (3, 4) shape, multiply every element value by 3 and display the new array.  Original array elements: [[ 0 1 2 3] [ 4 5 6 7] [ 8 9 10 11]] New array elements: [[ 0 3 6 9] [12 15 18 21] [24 27 30 33]]
+originalarray = np.arange(0, 12)
+print(originalarray) #print [ 0  1  2  3  4  5  6  7  8  9 10 11]
+print(originalarray.reshape(3, 4))
+'''
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]
+'''
+reshapemultiple3 = originalarray.reshape(3, 4) * 3
+print(reshapemultiple3)
+'''
+[[ 0  3  6  9]
+ [12 15 18 21]
+ [24 27 30 33]]
+'''
+
+#74. Write a NumPy program to combine a one and a two dimensional array together and display their elements.  One dimensional array: [0 1 2 3] Two dimensional array: [[0 1 2 3] [4 5 6 7]]
+onedimension = np.array([0, 1, 2, 3])
+twodimension = np.array([[0, 1, 2, 3], [4, 5, 6, 7]])
+#https://www.geeksforgeeks.org/combining-a-one-and-a-two-dimensional-numpy-array/
+#Combine 1 dimension and 2 dimension arrays and display their elements use numpy.nditer()
+for oned, twod in np.nditer([onedimension, twodimension]):
+    print(oned, ":", twod)
+    '''
+    0 : 0
+    1 : 1
+    2 : 2
+    3 : 3
+    0 : 4
+    1 : 5
+    2 : 6
+    3 : 7
+	'''
+
+#75. Write a NumPy program to create an array of zeros and three column types (integer, float, character).  Expected Output: [(1, 2., b'Albert Einstein') (2, 2., b'Edmond Halley') (3, 3., b'Gertrude B. Elion')]
+experiment = np.array([1, 2., "Albert Einstein"])
+print(experiment) #print ['1' '2.0' 'Albert Einstein']
+threecolumnzeroes = np.zeros([3, 3])
+print(threecolumnzeroes)
+'''
+[[0. 0. 0.]
+ [0. 0. 0.]
+ [0. 0. 0.]]
+'''
+x = np.array([('Rex', 9, 81.0), ('Fido', 3, 27.0)], dtype=[('name', 'U10'), ('age', 'i4'), ('weight', 'f4')])
+print(x) #print [('Rex', 9, 81.) ('Fido', 3, 27.)]
+integerfloat = np.array([[1, 2.0], [2, 2.0], [3, 3.0]], dtype=[("wholenumber", "i4"), ("decimalnumber", "f4")])
+print(integerfloat)
+'''
+[[(1, 1.) (2, 2.)]
+ [(2, 2.) (2, 2.)]
+ [(3, 3.) (3, 3.)]]
+'''
+# integerfloatcharacter = np.array([[1, 2.0, "Albert Einstein"], [2, 2.0, "Edmont Halley"], [3, 3.0, "Gertrude B. Elion"]], dtype=[("wholenumber", "i4"), ("decimalnumber", "f4"), ("namestring", "U9")])
+# print(integerfloatcharacter) #print ValueError: invalid literal for int() with base 10: 'Albert Einstein'
+#official solution
+x = np.zeros((3,), dtype=("i4,f4,a40"))
+new_data = [(1, 2., "Albert Einstein"), (2, 2., "Edmond Halley"), (3, 3., "Gertrude B. Elion")]
+x[:] = new_data
+print(x) #print [(1, 2., b'Albert Einstein') (2, 2., b'Edmond Halley') (3, 3., b'Gertrude B. Elion')]
+
+#76. Write a NumPy program to create a function cube which cubes all the elements of an array.  Exponent
+cubearray = np.arange(1, 4) ** 3
+print(cubearray)
+
+#77. Write a NumPy program to create an array of (3, 4) shape and convert the array elements in smaller chunks.
+originalarray = np.arange(0, 12).reshape(3, 4)
+print(originalarray)
+'''
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]
+'''
+originalarrayshape = originalarray.shape
+print(originalarrayshape) #print (3, 4)
+for column in range(0, originalarrayshape[1]):
+        #commas switches from row to column.  colon specifies the range of numbers.(?)
+    print(originalarray[:, column])
+    '''
+    [0 4 8]
+    [1 5 9]
+    [ 2  6 10]
+    [ 3  7 11]
+	'''
+# official solution
+# for a in np.nditer(originalarray, flags=['external_loop'], order='F'):
+#     print(a)
+
+#78. Write a NumPy program to create a record array from a (flat) list of arrays.  Sample arrays: [1,2,3,4], ['Red', 'Green', 'White', 'Orange'], [12.20,15,20,40] Expected Output: (1, 'Red', 12.2) (2, 'Green', 15.0) (3, 'White', 20.0)
+#official solution
+a1 = np.array([1, 2, 3, 4])
+a2 = np.array(["Red", "Green", "White", "Orange"])
+a3 = np.array([12.20, 15, 20, 40])
+result = np.core.records.fromarrays([a1, a2, a3], names="a,b,c")
+print(result[0]) #print (1, 'Red', 12.2)
+print(result[1]) #print (2, 'Green', 15.)
+print(result[2]) #print (3, 'White', 20.)
+
+#79. Write a NumPy program to generate a generic 2D Gaussian-like array.
+gaussianarray = np.random.normal(loc=0.0, scale=1.0, size=None)
+print(gaussianarray) #print -0.3658662019704474
+#official solution
+# x, y = np.meshgrid(np.linspace(-1, 1, 10), np.linspace(-1, 1, 10))
+# d = np.sqrt(x * x + y * y)
+# sigma, mu = 1.0, 0.0
+# g = np.exp(-((d - mu)**2 / (2.0 * sigma**2)))
+# print("2D Gaussian-like array:")
+# print(g)
+
+#80. Write a NumPy program to convert a NumPy array into Python list structure.
+originalarrayelements = np.array([[0, 1], [2, 3], [4, 5]])
+print(originalarrayelements)
+'''
+[[0 1]
+ [2 3]
+ [4 5]]
+'''
+longwaylist = []
+for eachoriginalarrayelements in originalarrayelements:
+    longwaylist.append(eachoriginalarrayelements)
+print(longwaylist) #print [array([0, 1]), array([2, 3]), array([4, 5])]
+print(list(originalarrayelements)) #print [array([0, 1]), array([2, 3]), array([4, 5])]
+originalarrayelementstolist = originalarrayelements.tolist()
+print(originalarrayelementstolist) #print [[0, 1], [2, 3], [4, 5]]
+
+#81. Write a NumPy program to access an array by column.  RM:  official solution has correct question.
+x = np.arange(9).reshape(3, 3)
+print(x) #print [[0 1 2] [3 4 5] [6 7 8]]
+print(x[:, 0]) #print [0 3 6]
+print(x[:, 1]) #print [1 4 7]
+print(x[:, 2]) #print [2 5 8]
+
+#82. Write a NumPy program to convert a NumPy array of float values to a NumPy array of integer values.
+originalfloatvalues = np.array([[12., 12.51], [2.34, 7.98], [25.23, 36.5]])
+converttointeger = originalfloatvalues.astype(int)
+print(converttointeger)
+'''
+[[12 12]
+ [ 2  7]
+ [25 36]]
+'''
+
+#83. Write a NumPy program to display NumPy array elements of floating values with given precision.
+originalfloatvalues = np.array([0.26153123, 0.52760141, 0.5718299, 0.5927067, 0.7831874, 0.69746349, 0.35399976, 0.99469633, 0.0694458, 0.54711478])
+threedecimalplaces = np.around(originalfloatvalues, decimals=3)
+print(threedecimalplaces) #print [0.262 0.528 0.572 0.593 0.783 0.697 0.354 0.995 0.069 0.547]
+threedecimalplacesround = np.round(originalfloatvalues, 3)
+print(threedecimalplacesround) #print [0.262 0.528 0.572 0.593 0.783 0.697 0.354 0.995 0.069 0.547]
+
+#84. Write a NumPy program to suppresses the use of scientific notation for small numbers in NumPy array.
+scientificnotationarray = np.array([1.60000000e-10, 1.60000000e+00, 1.20000000e+03, 2.35000000e-01])
+print(scientificnotationarray) #print [1.60e-10 1.60e+00 1.20e+03 2.35e-01]
+np.set_printoptions(suppress=True)
+print(scientificnotationarray) #print [   0.       1.6   1200.       0.235]
+np.set_printoptions(suppress=False)
+print(scientificnotationarray) #print [1.60e-10 1.60e+00 1.20e+03 2.35e-01]
