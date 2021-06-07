@@ -1015,7 +1015,7 @@ for eachnonzero in nonzeroarrayelements:
     '''
     row 1 [ 0 10 20]
     row 2 [20 30 40]
-	'''
+    '''
     counter += 1
 countnonzero = 0
 for x in nonzeroarrayelements:
@@ -1183,7 +1183,7 @@ for oned, twod in np.nditer([onedimension, twodimension]):
     1 : 5
     2 : 6
     3 : 7
-	'''
+    '''
 
 #75. Write a NumPy program to create an array of zeros and three column types (integer, float, character).  Expected Output: [(1, 2., b'Albert Einstein') (2, 2., b'Edmond Halley') (3, 3., b'Gertrude B. Elion')]
 experiment = np.array([1, 2., "Albert Einstein"])
@@ -1234,7 +1234,7 @@ for column in range(0, originalarrayshape[1]):
     [1 5 9]
     [ 2  6 10]
     [ 3  7 11]
-	'''
+    '''
 # official solution
 # for a in np.nditer(originalarray, flags=['external_loop'], order='F'):
 #     print(a)
@@ -1307,3 +1307,91 @@ np.set_printoptions(suppress=True)
 print(scientificnotationarray) #print [   0.       1.6   1200.       0.235]
 np.set_printoptions(suppress=False)
 print(scientificnotationarray) #print [1.60e-10 1.60e+00 1.20e+03 2.35e-01]
+
+#84. Write a NumPy program to suppresses the use of scientific notation for small numbers in NumPy array.  RM:  https://stackoverflow.com/questions/9777783/suppress-scientific-notation-in-numpy-when-creating-array-from-nested-list.  Also in numpyalltutorials.py Print options or display options section.
+scientificnotationarray = np.array([1.60000000e-10, 1.60000000e+00, 1.20000000e+03, 2.35000000e-01])
+print(scientificnotationarray) #print [1.60e-10 1.60e+00 1.20e+03 2.35e-01]
+np.set_printoptions(suppress=True)
+print(scientificnotationarray) #print [   0.       1.6   1200.       0.235]
+np.set_printoptions(suppress=False)
+
+#85. Write a NumPy program to create a NumPy array of 10 integers from a generator.
+tenintegers = np.arange(0, 10)
+print(tenintegers) #print [0 1 2 3 4 5 6 7 8 9]
+
+#86. Write a NumPy program to add an extra column to a NumPy array.
+column = np.arange(10, 70, 10).reshape(2, 3)
+print(column)
+'''
+[[10 20 30]
+ [40 50 60]]
+'''
+addedcolumn = np.array([[100], [200]])
+print(addedcolumn)
+'''
+[[100]
+ [200]]
+'''
+hstackinsertcolumn = np.hstack((column, addedcolumn))
+print(hstackinsertcolumn)
+'''
+[[ 10  20  30 100]
+ [ 40  50  60 200]]
+'''
+
+#87. Write a NumPy program to find unique rows in a NumPy array.  RM:  distinct rows
+x = np.array([[20, 20, 20, 0], [0, 20, 20, 20], [0, 20, 20, 20], [20, 20, 20, 0], [10, 20, 20, 20]])
+print(x)
+'''
+[[20 20 20  0]
+ [ 0 20 20 20]
+ [ 0 20 20 20]
+ [20 20 20  0]
+ [10 20 20 20]]
+'''
+uniquerows = np.unique(x, axis=0)
+print(uniquerows)
+'''
+[[ 0 20 20 20]
+ [10 20 20 20]
+ [20 20 20  0]]
+'''
+uniquecolumns = np.unique(x, axis=1)
+print(uniquecolumns)
+'''
+ [20  0 20]
+ [20  0 20]
+ [ 0 20 20]
+ [20 10 20]]
+'''
+
+#88. Write a NumPy program to replace all elements of NumPy array that are greater than specified array.
+greaterthanfive = np.array([[0.42436315, 0.48558583, 0.32924763], [0.7439979, 0.58220701, 0.38213418], [0.5097581, 0.34528799, 0.1563123]])
+print(greaterthanfive)
+'''
+[[0.42436315 0.48558583 0.32924763]
+ [0.7439979  0.58220701 0.38213418]
+ [0.5097581  0.34528799 0.1563123 ]]
+'''
+replacegreaterthanfive = greaterthanfive > 0.5
+greaterthanfive[replacegreaterthanfive] = 0.5
+print(greaterthanfive)
+'''
+[[0.42436315 0.48558583 0.32924763]
+ [0.5        0.5        0.38213418]
+ [0.5        0.34528799 0.1563123 ]]
+'''
+#official solution
+greaterthanfive[greaterthanfive > .5] = .5
+
+#89. Write a NumPy program to remove specific elements in a NumPy array.  RM:  question asks remove first, fourth, and fifth elements.  Reference https://numpy.org/doc/stable/reference/generated/numpy.delete.html
+defaultarray = np.arange(10, 110, 10)
+print(defaultarray) #print [ 10  20  30  40  50  60  70  80  90 100]
+removespecificnumber = np.delete(defaultarray, [0, 3, 4], axis=0)
+print(removespecificnumber) #print [ 20  30  60  70  80  90 100]
+
+#90. Write a NumPy program to replace the negative values in a NumPy array with 0.
+originalarray = np.array([-1, -4, 0, 2, 3, 4, 5, -6])
+print(originalarray) #print [-1 -4  0  2  3  4  5 -6]
+originalarray[originalarray < 0] = 0
+print(originalarray) #print [0 0 0 2 3 4 5 0]
