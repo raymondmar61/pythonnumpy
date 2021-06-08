@@ -1395,3 +1395,58 @@ originalarray = np.array([-1, -4, 0, 2, 3, 4, 5, -6])
 print(originalarray) #print [-1 -4  0  2  3  4  5 -6]
 originalarray[originalarray < 0] = 0
 print(originalarray) #print [0 0 0 2 3 4 5 0]
+
+import numpy as np
+
+#91. Write a NumPy program to remove all rows in a NumPy array that contain non-numeric values.
+numericandnonnumeric = np.array([[1., 2., 3.], [4., 5., np.nan], [7., 8., 9.], [1., 0., 1.]])
+print(numericandnonnumeric)
+'''
+[[ 1.  2.  3.]
+ [ 4.  5. nan]
+ [ 7.  8.  9.]
+ [ 1.  0.  1.]]
+'''
+for eachrow in numericandnonnumeric:
+    #print(np.where(eachrow == np.isnan(eachrow)))
+    print(eachrow == np.isnan(eachrow))
+    if np.isnan(eachrow).any():
+        pass
+    else:
+        print(eachrow)
+    '''
+    [False False False]
+    [1. 2. 3.]
+    [False False False]
+    [False False False]
+    [7. 8. 9.]
+    [False  True False]
+    [1. 0. 1.]
+    '''
+#official solution  #RM:  what if you don't know which row contains np.nan?  Need to search.
+removenonnumeric = numericandnonnumeric[~np.isnan(numericandnonnumeric).any(axis=1)]
+print(removenonnumeric)
+'''
+[[1. 2. 3.]
+ [7. 8. 9.]
+ [1. 0. 1.]]
+'''
+
+#92. Write a NumPy program to select indices satisfying multiple conditions in a NumPy array. Select the elements from the first array corresponding to elements in greater than 100 and less than 110.  Keep ['e' 'i'] in the second array.
+samplea = np.array([97, 101, 105, 111, 117])
+sampleb = np.array(["a", "e", "i", "o", "u"])
+samplea100110exclusive = ((samplea > 100) & (samplea < 110))
+print(samplea100110exclusive) #print [False  True  True False False]
+samplea100110exclusive = samplea[samplea > 100]
+samplea100110exclusive = samplea100110exclusive[samplea100110exclusive < 110]
+print(samplea100110exclusive) #print [101 105]
+sampleatryagain = np.array([97, 101, 105, 111, 117])
+sampleatryagain[(sampleatryagain > 100) & (sampleatryagain < 110)]
+print(sampleatryagain) #print [ 97 101 105 111 117]
+sampleatryagain[(sampleatryagain > 100) & (sampleatryagain < 110)] *= -1
+print(sampleatryagain) #print [  97 -101 -105  111  117]
+#official answer
+a = np.array([97, 101, 105, 111, 117])
+b = np.array(["a", "e", "i", "o", "u"])
+print("Elements from the second array  corresponding to elements in the first array  that are greater than 100 and less than 110:")
+print(b[(100 < a) & (a < 110)]) #print ['e' 'i']
