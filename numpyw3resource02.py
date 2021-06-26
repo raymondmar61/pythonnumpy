@@ -1450,3 +1450,125 @@ a = np.array([97, 101, 105, 111, 117])
 b = np.array(["a", "e", "i", "o", "u"])
 print("Elements from the second array  corresponding to elements in the first array  that are greater than 100 and less than 110:")
 print(b[(100 < a) & (a < 110)]) #print ['e' 'i']
+
+#93. Write a NumPy program to get the magnitude of a vector in NumPy.
+originalarray = np.arange(1, 6)
+print(originalarray) #print [1 2 3 4 5]
+print(np.linalg.norm(originalarray)) #print 7.416198487095663
+
+#94. Write a NumPy program to count the frequency of unique values in NumPy array.
+frequencyuniquevalues = np.array([10, 10, 20, 10, 20, 20, 20, 30, 30, 50, 40, 40])
+print(np.unique(frequencyuniquevalues)) #print [10 20 30 40 50]
+print(np.unique(frequencyuniquevalues, return_counts=True)) #print (array([10, 20, 30, 40, 50]), array([3, 4, 2, 2, 1]))
+uniquenumbers, countuniquenumbers = np.unique(frequencyuniquevalues, return_counts=True)
+print(uniquenumbers) #print [10 20 30 40 50]
+print(countuniquenumbers) #print [3 4 2 2 1]
+print(np.array([uniquenumbers, countuniquenumbers])) #print [[10 20 30 40 50] [ 3  4  2  2  1]]
+print(list((uniquenumbers, countuniquenumbers))) #print [array([10, 20, 30, 40, 50]), array([3, 4, 2, 2, 1])]
+
+#95. Write a NumPy program to check whether the NumPy array is empty or not.  RM:  check null numpy null
+emptyarray = np.array([])
+isarrayempty = np.size(emptyarray) == 0
+print(isarrayempty) #print True
+#also
+isarrayempty = emptyarray.size == 0
+print(isarrayempty) #print True
+
+#96. Write a NumPy program to divide each row by a vector element.
+twentyforty = np.array([[20, 20, 20], [30, 30, 30], [40, 40, 40]])
+print(twentyforty) #print [[20 20 20] [30 30 30] [40 40 40]]
+divideby = np.array([20, 30, 40])
+print(twentyforty / divideby)
+'''
+[[1.         0.66666667 0.5       ]
+ [1.5        1.         0.75      ]
+ [2.         1.33333333 1.        ]]
+'''
+print(twentyforty[0] / divideby[0]) #print [1. 1. 1.]
+print(twentyforty.shape[1]) #print 3
+answernumpy = np.array([])
+for x in range(0, twentyforty.shape[1]):
+    print(twentyforty[x] / divideby[x]) #print [1. 1. 1.]
+    answernumpy = np.append(answernumpy, twentyforty[x] / divideby[x])
+print(answernumpy) #print [1. 1. 1. 1. 1. 1. 1. 1. 1.]
+reshapeanswernumpy = answernumpy.reshape(twentyforty.shape[0], twentyforty.shape[1])
+print(reshapeanswernumpy) #print [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]]
+#official solution
+print(twentyforty / divideby[:, None]) #print [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]]
+#bonus
+bonusarray = np.arange(1, 11)
+print(bonusarray) #print [ 1  2  3  4  5  6  7  8  9 10]
+print(bonusarray[:, None]) #print [[ 1] [ 2] [ 3] [ 4] [ 5] [ 6] [ 7] [ 8] [ 9] [10]]
+print(type(bonusarray[:, None])) #print <class 'numpy.ndarray'>
+bonusarraynone = bonusarray[:, None]
+print(bonusarray.size) #print 10
+print(bonusarray.shape) #print (10,)
+print(bonusarray[4:7, None]) #print [[ 5] [ 6] [ 7]]
+
+#97. Write a NumPy program to print all the values of an array.
+#official solution
+#np.set_printoptions(threshold=np.nan)
+x = np.zeros((4, 4))
+#print(x) #print ValueError: threshold must be non-NAN, try sys.maxsize for untruncated representation
+
+#98. Write a NumPy program to convert the raw data in an array to a binary string and then create an array.
+originalarray = np.array([10., 20., 30.])
+#official solution
+print(originalarray) #print [10. 20. 30.]
+converttobinarystring = originalarray.tostring() #print b'\x00\x00\x00\x00\x00\x00$@\x00\x00\x00\x00\x00\x004@\x00\x00\x00\x00\x00\x00>@'
+print(converttobinarystring)
+convertfrombinarystring = np.fromstring(converttobinarystring)
+print(convertfrombinarystring) #print [10. 20. 30.]
+
+#99. Write a NumPy program to sum and compute the product of a NumPy array elements.
+originalarray = np.array([10., 20., 30.])
+print(originalarray.sum()) #print 60.0
+print(originalarray.prod())  #print 6000.0.  multiply or product
+
+#100. Write a NumPy program to take values from a source array and put them at specified indices of another array.
+originalarray = np.array([0., 10., 20., 30., 40.])
+originalarray[0] = 10.
+originalarray[4] = 30.
+print(originalarray) #print [10. 10. 20. 30. 30.]
+#official solution
+x = np.array([0, 10, 20, 30, 40], dtype=np.float)
+replacementnumbers = np.array([10, 30], dtype=np.float)
+print(x) #print [ 0. 10. 20. 30. 40.]
+x.put([0, 4], replacementnumbers)
+print(x) #print [10. 10. 20. 30. 30.]
+
+#101. Write a NumPy program to print the full NumPy array, without truncation.
+zerotonineteeneightynine = np.arange(0, 2000)
+print(zerotonineteeneightynine) #print [   0    1    2 ... 1997 1998 1999]
+
+#102. Write a NumPy program to convert a NumPy array into a csv file.
+#official solution
+numpyarray = np.array([[10, 20, 30], [40, 50, 60], [70, 80, 90]])
+print(numpyarray) #print [[10 20 30] [40 50 60] [70 80 90]]
+np.savetxt("arraytocsv.csv", numpyarray, delimiter=",")
+
+#103. Write a NumPy program to calculate the Euclidean distance.
+#official solution
+from scipy.spatial import distance
+p1 = (1, 2, 3)
+p2 = (4, 5, 6)
+d = distance.euclidean(p1, p2)
+print("Euclidean distance: ", d) #print Euclidean distance:  5.196152422706632
+
+#104. Write a NumPy program to access last two columns of a multidimensional columns.
+twodimensionarray = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+print(twodimensionarray) #print [[1 2 3] [4 5 6] [7 8 9]]
+print(twodimensionarray[:, 1:3]) #print [[2 3] [5 6] [8 9]]
+print(twodimensionarray[:, [1, 2]]) #print [[2 3] [5 6] [8 9]] #RM:  slice slicing using exact index numbers
+
+#105. Write a NumPy program to read a CSV data file and store records in an array.  RM:  open csv file, load csv file.  #Additional procedures https://www.pythonpool.com/numpy-read-csv/
+getcsvdata = np.genfromtxt("genfromtxtcsvfile.csv", dtype=["S10", "float32", "float32", "float32", "float32"], delimiter=",")  #The S in S10 must be upper case.
+print(getcsvdata)
+'''
+[(b'Date',    nan,     nan,    nan,    nan)
+ (b'03-10-16', 774.25, 776.065, 769.5 , 772.56)
+ (b'04-10-16', 776.03, 778.71 , 772.89, 776.43)
+ (b'05-10-16', 779.31, 782.07 , 775.65, 776.47)
+ (b'06-10-16', 779.  , 780.48 , 775.54, 776.86)
+ (b'07-10-16', 779.66, 779.66 , 770.75, 775.08)]
+'''
