@@ -1572,3 +1572,157 @@ print(getcsvdata)
  (b'06-10-16', 779.  , 780.48 , 775.54, 776.86)
  (b'07-10-16', 779.66, 779.66 , 770.75, 775.08)]
 '''
+
+#106. Write a NumPy program to count the occurrence of a specified item in a given NumPy array.
+countitems = np.array([10, 20, 20, 20, 20, 0, 20, 30, 30, 30, 0, 0, 20, 20, 0])
+print(countitems) #print [10 20 20 20 20  0 20 30 30 30  0  0 20 20  0]
+count10 = np.count_nonzero(countitems == 10)
+print(count10) #print 1
+count20 = np.count_nonzero(countitems == 20)
+print(count20) #print 7
+count30 = np.count_nonzero(countitems == 30)
+print(count30) #print 3
+count0 = np.count_nonzero(countitems == 0)
+print(count0) #print 4
+countitemsunique = np.array([10, 20, 20, 20, 20, 0, 20, 30, 30, 30, 0, 0, 20, 20, 0])
+unique, counts = np.unique(countitemsunique, return_counts=True)
+print(dict(zip(unique, counts))) #print {0: 4, 10: 1, 20: 7, 30: 3}
+
+#107. Write a NumPy program to calculate percentiles for a sequence or single-dimensional NumPy array.
+nums = np.array([1, 2, 3, 4, 5])
+percentile50 = np.percentile(nums, 50)
+print(percentile50) #print 3.0
+percentile40 = np.percentile(nums, 40)
+print(percentile40) #print 2.6
+percentile90 = np.percentile(nums, 90)
+print(percentile90) #print 4.6
+
+#108. Write a NumPy program to convert a PIL Image into a NumPy array.
+#official solution
+# import PIL
+# img_data = PIL.Image.open("w3resource-logo.png" )
+# img_arr = np.array(img_data)
+# print(img_arr)
+
+#109. Write a NumPy program to convert a NumPy array to an image. Display the image.
+#official solution
+# from PIL import Image
+# img_w, img_h = 200, 200
+# data = np.zeros((img_h, img_w, 3), dtype=np.uint8)
+# data[100, 100] = [255, 0, 0]
+# img = Image.fromarray(data, 'RGB')
+# img.save('test.png')
+# img.show()
+
+#110. Write a NumPy program to remove nan values from a given array.  #RM:  remove blanks, remove nulls, delete blanks, delete nulls
+#official solution
+x = np.array([200, 300, np.nan, np.nan, np.nan, 700])
+y = np.array([[1, 2, 3], [np.nan, 0, np.nan], [6, 7, np.nan]])
+print("Original array:")
+print(x)
+'''
+Original array:
+[200. 300.  nan  nan  nan 700.]
+'''
+print("After removing nan values:")
+result = x[np.logical_not(np.isnan(x))]
+print(result)
+'''
+After removing nan values:
+[200. 300. 700.]
+'''
+print("\nOriginal array:")
+print(y)
+'''
+Original array:
+[[ 1.  2.  3.]
+ [nan  0. nan]
+ [ 6.  7. nan]]
+'''
+print("After removing nan values:")
+result = y[np.logical_not(np.isnan(y))]
+print(result)
+'''
+After removing nan values:
+[1. 2. 3. 0. 6. 7.]
+[[1 4]
+ [2 4]
+ [3 4]
+ [1 5]
+ [2 5]
+ [3 5]]
+'''
+
+#111. Write a NumPy program to create a Cartesian product of two arrays into single array of 2D points.
+#official solution
+x = np.array([1, 2, 3])
+y = np.array([4, 5])
+result = np.transpose([np.tile(x, len(y)), np.repeat(y, len(x))])
+print(result)
+'''
+[[1 4]
+ [2 4]
+ [3 4]
+ [1 5]
+ [2 5]
+ [3 5]]
+'''
+
+#112. Write a NumPy program to get the memory usage by NumPy arrays.
+anarray = np.arange(0, 11)
+print(anarray) #print [ 0 1 2 3 4 5 6 7 8 9 10]
+numberofelements = anarray.size
+print(numberofelements) #print 11
+memoryinbyteseachelementtakes = anarray.itemsize
+print(memoryinbyteseachelementtakes) #print 8
+totalitemsize = numberofelements * memoryinbyteseachelementtakes
+print(totalitemsize) #print 88
+print(anarray.nbytes) #print 88
+#official solution
+from sys import getsizeof
+print(getsizeof(anarray)) #print 184
+
+#113. Write a NumPy program to build an array of all combinations of three NumPy arrays.
+array1 = np.array([1, 2, 3])
+array2 = np.array([4, 5])
+array3 = np.array([6, 7])
+allcombinations = np.array(np.meshgrid(array1, array2, array3)).T.reshape(-1, 3)
+print(allcombinations)
+'''
+[[1 4 6]
+ [1 5 6]
+ [2 4 6]
+ [2 5 6]
+ [3 4 6]
+ [3 5 6]
+ [1 4 7]
+ [1 5 7]
+ [2 4 7]
+ [2 5 7]
+ [3 4 7]
+ [3 5 7]]
+'''
+
+#114. Write a NumPy program to create random set of rows from 2D array.  RM:  create a random 2D array.  Five rows, three columns.  Elements between 0 and 5 inclusive.
+random2darray = np.random.randint(0, 6, size=(5, 3))
+print(random2darray)
+'''
+[[1 2 0]
+ [0 4 5]
+ [0 1 4]
+ [4 2 5]
+ [1 5 1]]
+'''
+
+#115. Write a NumPy program to find indices of elements equal to zero in a NumPy array.
+samplearray = np.array([1, 0, 2, 0, 3, 0, 4, 5, 6, 7, 8])
+print(samplearray) #print [1 0 2 0 3 0 4 5 6 7 8]
+counter = 0
+length = samplearray.size
+print(length) #print 11
+for findzeroforloop in range(0, length):
+    if samplearray[findzeroforloop] == 0:
+        print(findzeroforloop) #print 1\n 3\n 5\n
+findzeros = np.where(samplearray == 0)
+print(findzeros) #print (array([1, 3, 5]),)
+print(findzeros[0]) #print [1,3,5]
