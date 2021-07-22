@@ -1726,3 +1726,65 @@ for findzeroforloop in range(0, length):
 findzeros = np.where(samplearray == 0)
 print(findzeros) #print (array([1, 3, 5]),)
 print(findzeros[0]) #print [1,3,5]
+
+#116. Write a NumPy program to compute the histogram of a set of data.  #RM:  question is a Matplotlib import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+countthenumbers = ([1, 2, 1, 4])
+bins = [0, 1, 2, 3, 4, 5]
+plt.hist(countthenumbers, bins)
+plt.title("Histogram x-axis or bins range inclusive to exclusive.  Two 1's.  One 2's.  One 4's.")
+plt.show()
+
+#117. Write a NumPy program to compute the line graph of a set of data.
+import matplotlib.pyplot as plt
+xvalues = np.arange(1, 51)
+yvalues = np.random.randint(0, 3, 50)
+print(xvalues)
+print(yvalues)
+plt.title("Line chart xvalues and its corresponding yvalues")
+plt.plot(xvalues, yvalues)
+plt.show()
+
+
+#118. Write a NumPy program to find the position of the index of a specified value greater than existing value in NumPy array.
+#RM:  I looked at the solution and pictorial presentation.  I don't understand.
+
+#119. Write a NumPy program to add a new row to an empty NumPy array.
+emptyarray = np.array([], dtype=np.int8)
+print(emptyarray) #print []
+addarray1 = np.arange(10, 31, 10)
+print(addarray1) #print [10 20 30]
+addarray2 = np.arange(40, 61, 10)
+print(addarray2) #print [40 50 60]
+emptyarray = np.append(emptyarray, addarray1)
+print(emptyarray) #print [10 20 30]
+emptyarray = np.append(emptyarray, addarray2)
+print(emptyarray) #print [10 20 30 40 50 60]
+emptyarray2d = emptyarray.reshape(2, 3)
+print(emptyarray2d)
+
+#bonus insert values in an existing numpy by index or by position
+a = np.array([[1, 1], [2, 2], [3, 3]])
+print(a)
+'''
+[[1 1]
+ [2 2]
+ [3 3]]
+'''
+insert55firstindexandflatten = np.insert(a, 1, 55)
+print(insert55firstindexandflatten) #print [ 1 55  1  2  2  3  3]
+insert55firstindexbycolumns = np.insert(a, 1, 55, axis=1)
+print(insert55firstindexbycolumns)
+'''
+[[ 1 55  1]
+ [ 2 55  2]
+ [ 3 55  3]]
+'''
+insert55firstindexbyrow = np.insert(a, 1, 55, axis=0)
+print(insert55firstindexbyrow)
+'''
+[[ 1  1]
+ [55 55]
+ [ 2  2]
+ [ 3  3]]
+'''
