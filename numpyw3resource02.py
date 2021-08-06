@@ -1788,3 +1788,85 @@ print(insert55firstindexbyrow)
  [ 2  2]
  [ 3  3]]
 '''
+
+#120. Write a NumPy program to get the index of a maximum element in a NumPy array along one axis.
+originalarray = np.array([[1, 2, 3], [500, 3, 1]])
+print(originalarray)
+'''
+[[  1   2   3]
+ [500   3   1]]
+'''
+print(originalarray.max()) #print 500
+print(originalarray.argmax()) #print 3
+print(np.unravel_index(originalarray.argmax(), originalarray.shape)) #print (1, 0)
+
+#121. Write a NumPy program to join a sequence of arrays along a new axis.
+firstarray = np.array([1, 2, 3])
+secondarray = np.array([4, 5, 6])
+combinearray = np.array([firstarray, secondarray]) #append array
+print(combinearray)
+'''
+[[1 2 3]
+ [4 5 6]]
+'''
+#also
+print(np.vstack((firstarray, secondarray)))
+'''
+[[1 2 3]
+ [4 5 6]]
+'''
+firstarray = np.array([[1], [2], [3]])
+secondarray = np.array([[4], [5], [6]])
+print(firstarray)
+'''
+[[[1]
+  [2]
+  [3]]
+'''
+print(secondarray)
+'''
+[[4]
+ [5]
+ [6]]
+'''
+print(np.array([firstarray, secondarray]))
+'''
+[[[1]
+  [2]
+  [3]]
+
+ [[4]
+  [5]
+  [6]]]
+'''
+print(np.vstack((firstarray, secondarray)))
+'''
+[[1]
+ [2]
+ [3]
+ [4]
+ [5]
+ [6]]
+'''
+
+#122. Write a NumPy program to find the index of the sliced elements as follows from a given 4x4 array.
+givenarray = np.arange(0, 16)
+print(givenarray) #print [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15]
+givenarrayreshaped = givenarray.reshape(4, 4)
+print(givenarrayreshaped)
+'''
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]
+ [12 13 14 15]]
+'''
+find5 = np.where(givenarrayreshaped == 5)
+print(find5) #print (array([1]), array([1]))
+print(find5[0]) #print [1]
+print(list(find5)) #print [array([1]), array([1])]
+print(len(list(find5))) #print 2
+print((list(find5)[0])) #print [1]
+print((list(find5)[1])) #print [1]
+#RM:  question is provide a list of indicies in the array to return a slice of numbers.
+print0and5and11 = givenarrayreshaped[[0, 1, 2], [0, 1, 3]]
+print(print0and5and11) #print [ 0  5 11]
