@@ -1870,3 +1870,224 @@ print((list(find5)[1])) #print [1]
 #RM:  question is provide a list of indicies in the array to return a slice of numbers.
 print0and5and11 = givenarrayreshaped[[0, 1, 2], [0, 1, 3]]
 print(print0and5and11) #print [ 0  5 11]
+
+import numpy as np
+
+#123. Write a NumPy program to create two arrays of size bigger and smaller than a given array.  RM:  I told myself there must be a resize function.  Actually, there is.
+initialsizearray = np.arange(0, 16).reshape(4, 4)
+print(initialsizearray)
+'''
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]
+ [12 13 14 15]]
+'''
+zeroonetwothree = np.resize(initialsizearray, (2, 2))
+print(zeroonetwothree)
+'''
+[[0 1]
+ [2 3]]
+'''
+sixbysixsixrowscolumsn = np.resize(initialsizearray, (6, 6))
+print(sixbysixsixrowscolumsn)
+'''
+[[ 0  1  2  3  4  5]
+ [ 6  7  8  9 10 11]
+ [12 13 14 15  0  1]
+ [ 2  3  4  5  6  7]
+ [ 8  9 10 11 12 13]
+ [14 15  0  1  2  3]]
+'''
+resizefourrowssixcolumns = np.resize(initialsizearray, (4, 6))
+print(resizefourrowssixcolumns)
+'''
+[[ 0  1  2  3  4  5]
+ [ 6  7  8  9 10 11]
+ [12 13 14 15  0  1]
+ [ 2  3  4  5  6  7]]
+'''
+
+#124. Write a NumPy program to broadcast on different shapes of arrays where p(3,3) + q(3).
+originalarray1 = np.array([[0, 0, 0], [1, 2, 3], [4, 5, 6]])
+print(originalarray1)
+'''
+[[0 0 0]
+ [1 2 3]
+ [4 5 6]]
+'''
+originalarray2 = np.array([10, 11, 12])
+print(originalarray2) #print [10 11 12]
+newarray = originalarray1 + originalarray2
+print(newarray)
+'''
+[[10 11 12]
+ [11 13 15]
+ [14 16 18]]
+'''
+
+#125. Write a NumPy program to broadcast on different shapes of arrays where a(,3) + b(3).
+originalarray1 = np.array([[0], [10], [20]])
+print(originalarray1)
+'''
+[[ 0]
+ [10]
+ [20]]
+'''
+originalarray2 = np.array([10, 11, 12])
+print(originalarray2) #print [10 11 12]
+newarray = originalarray1 + originalarray2
+print(newarray)
+'''
+[[10 11 12]
+ [20 21 22]
+ [30 31 32]]
+'''
+
+#126. Write a NumPy program to rearrange the dimensions of a given array.
+originalarray = np.arange(0, 24).reshape(6, 4)
+print(originalarray)
+'''
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]
+ [12 13 14 15]
+ [16 17 18 19]
+ [20 21 22 23]]
+'''
+transposemethod = originalarray.transpose()
+print(transposemethod)
+'''
+[[ 0  4  8 12 16 20]
+ [ 1  5  9 13 17 21]
+ [ 2  6 10 14 18 22]
+ [ 3  7 11 15 19 23]]
+'''
+
+#127. Write a NumPy program to stack arrays in sequence horizontally (column wise).  #RM:  concatenate, combine
+originalarray1 = np.arange(0, 9).reshape(3, 3)
+print(originalarray1)
+'''
+[[0 1 2]
+ [3 4 5]
+ [6 7 8]]
+'''
+originalarray2 = np.arange(0, 25, 3).reshape(3, 3)
+print(originalarray2)
+'''
+[[ 0  3  6]
+ [ 9 12 15]
+ [18 21 24]]
+'''
+concatenatehorizontally = np.concatenate((originalarray1, originalarray2), axis=1)
+print(concatenatehorizontally)
+'''
+[[ 0  1  2  0  3  6]
+ [ 3  4  5  9 12 15]
+ [ 6  7  8 18 21 24]]
+'''
+
+#128. Write a NumPy program to stack arrays in sequence vertically.  #RM:  concatenate, combine
+originalarray1 = np.arange(0, 9).reshape(3, 3)
+print(originalarray1)
+'''
+[[0 1 2]
+ [3 4 5]
+ [6 7 8]]
+'''
+originalarray2 = np.arange(0, 25, 3).reshape(3, 3)
+print(originalarray2)
+'''
+[[ 0  3  6]
+ [ 9 12 15]
+ [18 21 24]]
+'''
+concatenatehorizontally = np.concatenate((originalarray1, originalarray2), axis=0)
+print(concatenatehorizontally)
+'''
+[[ 0  1  2]
+ [ 3  4  5]
+ [ 6  7  8]
+ [ 0  3  6]
+ [ 9 12 15]
+ [18 21 24]]
+'''
+
+#129. Write a NumPy program to stack 1-D arrays as columns wise.
+arrayone = np.array([1, 2, 3])
+arraytwo = np.array([2, 3, 4])
+stackcolumnwise = np.concatenate((arrayone, arraytwo), axis=0)
+print(stackcolumnwise) #print [1 2 3 2 3 4]
+incorrectstackcolumnwise = stackcolumnwise.reshape(3, 2)
+print(incorrectstackcolumnwise)
+'''
+[[1 2]
+ [3 2]
+ [3 4]]
+'''
+correctstackcolumnwise = np.column_stack((arrayone, arraytwo))
+print(correctstackcolumnwise)
+'''
+[[1 2]
+ [2 3]
+ [3 4]]
+'''
+
+#130. Write a NumPy program to stack 1-D arrays as row wise.
+arrayone = np.array([1, 2, 3])
+arraytwo = np.array([2, 3, 4])
+stackcolumnwise = np.concatenate((arrayone, arraytwo), axis=0)
+print(stackcolumnwise) #print [1 2 3 2 3 4]
+print(stackcolumnwise.reshape(2, 3))
+'''
+[[1 2 3]
+ [2 3 4]]
+'''
+correctstackrowwise = np.row_stack((arrayone, arraytwo))
+print(correctstackrowwise)
+'''
+[[1 2 3]
+ [2 3 4]]
+'''
+
+#131. Write a NumPy program to split a given array into multiple sub-arrays vertically (row-wise).
+originalarray = np.arange(0, 16, dtype=np.float16)
+print(originalarray) #print [ 0.  1.  2.  3.  4.  5.  6.  7.  8.  9. 10. 11. 12. 13. 14. 15.]
+verticalsplit = np.split(originalarray, 4)
+print(verticalsplit) #print [array([0., 1., 2., 3.], dtype=float16), array([4., 5., 6., 7.], dtype=float16), array([ 8.,  9., 10., 11.], dtype=float16), array([12., 13., 14., 15.], dtype=float16)]
+#official solution
+fourbyfourarray = originalarray.reshape(4, 4)
+print(fourbyfourarray)
+'''
+[[ 0.  1.  2.  3.]
+ [ 4.  5.  6.  7.]
+ [ 8.  9. 10. 11.]
+ [12. 13. 14. 15.]]
+'''
+verticalsplit = np.vsplit(fourbyfourarray, 2)
+print(verticalsplit) #print [array([[0., 1., 2., 3.], [4., 5., 6., 7.]], dtype=float16), array([[ 8.,  9., 10., 11.], [12., 13., 14., 15.]], dtype=float16)]
+
+#132. Write a NumPy program to split array into multiple sub-arrays along the 3rd axis.
+originalarray = np.arange(0, 16, dtype=np.float16)
+print(originalarray) #print [ 0.  1.  2.  3.  4.  5.  6.  7.  8.  9. 10. 11. 12. 13. 14. 15.]
+fourbyfourarray = originalarray.reshape(2, 2, 4)
+print(fourbyfourarray)
+'''
+[[[ 0.  1.  2.  3.]
+  [ 4.  5.  6.  7.]]
+
+ [[ 8.  9. 10. 11.]
+  [12. 13. 14. 15.]]]
+'''
+multiplesubarrays = np.dsplit(fourbyfourarray, 2)
+print(multiplesubarrays)
+'''
+[array([[[ 0.,  1.],
+        [ 4.,  5.]],
+
+       [[ 8.,  9.],
+        [12., 13.]]], dtype=float16), array([[[ 2.,  3.],
+        [ 6.,  7.]],
+
+       [[10., 11.],
+        [14., 15.]]], dtype=float16)]
+'''
