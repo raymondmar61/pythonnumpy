@@ -2091,3 +2091,176 @@ print(multiplesubarrays)
        [[10., 11.],
         [14., 15.]]], dtype=float16)]
 '''
+
+#133. Write a NumPy program to count the number of dimensions, number of elements and number of bytes for each element in a given array.
+samplearray1 = np.arange(0, 12)
+samplearray2 = np.arange(12, 24)
+samplearray = np.concatenate((samplearray1, samplearray2))
+print(samplearray) #print [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23]
+samplearray = samplearray.reshape(2, 12)
+print(samplearray) #print [[ 0  1  2  3  4  5  6  7  8  9 10 11] [12 13 14 15 16 17 18 19 20 21 22 23]]
+fastersamplearray = np.arange(0, 24).reshape(2, 12)
+print(fastersamplearray) #print [[ 0  1  2  3  4  5  6  7  8  9 10 11] [12 13 14 15 16 17 18 19 20 21 22 23]]
+print(fastersamplearray.ndim) #print 2
+print(fastersamplearray.size) #print 24
+print(fastersamplearray.itemsize) #print 8
+
+#134. Write a NumPy program to extract all the elements of the first row from a given (4x4) array.
+givenarray = np.arange(0, 16).reshape(4, 4)
+print(givenarray)
+'''
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]
+ [12 13 14 15]]
+'''
+extractfirstrow = givenarray[0, :]
+print(extractfirstrow) #print [0 1 2 3]
+
+#135. Write a NumPy program to extract all the elements of the second row from a given (4x4) array.
+givenarray = np.arange(0, 16).reshape(4, 4)
+extractsecondrow = givenarray[1, :]
+print(extractsecondrow) #print [4 5 6 7]
+
+#136. Write a NumPy program to extract all the elements of the third column from a given (4x4) array.
+givenarray = np.arange(0, 16).reshape(4, 4)
+extractthirdcolumn = givenarray[:, 2]
+print(extractthirdcolumn) #print [ 2  6 10 14]
+
+#137. Write a NumPy program to extract first and second elements of the first and second rows from a given (4x4) array.
+givenarray = np.arange(0, 16).reshape(4, 4)
+extractfirstsecond = givenarray[0:2, 0:2]
+print(extractfirstsecond)
+'''
+[[0 1]
+ [4 5]]
+'''
+
+#138. Write a NumPy program to extract third and fourth elements of the first and second rows from a given (4x4) array.
+givenarray = np.arange(0, 16).reshape(4, 4)
+extractthirdfourth = givenarray[0:2, 2:4]
+print(extractthirdfourth)
+'''
+[[2 3]
+ [6 7]]
+'''
+
+#139. Write a NumPy program to extract first and third elements of the first and third rows from a given (4x4) array.
+givenarray = np.arange(0, 16).reshape(4, 4)
+extractfirstthird = givenarray[0::2, 0:3:2]
+print(extractfirstthird)
+'''
+[[ 0 2]
+[ 8 10]]
+'''
+
+#140. Write a NumPy program to extract second and fourth elements of the second and fourth rows from a given (4x4) array.
+givenarray = np.arange(0, 16).reshape(4, 4)
+extracsecondfourth = givenarray[1::2, 1::2]
+print(extracsecondfourth)
+'''
+[[ 5  7]
+ [13 15]]
+'''
+
+#141. Write a NumPy program to extract all the elements of the second and third columns from a given (4x4) array.
+givenarray = np.arange(0, 16).reshape(4, 4)
+extractsecondthirdcolumns = givenarray[:, 1:3]
+print(extractsecondthirdcolumns)
+'''
+[[ 1  2]
+ [ 5  6]
+ [ 9 10]
+ [13 14]]
+'''
+
+#142. Write a NumPy program to extract all the elements of the first and fourth columns from a given (4x4) array.
+givenarray = np.arange(0, 16).reshape(4, 4)
+extractfirstfourthcolumns = givenarray[:, 0::3]
+print(extractfirstfourthcolumns)
+'''
+[[ 0  3]
+ [ 4  7]
+ [ 8 11]
+ [12 15]]
+'''
+
+#143. Write a NumPy program to extract first element of the second row and fourth element of fourth row from a given (4x4) array.
+givenarray = np.arange(0, 16).reshape(4, 4)
+extract4and15 = givenarray[[1, 3], [0, 3]]
+print(extract4and15) #print [ 4 15]  RM:  4 is row 1 column 0.  15 is row 3 column 3.
+
+#144. Write a NumPy program to extract second and third elements of the second and third rows from a given (4x4) array.
+givenarray = np.arange(0, 16).reshape(4, 4)
+extractsecondthird = givenarray[1:3, 1:3]
+print(extractsecondthird)
+'''
+[[ 5  6]
+ [ 9 10]]
+'''
+
+#145. Write a NumPy program to extract first, third and fifth elements of the third and fifth rows from a given (6x6) array.
+givensixbysixarray = np.arange(0, 36).reshape(6, 6)
+print(givensixbysixarray)
+'''
+[[ 0  1  2  3  4  5]
+ [ 6  7  8  9 10 11]
+ [12 13 14 15 16 17]
+ [18 19 20 21 22 23]
+ [24 25 26 27 28 29]
+ [30 31 32 33 34 35]]
+'''
+extract135elements = givensixbysixarray[2:5:2, 0:5:2]
+print(extract135elements)
+'''
+[[12 14 16]
+ [24 26 28]]
+'''
+
+#146. Write a NumPy program to add two arrays A and B of sizes (3,3) and (,3).
+arrayones = np.ones((3, 3))
+print(arrayones)
+'''
+[[1. 1. 1.]
+ [1. 1. 1.]
+ [1. 1. 1.]]
+'''
+arraytwos = np.arange(0, 3)
+print(arraytwos)
+addtwoarrays = arrayones + arraytwos
+print(addtwoarrays)
+'''
+[[1. 2. 3.]
+ [1. 2. 3.]
+ [1. 2. 3.]]
+'''
+
+#147. Write a NumPy program to create an array that represents the rank of each item of a given array.
+#source https://stackoverflow.com/questions/5284646/rank-items-in-an-array-using-python-numpy-without-sorting-array-twice
+originalarray = np.array([24, 27, 30, 29, 18, 14])
+order = originalarray.argsort()
+print(order) #print [5 4 0 1 3 2]
+ranks = order.argsort()
+print(ranks) #print [2 3 5 4 1 0]
+#official solution
+argsortoriginalarray = originalarray.argsort()
+print(argsortoriginalarray) #print [5 4 0 1 3 2]
+ranksarray = np.empty_like(argsortoriginalarray)
+print(ranksarray) #print [     140640521526592             46648160      140640270794400 -7007658560076954526      140640270369328      140640270794536]  #RM:  ranksarray is random numbers printed
+ranksarray[argsortoriginalarray] = np.arange(len(originalarray))
+print(ranksarray) #print [2 3 5 4 1 0]
+
+#148. Write a NumPy program to copy data from a given array to another array.
+originalarray = np.array([24, 27, 30, 29, 18, 14])
+#official solution
+copydata = np.empty_like(originalarray)
+print(copydata) #print [24 27 30 29 18 14]
+copydata[:] = originalarray
+print(copydata) #print [24 27 30 29 18 14]
+
+#149. Write a NumPy program to find elements within range from a given array of numbers.  RM:  find the index positions for the numbers between 7 and 20 inclusive.
+givenarray = np.array([1, 3, 7, 9, 10, 31, 14, 17, 29])
+print(givenarray) #print [ 1  3  7  9 10 31 14 17 29]
+indexnumbers7and20 = np.where(np.logical_and(givenarray >= 7, givenarray <= 20))
+print(indexnumbers7and20) #print (array([2, 3, 4, 6, 7]),)
+print(indexnumbers7and20[0]) #print [2 3 4 6 7]
