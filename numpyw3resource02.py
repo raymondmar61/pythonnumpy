@@ -2264,3 +2264,158 @@ print(givenarray) #print [ 1  3  7  9 10 31 14 17 29]
 indexnumbers7and20 = np.where(np.logical_and(givenarray >= 7, givenarray <= 20))
 print(indexnumbers7and20) #print (array([2, 3, 4, 6, 7]),)
 print(indexnumbers7and20[0]) #print [2 3 4 6 7]
+
+#150. Write a NumPy program to swap columns in a given array.
+originalarray = np.arange(0, 12).reshape(3, 4)
+print(originalarray)
+'''
+[[ 0  1  2  3]
+ [ 4  5  6  7]
+ [ 8  9 10 11]]
+'''
+#first column and second column switch columns
+originalarray[:, [1, 0]] = originalarray[:, [0, 1]]
+print(originalarray)
+'''
+[[ 1  0  2  3]
+ [ 5  4  6  7]
+ [ 9  8 10 11]]
+'''
+#bonus swap a row.  first row and third row switch rows
+originalarray = np.arange(0, 12).reshape(3, 4)
+originalarray[[2, 0], :] = originalarray[[0, 2], :]
+print(originalarray)
+'''
+[[ 8  9 10 11]
+ [ 4  5  6  7]
+ [ 0  1  2  3]]
+'''
+
+#151. Write a NumPy program to get the row numbers in given array where at least one item is larger than a specified value.
+rowgreaterthan10 = np.arange(0, 36).reshape(4, 9)
+print(rowgreaterthan10)
+'''
+[[ 0  1  2  3  4  5  6  7  8]
+ [ 9 10 11 12 13 14 15 16 17]
+ [18 19 20 21 22 23 24 25 26]
+ [27 28 29 30 31 32 33 34 35]]
+'''
+whererowcolumngreaterthan10 = np.where(rowgreaterthan10 > 10)
+print(whererowcolumngreaterthan10)
+'''
+(array([1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3,
+       3, 3, 3]), array([2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 1, 2, 3, 4, 5,
+       6, 7, 8]))
+'''
+whererowsreaterthan10 = np.where(rowgreaterthan10 > 10)[0]
+print(whererowsreaterthan10) #print [1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3]
+print(set(whererowsreaterthan10)) #print {1, 2, 3}
+#official solution
+resultrows = np.where(np.any(rowgreaterthan10 > 10, axis=1))
+print(resultrows) #print (array([1, 2, 3]),)
+resultcolumns = np.where(np.any(rowgreaterthan10 > 10, axis=0))
+print(resultcolumns) #print (array([0, 1, 2, 3, 4, 5, 6, 7, 8]),)  RM:  columns?  I didn't confirm.
+resultnoaxis = np.where(np.any(rowgreaterthan10 > 10))
+print(resultnoaxis) #print (array([0]),)
+
+#152. Write a NumPy program to calculate the sum of all columns of a 2D NumPy array.
+sumcolumns = np.arange(0, 36).reshape(4, 9)
+print(sumcolumns)
+'''
+[[ 0  1  2  3  4  5  6  7  8]
+ [ 9 10 11 12 13 14 15 16 17]
+ [18 19 20 21 22 23 24 25 26]
+ [27 28 29 30 31 32 33 34 35]]
+'''
+sumbycolumn = sumcolumns.sum(axis=0)
+print(sumbycolumn) #print [54 58 62 66 70 74 78 82 86]
+
+#153. Write a NumPy program to extract upper triangular part of a NumPy matrix.
+triangle = np.arange(0, 18).reshape(6, 3)
+print(triangle)
+'''
+[[ 0  1  2]
+ [ 3  4  5]
+ [ 6  7  8]
+ [ 9 10 11]
+ [12 13 14]
+ [15 16 17]]
+'''
+#official solution
+righttrianglezeroapexthreerows = triangle[np.triu_indices(3)]
+print(righttrianglezeroapexthreerows) #print [0 1 2 4 5 8]
+righttrianglezeroapextworows = triangle[np.triu_indices(2)]
+print(righttrianglezeroapextworows) #print [0 1 4]
+#bonus
+righttriangleeightapexthreerows = triangle[np.tril_indices(3)]
+print(righttriangleeightapexthreerows) #print [0 3 4 6 7 8]
+righttriangleeightapextworows = triangle[np.tril_indices(2)]
+print(righttriangleeightapextworows) #print print [0 3 4]
+triangle[np.triu_indices(3)] = 111
+print(triangle)
+'''
+[[111 111 111]
+ [  3 111 111]
+ [  6   7 111]
+ [  9  10  11]
+ [ 12  13  14]
+ [ 15  16  17]]
+'''
+triangle[np.tril_indices(3)] = 888
+print(triangle)
+'''
+[[888 111 111]
+ [888 888 111]
+ [888 888 888]
+ [  9  10  11]
+ [ 12  13  14]
+ [ 15  16  17]]
+'''
+
+#154. Write a NumPy program to get a copy of a matrix with the elements below the k-th diagonal zeroed.
+originalarray = np.arange(1, 13).reshape(4, 3)
+print(originalarray)
+'''
+[[ 1  2  3]
+ [ 4  5  6]
+ [ 7  8  9]
+ [10 11 12]]
+'''
+zerodiagonaluppertriangle = np.triu(originalarray, 0)
+print(zerodiagonaluppertriangle)
+'''
+[[1 2 3]
+ [0 5 6]
+ [0 0 9]
+ [0 0 0]]
+'''
+#bonus
+originalarray = np.arange(1, 13).reshape(4, 3)
+zerodiagonallowertriangle = np.tril(originalarray, -1)
+print(zerodiagonallowertriangle)
+'''
+[[ 0  0  0]
+ [ 4  0  0]
+ [ 7  8  0]
+ [10 11 12]]
+'''
+
+#155. Write a NumPy program to check whether a Numpy array contains a specified row.
+generalrow = np.arange(0, 20).reshape(4, 5)
+print(generalrow)
+'''
+[[ 0  1  2  3  4]
+ [ 5  6  7  8  9]
+ [10 11 12 13 14]
+ [15 16 17 18 19]]
+'''
+generalrowzerotofour = [0, 1, 2, 3, 4]
+generalrowzerofive = [0, 1, 2, 3, 5]
+generalrow15to19 = [15, 16, 17, 18, 19]
+print(generalrowzerotofour in generalrow.tolist()) #print True
+print(generalrowzerofive in generalrow.tolist()) #print True
+print(generalrow15to19 in generalrow.tolist()) #print True
+#bonus
+print(generalrowzerotofour in generalrow) #print True
+print(generalrowzerofive in generalrow) #print True
+print(generalrow15to19 in generalrow) #print True
