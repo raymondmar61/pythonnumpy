@@ -2419,3 +2419,137 @@ print(generalrow15to19 in generalrow.tolist()) #print True
 print(generalrowzerotofour in generalrow) #print True
 print(generalrowzerofive in generalrow) #print True
 print(generalrow15to19 in generalrow) #print True
+
+#156. Write a NumPy program to calculate averages without NaNs along a given array.
+originalarray = np.array([[10, 20, 30], [40, 50, np.nan], [np.nan, 6, np.nan], [np.nan, np.nan, np.nan]])
+print(originalarray)
+'''
+[[10. 20. 30.]
+ [40. 50. nan]
+ [nan  6. nan]
+ [nan nan nan]]
+'''
+print(originalarray.mean) #print <built-in method mean of numpy.ndarray object at 0x7f6c80601e40>
+averageoriginalarray = originalarray.mean()
+print(averageoriginalarray) #print nan
+averageoriginalarrayrow = originalarray.mean(axis=1)
+print(averageoriginalarrayrow) #print [20. nan nan nan]
+averageoriginalarrayrowignorenan = np.nanmean(originalarray, axis=1) #ignore null
+print(averageoriginalarrayrowignorenan) #print [20. 45.  6. nan]
+
+#157. Write a NumPy program to create a new array which is the average of every consecutive triplet of elements of a given array.  RM:  Every three numbers are averaged.  There are 12 numbers.  Return four averages.  Average of every consecutive triplet of elements.
+originalarray = np.array([1, 2, 3, 2, 4, 6, 1, 2, 12, 0, -12, 6])
+sumeverythree = np.add.reduceat(originalarray, np.arange(0, len(originalarray), 3))
+print(sumeverythree) #print [ 6 12 15 -6]
+reshapethreecolumnsevenly = originalarray.reshape(-1, 3) #RM:  -1 means parameter determined based on actual condition automatically
+print(reshapethreecolumnsevenly)
+'''
+[[  1   2   3]
+ [  2   4   6]
+ [  1   2  12]
+ [  0 -12   6]]
+'''
+averagethreenumberseachrow = reshapethreecolumnsevenly.mean(axis=1)
+print(averagethreenumberseachrow) #print [ 2.  4.  5. -2.]  #RM:  it appears there's no numpy function
+#bonus
+reshapetworowsevenly = originalarray.reshape(2, -1) #RM:  -1 means parameter determined based on actual condition automatically
+print(reshapetworowsevenly)
+'''
+[[  1   2   3   2   4   6]
+ [  1   2  12   0 -12   6]]
+'''
+
+#158. Write a NumPy program to calculate average values of two given NumPy arrays.  RM:  Question is not average both arrays individually.  Add the two arrays and then average by dividing by two.
+firstarray = np.array([[0, 1], [2, 3]])
+secondarray = np.array([[4, 5], [0, 3]])
+print(firstarray)
+'''
+[[0 1]
+ [2 3]]
+'''
+print(secondarray)
+'''
+[[4 5]
+ [0 3]]
+'''
+combinearrays = (firstarray + secondarray)
+print(combinearrays)
+'''
+[[4 6]
+ [2 6]]
+'''
+averagevauuecombinearrays = combinearrays / 2
+print(averagevauuecombinearrays)
+'''
+[[2. 3.]
+ [1. 3.]]
+'''
+
+#159. Write a NumPy program to rearrange columns of a given NumPy 2D array using given index positions.
+arrange = np.array([[11, 22, 33, 44, 55], [66, 77, 88, 99, 100]])
+print(arrange)
+'''
+[[ 11  22  33  44  55]
+ [ 66  77  88  99 100]]
+'''
+#rearrange = arrange[[0:2, [1, 3, 0, 4, 2]]  #error
+#rearrange = arrange[:, [1, 3, 0, 4, 2]]  #also correct
+rearrange = arrange[0:2, [1, 3, 0, 4, 2]]
+print(rearrange)
+'''
+[[ 22  44  11  55  33]
+ [ 77  99  66 100  88]]
+'''
+
+#160. Write a NumPy program to find the k smallest values of a given NumPy array.
+originalarray = np.array([1, 7, 8, 2, 0.1, 3, 15, 2.5])
+print(originalarray) #print [ 1.   7.   8.   2.   0.1  3.  15.   2.5]
+numberofsmallestvaluesk = 4
+#smallestvalues = originalarray.min(n=numberofsmallestvaluesk) #RM:  there's no function
+originalarray.sort()
+smallestvalues = originalarray[0:numberofsmallestvaluesk]
+print(smallestvalues) #print [0.1 1.  2.  2.5]
+
+#161. Write a NumPy program to create a white image of size 512x256.
+#official solution
+from PIL import Image
+a = np.full((512, 256, 3), 255, dtype=np.uint8)
+image = Image.fromarray(a, "RGB")
+image.save("white.png", "PNG")
+
+#162. Create an array (a) of shape 3, 4, 8 (K=3, J=4, I=8). tidx is an array of the same length as a.shape[1], i.e. contains J = 4 elements where each index denotes which element of K should be chosen.  Write a NumPy program to select from the first axis (K) by the indices tidx to get an array of shape (J=4, I=8) back.  #RM:  Create a random array between 0 and 10 inclusive three dimensions or three arrays each array four rows and eight columns.  Source:  https://opensourceoptions.com/blog/numpy-array-shapes-and-reshaping-arrays/.  Then extract dimension array selected, rows selected, and all the columns.
+arraya = np.random.randint(0, 10, (3, 4, 8))
+print(arraya)
+'''
+[[[6 2 2 0 6 7 6 7]
+  [1 0 0 2 9 2 9 5]
+  [2 3 8 1 1 0 3 4]
+  [0 7 1 1 1 8 0 9]]
+
+ [[9 0 4 4 8 9 5 5]
+  [3 6 1 2 1 2 5 0]
+  [9 1 2 9 6 1 1 1]
+  [6 4 1 5 3 2 4 1]]
+
+ [[4 1 4 7 4 2 5 0]
+  [6 1 5 3 5 3 9 1]
+  [7 4 9 6 7 7 2 7]
+  [1 3 7 8 8 7 9 9]]]
+'''
+print(arraya.shape) #print (3, 4, 8)  RM:  three layers, four rows, eighth columns
+tidx = arraya[[0, 1, 2, 1], [0, 1, 2, 3], 0:]
+print(tidx) #first dimension, first row; second diemsion, second row, third dimension, third row, second dimension, fourth row.  All columns.
+'''
+[[6 2 2 0 6 7 6 7]
+ [3 6 1 2 1 2 5 0]
+ [7 4 9 6 7 7 2 7]
+ [6 4 1 5 3 2 4 1]]
+'''
+
+#163. Create two arrays of six elements. Write a NumPy program to count the number of instances of a value occurring in one array on the condition of another array.  #RM:  stupid question I don't understand.
+firstarraysixelements = np.array([10, -10, 10, -10, -10, 10])
+secondarraysixelements = np.array([0.85, 0.45, 0.9, 0.8, 0.12, 0.6])
+print(firstarraysixelements) #print [ 10 -10  10 -10 -10  10]
+print(secondarraysixelements) #print [0.85 0.45 0.9  0.8  0.12 0.6 ]
+resultfromofficialsolution = np.sum((firstarraysixelements == 10) & (secondarraysixelements > .5))
+print(resultfromofficialsolution) #print 3
