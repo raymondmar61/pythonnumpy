@@ -2553,3 +2553,203 @@ print(firstarraysixelements) #print [ 10 -10  10 -10 -10  10]
 print(secondarraysixelements) #print [0.85 0.45 0.9  0.8  0.12 0.6 ]
 resultfromofficialsolution = np.sum((firstarraysixelements == 10) & (secondarraysixelements > .5))
 print(resultfromofficialsolution) #print 3
+
+#164. Write a NumPy program to save as text a matrix which has in each row 2 float and 1 string at the end.  Sample Output:
+'''
+Sample Output:
+string
+1 0 aaa
+0 1 bbb
+0 1 ccc
+'''
+textmatrixincorrect = np.array([[1, 0, "aaa"], [0, 1, "bbb"], [0, 1, "ccc"]])
+print(textmatrixincorrect)
+'''
+[['1' '0' 'aaa']
+ ['0' '1' 'bbb']
+ ['0' '1' 'ccc']]
+'''
+print(textmatrixincorrect.dtype) #print <U21
+textmatrixdtypeobject = np.array([[1, 0, "aaa"], [0, 1, "bbb"], [0, 1, "ccc"]], dtype=object)
+print(textmatrixdtypeobject)
+'''
+[[1 0 'aaa']
+ [0 1 'bbb']
+ [0 1 'ccc']]
+'''
+print(textmatrixdtypeobject.dtype) #print object  RM:  Lose practically all of the benefits of using numpy in the first place.  https://www.reddit.com/r/learnpython/comments/2tnldq/how_to_mix_strings_and_floats_in_a_numpy_array/
+#official solution
+officialsolutionmatrix = [[1, 0, 'aaa'], [0, 1, 'bbb'], [0, 1, 'ccc']]
+np.savetxt('test', officialsolutionmatrix, delimiter='  ', header='string', comments='', fmt='%s')
+print(np.savetxt('test', officialsolutionmatrix, delimiter='  ', header='string', comments='', fmt='%s')) #print None
+
+#165. Write a NumPy program to merge three given NumPy arrays of same shape.  Concatenate.
+onearray = np.array([[1, 2], [3, 4]])
+twoarray = np.array([[11, 22], [33, 44]])
+threearray = np.array([[100, 200], [300, 400]])
+print(onearray)
+'''
+[[1 2]
+ [3 4]]
+'''
+print(twoarray)
+'''
+[[11 22]
+ [33 44]]
+'''
+print(threearray)
+'''
+[[100 200]
+ [300 400]]
+'''
+combinearray = np.array([onearray, twoarray, threearray])
+print(combinearray)
+'''
+[[[  1   2]
+  [  3   4]]
+
+ [[ 11  22]
+  [ 33  44]]
+
+ [[100 200]
+  [300 400]]]
+'''
+concatenatearray = np.concatenate((onearray, twoarray, threearray))
+print(concatenatearray)
+'''
+[[  1   2]
+ [  3   4]
+ [ 11  22]
+ [ 33  44]
+ [100 200]
+ [300 400]]
+'''
+concatenatearrayone = np.concatenate((onearray, twoarray, threearray), axis=1)
+print(concatenatearrayone)
+'''
+[[  1   2  11  22 100 200]
+ [  3   4  33  44 300 400]]
+'''
+concatenatearraynegativeone = np.concatenate((onearray, twoarray, threearray), axis=-1)
+print(concatenatearraynegativeone)
+'''
+[[  1   2  11  22 100 200]
+ [  3   4  33  44 300 400]]
+'''
+concatenatearrayzero = np.concatenate((onearray, twoarray, threearray), axis=0)
+print(concatenatearrayzero)
+'''
+[[  1   2]
+ [  3   4]
+ [ 11  22]
+ [ 33  44]
+ [100 200]
+ [300 400]]
+'''
+
+#166. Write a NumPy program to combine last element with first element of two given ndarray with different shapes.
+'''
+Original arrays:
+['PHP', 'JS', 'C++']
+['Python', 'C#', 'NumPy']
+After Combining:
+['PHP' 'JS' 'C++Python' 'C#' 'NumPy']
+'''
+ndonearray = np.array(['PHP', 'JS', 'C++'])
+ndtwoarray = np.array(['Python', 'C#', 'NumPy'])
+print(ndonearray) #print ['PHP' 'JS' 'C++']
+print(ndtwoarray) #print ['Python' 'C#' 'NumPy']
+print(ndonearray[2] + ndtwoarray[0]) #print C++Python
+print(ndonearray[:-1]) #print ['PHP' 'JS']
+print(ndtwoarray[1:]) #print ['C#' 'NumPy']
+combinearraybruteforce = np.concatenate(([ndonearray[:-1]], [[ndonearray[-1] + ndtwoarray[0]]], [ndtwoarray[1:]]), axis=1)  #RM:  Use -1 instead of 2 for the last element in case ndtwoarry has more than two elements.
+print(combinearraybruteforce) #print [['PHP' 'JS' 'C++Python' 'C#' 'NumPy']]
+print(type(combinearraybruteforce)) #print <class 'numpy.ndarray'>
+print(combinearraybruteforce.shape) #print (1,5)
+#official solution
+result = np.r_[ndonearray[:-1], [ndonearray[-1] + ndtwoarray[0]], ndtwoarray[1:]]
+
+#167. Write a NumPy program to convert a Python dictionary to a NumPy ndarray.
+originaldictionary = {'column0': {'a': 1, 'b': 0.0, 'c': 0.0, 'd': 2.0}, 'column1': {'a': 3.0, 'b': 1, 'c': 0.0, 'd': -1.0}, 'column2': {'a': 4, 'b': 1, 'c': 5.0, 'd': -1.0}, 'column3': {'a': 3.0, 'b': -1.0, 'c': -1.0, 'd': -1.0}}
+print(originaldictionary) #print {'column0': {'a': 1, 'b': 0.0, 'c': 0.0, 'd': 2.0}, 'column1': {'a': 3.0, 'b': 1, 'c': 0.0, 'd': -1.0}, 'column2': {'a': 4, 'b': 1, 'c': 5.0, 'd': -1.0}, 'column3': {'a': 3.0, 'b': -1.0, 'c': -1.0, 'd': -1.0}}
+print(type(originaldictionary)) #print <class 'dict'>
+convertdictionarytolist = list(originaldictionary.items())
+converttoarray = np.array(convertdictionarytolist)
+print(converttoarray)
+'''
+[['column0' {'a': 1, 'b': 0.0, 'c': 0.0, 'd': 2.0}]
+ ['column1' {'a': 3.0, 'b': 1, 'c': 0.0, 'd': -1.0}]
+ ['column2' {'a': 4, 'b': 1, 'c': 5.0, 'd': -1.0}]
+ ['column3' {'a': 3.0, 'b': -1.0, 'c': -1.0, 'd': -1.0}]]
+'''
+print(type(converttoarray)) #print <class 'numpy.ndarray'>
+for key, value in originaldictionary.items():
+    print(value)
+    print(type(value))
+    '''
+    {'a': 1, 'b': 0.0, 'c': 0.0, 'd': 2.0}
+    <class 'dict'>
+    {'a': 3.0, 'b': 1, 'c': 0.0, 'd': -1.0}
+    <class 'dict'>
+    {'a': 4, 'b': 1, 'c': 5.0, 'd': -1.0}
+    <class 'dict'>
+    {'a': 3.0, 'b': -1.0, 'c': -1.0, 'd': -1.0}
+    <class 'dict'>
+    '''
+lovelist = []
+for key, value in originaldictionary.items():
+    for key2, value2 in value.items():
+        print(key2, value2)
+        lovelist.append(value2)
+        '''
+        a 1
+        b 0.0
+        c 0.0
+        d 2.0
+        a 3.0
+        b 1
+        c 0.0
+        d -1.0
+        a 4
+        b 1
+        c 5.0
+        d -1.0
+        a 3.0
+        b -1.0
+        c -1.0
+        d -1.0
+        '''
+print(lovelist) #print [1, 0.0, 0.0, 2.0, 3.0, 1, 0.0, -1.0, 4, 1, 5.0, -1.0, 3.0, -1.0, -1.0, -1.0]
+lovenumpy = np.array(lovelist)
+print(lovenumpy) #print [ 1.  0.  0.  2.  3.  1.  0. -1.  4.  1.  5. -1.  3. -1. -1. -1.]
+lovenumpypropershape = lovenumpy.reshape(4, 4)
+print(lovenumpypropershape)
+'''
+[[ 1.  0.  0.  2.]
+ [ 3.  1.  0. -1.]
+ [ 4.  1.  5. -1.]
+ [ 3. -1. -1. -1.]]
+'''
+#official solution
+from ast import literal_eval
+udict = """{"column0":{"a":1,"b":0.0,"c":0.0,"d":2.0},
+   "column1":{"a":3.0,"b":1,"c":0.0,"d":-1.0},
+   "column2":{"a":4,"b":1,"c":5.0,"d":-1.0},
+   "column3":{"a":3.0,"b":-1.0,"c":-1.0,"d":-1.0}
+  }"""
+t = literal_eval(udict)
+print(t)
+'''
+{'column0': {'a': 1, 'b': 0.0, 'c': 0.0, 'd': 2.0},
+'column1': {'a': 3.0, 'b': 1, 'c': 0.0, 'd': -1.0},
+'column2': {'a': 4, 'b': 1, 'c': 5.0, 'd': -1.0},
+'column3': {'a': 3.0, 'b': -1.0, 'c': -1.0, 'd': -1.0}}
+'''
+result_nparra = np.array([[v[j] for j in ['a', 'b', 'c', 'd']] for k, v in t.items()])
+print(result_nparra)
+'''
+[[ 1.  0.  0.  2.]
+ [ 3.  1.  0. -1.]
+ [ 4.  1.  5. -1.]
+ [ 3. -1. -1. -1.]]
+'''
