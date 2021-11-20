@@ -2753,3 +2753,112 @@ print(result_nparra)
  [ 4.  1.  5. -1.]
  [ 3. -1. -1. -1.]]
 '''
+
+#168. Write a NumPy program to convert Pandas dataframe to NumPy array with headers.
+randomarrayzeroandone = np.random.random([10, 3])
+print(randomarrayzeroandone)
+'''
+[[0.57040229 0.33884097 0.36503109]
+ [0.55733304 0.10148827 0.4447412 ]
+ [0.27649829 0.21411954 0.07312804]
+ [0.14551202 0.79299874 0.76791595]
+ [0.70152258 0.61970134 0.85688042]
+ [0.80843699 0.42029969 0.80267961]
+ [0.55452229 0.68742074 0.81325516]
+ [0.46940317 0.83664713 0.55429078]
+ [0.73475988 0.33697874 0.2761464 ]
+ [0.25335262 0.68685251 0.50920046]]
+'''
+#https://stackoverflow.com/questions/53816008/how-to-convert-numpy-array-to-panda-dataframe
+import pandas as pd
+numpytopandacolumnslabels = ["column" + str(number) for number in range(3)]
+numpytopandaindexslabels = ["index" + str(number) for number in range(10)]
+numpytopandadataframe = pd.DataFrame(randomarrayzeroandone, columns=numpytopandacolumnslabels, index=numpytopandaindexslabels)
+print(numpytopandadataframe)
+'''
+         column0   column1   column2
+index0  0.570402  0.338841  0.365031
+index1  0.557333  0.101488  0.444741
+index2  0.276498  0.214120  0.073128
+index3  0.145512  0.792999  0.767916
+index4  0.701523  0.619701  0.856880
+index5  0.808437  0.420300  0.802680
+index6  0.554522  0.687421  0.813255
+index7  0.469403  0.836647  0.554291
+index8  0.734760  0.336979  0.276146
+index9  0.253353  0.686853  0.509200
+'''
+
+#169. Write a NumPy program to get all 2D diagonals of a 3D NumPy array.
+originalarray = np.arange(0, 60)
+print(originalarray)
+'''
+[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+ 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47
+ 48 49 50 51 52 53 54 55 56 57 58 59]
+'''
+threedimensionsfourrowsfivecolumns = originalarray.reshape(3, 4, 5)  #3 dimensions, each dimension 4 rows 5 columns
+print(threedimensionsfourrowsfivecolumns)
+'''
+[[[ 0  1  2  3  4]
+  [ 5  6  7  8  9]
+  [10 11 12 13 14]
+  [15 16 17 18 19]]
+
+ [[20 21 22 23 24]
+  [25 26 27 28 29]
+  [30 31 32 33 34]
+  [35 36 37 38 39]]
+
+ [[40 41 42 43 44]
+  [45 46 47 48 49]
+  [50 51 52 53 54]
+  [55 56 57 58 59]]]
+'''
+print(threedimensionsfourrowsfivecolumns[0])
+'''
+[[ 0  1  2  3  4]
+ [ 5  6  7  8  9]
+ [10 11 12 13 14]
+ [15 16 17 18 19]]
+'''
+twodimensiondiagonals = np.array([], dtype=np.uint8)
+for dimension in range(0, 3):
+    temparray = np.array([], dtype=np.uint8)
+    for n in range(0, 4):
+        temparray = np.append(temparray, threedimensionsfourrowsfivecolumns[dimension][n][n])
+    twodimensiondiagonals = np.append(twodimensiondiagonals, temparray)
+print(twodimensiondiagonals) #print [ 0  6 12 18 20 26 32 38 40 46 52 58]
+print(twodimensiondiagonals.reshape(3, 4))
+'''
+[[ 0  6 12 18]
+ [20 26 32 38]
+ [40 46 52 58]]
+'''
+print(twodimensiondiagonals.reshape(1, 3, 4))
+'''
+[[[ 0  6 12 18]
+  [20 26 32 38]
+  [40 46 52 58]]]
+'''
+#official solution
+npdiagonalarray = np.diagonal(threedimensionsfourrowsfivecolumns, axis1=1, axis2=2)
+print(npdiagonalarray)
+'''
+[[ 0  6 12 18]
+ [20 26 32 38]
+ [40 46 52 58]]
+'''
+
+#170. Create a 2-dimensional array of size 2 x 3, composed of 4-byte integer elements. Write a NumPy program to find the number of occurrences of a sequence in the said array.  #RM:  count the number of times a sequence appears
+originalarray = np.array([[1, 2, 3], [2, 1, 2]])
+print(originalarray)
+'''
+[[1 2 3]
+ [2 1 2]]
+'''
+#https://www.geeksforgeeks.org/find-the-number-of-occurrences-of-a-sequence-in-a-numpy-array/
+find23sequence = repr(originalarray).count("2, 3")
+print(find23sequence) #print 1
+find23sequence = repr(originalarray).count("1, 2")
+print(find23sequence) #print 2
