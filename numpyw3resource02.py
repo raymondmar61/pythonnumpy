@@ -2862,3 +2862,149 @@ find23sequence = repr(originalarray).count("2, 3")
 print(find23sequence) #print 1
 find23sequence = repr(originalarray).count("1, 2")
 print(find23sequence) #print 2
+
+#171. Write a NumPy program to search the index of a given array in another given array.
+originalonetotwelve = np.arange(1, 13).reshape(4, 3)
+print(originalonetotwelve)
+'''
+[[ 1  2  3]
+ [ 4  5  6]
+ [ 7  8  9]
+ [10 11 12]]
+'''
+search456array = np.where(originalonetotwelve == [[4, 5, 6]])
+print(search456array) #print (array([1, 1, 1]), array([0, 1, 2]))
+print(search456array[0]) #print [1 1 1]
+#official solution
+originalonetotwelve = np.arange(1, 13).reshape(4, 3)
+search456array = np.array([4, 5, 6])
+indexsearch456arrayall = np.where((originalonetotwelve == search456array))
+print(indexsearch456arrayall) #print (array([1, 1, 1]), array([0, 1, 2]))
+indexsearch456arrayall = np.where((originalonetotwelve == search456array).all)
+print(indexsearch456arrayall) #print (array([0]),)
+indexsearch456arrayall = np.where((originalonetotwelve == search456array).all(1))
+print(indexsearch456arrayall) #print (array([1]),)
+indexsearch456array = np.where((originalonetotwelve == search456array).all(1))[0]
+print(indexsearch456array) #print [1]
+
+#172. Write a NumPy program to find and store non-zero unique rows in an array after comparing each row with other row in a given matrix.  #RM:  given a matrix.  Return the rows where there is a non-zero.  There are no unique rows in the sample array.
+originalarray = np.array([[1, 1, 0], [0, 0, 0], [0, 2, 3], [0, 0, 0], [0, -1, 1], [0, 0, 0]])
+print(originalarray)
+'''
+[[ 1  1  0]
+ [ 0  0  0]
+ [ 0  2  3]
+ [ 0  0  0]
+ [ 0 -1  1]
+ [ 0  0  0]]
+'''
+for eachoriginalarray in originalarray:
+    print(eachoriginalarray)
+    print(np.where(eachoriginalarray == [[0, 0, 0]]))
+    print(type(np.where(eachoriginalarray == [[0, 0, 0]])))
+    print(np.where(eachoriginalarray == [[0, 0, 0]])[0])
+    print(np.where((eachoriginalarray == [[0, 0, 0]]).all()))
+    print(np.where((eachoriginalarray == [[0, 0, 0]]).all(1)))
+    print(np.where((eachoriginalarray == [[0, 0, 0]]).all(1))[0])
+    print(np.where((eachoriginalarray == [[0, 0, 0]]).all(1))[0] == [0])
+    print(type(np.where((eachoriginalarray == [[0, 0, 0]]).all(1))[0] == [0]))
+    if np.where((eachoriginalarray == [[0, 0, 0]]).all(1))[0] == np.array([0]):
+        print("love")
+    print("\n")
+    '''
+    [1 1 0]
+    (array([0]), array([2]))
+    <class 'tuple'>
+    [0]
+    (array([], dtype=int64),)
+    (array([], dtype=int64),)
+    []
+    []
+    <class 'numpy.ndarray'>
+
+
+    [0 0 0]
+    (array([0, 0, 0]), array([0, 1, 2]))
+    <class 'tuple'>
+    [0 0 0]
+    (array([0]),)
+    (array([0]),)
+    [0]
+    [ True]
+    <class 'numpy.ndarray'>
+    love
+    '''
+for eachoriginalarray in originalarray:
+    print(eachoriginalarray)
+    print(np.where((eachoriginalarray == [0, 0, 0]).all()))
+    print(np.where((eachoriginalarray == [0, 0, 0]).all(0)))
+    print(np.where((eachoriginalarray == [0, 0, 0]).all(0))[0])
+    print(np.where((eachoriginalarray == [0, 0, 0]).all(0))[0] == np.array([0]))
+    if np.where((eachoriginalarray == [0, 0, 0]).all(0))[0] == np.array([0]):
+        print("love2")
+    print("\n")
+    '''
+    [1 1 0]
+    (array([], dtype=int64),)
+    (array([], dtype=int64),)
+    []
+    []
+
+
+    [0 0 0]
+    (array([0]),)
+    (array([0]),)
+    [0]
+    [ True]
+    love2
+    '''
+nonzeronumpyarray = np.array([], dtype=np.int8)
+for eachoriginalarray in originalarray:
+    print(eachoriginalarray)
+    print(np.where((eachoriginalarray == [0, 0, 0]).all())[0] == np.array([0]))
+    if not np.where((eachoriginalarray == [0, 0, 0]).all())[0] == np.array([0]):
+        print("true love")
+        nonzeronumpyarray = np.append(nonzeronumpyarray, eachoriginalarray)
+    '''
+    [1 1 0]
+    []
+    true love
+    [0 0 0]
+    [ True]
+    '''
+print(nonzeronumpyarray) #print [ 1  1  0  0  2  3  0 -1  1]
+print(nonzeronumpyarray.reshape(3, 3))
+'''
+[[ 1  1  0]
+ [ 0  2  3]
+ [ 0 -1  1]]
+'''
+print("\n")
+#official solution  #RM:  Convert numpy array to tuple.  Convert answer in tuple to numpy array.
+nonzeronotnumpyarray = []
+for indexnumber, arrayrowastuple in enumerate(map(tuple, originalarray)):
+    print(indexnumber)
+    print(arrayrowastuple)
+    if arrayrowastuple != (0, 0, 0):
+        nonzeronotnumpyarray.append(arrayrowastuple)
+    '''
+    0
+    (1, 1, 0)
+    1
+    (0, 0, 0)
+    2
+    (0, 2, 3)
+    3
+    (0, 0, 0)
+    4
+    (0, -1, 1)
+    5
+    (0, 0, 0)
+    '''
+print(nonzeronotnumpyarray) #print [(1, 1, 0), (0, 2, 3), (0, -1, 1)]
+print(np.array(nonzeronotnumpyarray))
+'''
+[[ 1  1  0]
+ [ 0  2  3]
+ [ 0 -1  1]]
+'''
