@@ -3008,3 +3008,106 @@ print(np.array(nonzeronotnumpyarray))
  [ 0  2  3]
  [ 0 -1  1]]
 '''
+
+#173. Write a NumPy program to set zero to lower triangles along the last two axes of a three-dimensional of a given array.
+triangleones = np.ones([1, 8, 8], dtype="uint8")
+print(triangleones.ndim) #print 3
+print(triangleones)
+'''
+[[[1 1 1 1 1 1 1 1]
+  [1 1 1 1 1 1 1 1]
+  [1 1 1 1 1 1 1 1]
+  [1 1 1 1 1 1 1 1]
+  [1 1 1 1 1 1 1 1]
+  [1 1 1 1 1 1 1 1]
+  [1 1 1 1 1 1 1 1]
+  [1 1 1 1 1 1 1 1]]]
+'''
+#official solution
+#RM:  You had the correct train of thought np.tril_indices.  np.triu is correct.   Upper triangle of an array.  Return a copy of an array with the elements below the k-th diagonal zeroed.  https://numpy.org/doc/stable/reference/generated/numpy.triu.html
+triangleoneszeroes = np.triu(triangleones, k=1)
+print(triangleoneszeroes)
+'''
+[[[0 1 1 1 1 1 1 1]
+  [0 0 1 1 1 1 1 1]
+  [0 0 0 1 1 1 1 1]
+  [0 0 0 0 1 1 1 1]
+  [0 0 0 0 0 1 1 1]
+  [0 0 0 0 0 0 1 1]
+  [0 0 0 0 0 0 0 1]
+  [0 0 0 0 0 0 0 0]]]
+'''
+
+#174. Write a NumPy program to get the number of items, array dimensions, number of array dimensions and the memory size of each element of a given array.
+samplearray = np.arange(1, 13).reshape(3, 4)
+print(samplearray)
+'''
+[[ 1  2  3  4]
+ [ 5  6  7  8]
+ [ 9 10 11 12]]
+'''
+print(f"Number of elements", samplearray.size) #print Number of elements 12
+print(f"Array dimensions", samplearray.shape) #print Array dimensions (3, 4)
+print(f"Dimensions", samplearray.ndim) #print Dimensions 2
+print(f"Memory size each element", samplearray.itemsize) #print Memory size each element 8
+
+#175. Write a NumPy program to create an 1-D array of 20 elements. Now create a new array of shape (5, 4) from the said array, then restores the reshaped array into a 1-D array.
+twentyelements = np.arange(0, 40, 2)
+print(twentyelements) #print [ 0  2  4  6  8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38]
+fivefournewshape = twentyelements.reshape(5, 4)
+print(fivefournewshape)
+'''
+[[ 0  2  4  6]
+ [ 8 10 12 14]
+ [16 18 20 22]
+ [24 26 28 30]
+ [32 34 36 38]]
+'''
+twodimensiontoonedimension = fivefournewshape.flatten()
+print(twodimensiontoonedimension) #print [ 0  2  4  6  8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38]
+
+#176. Write a NumPy program to create an array of 4,5 shape and swap column1 with column4.  Exchange columns
+originalarray = np.arange(0, 20).reshape(4, 5)
+print(originalarray)
+'''
+[[ 0  1  2  3  4]
+ [ 5  6  7  8  9]
+ [10 11 12 13 14]
+ [15 16 17 18 19]]
+'''
+originalarray[:, [3, 0]] = originalarray[:, [0, 3]]
+print(originalarray)
+'''
+[[ 3  1  2  0  4]
+ [ 8  6  7  5  9]
+ [13 11 12 10 14]
+ [18 16 17 15 19]]
+'''
+#bonus exchange rows 2 and 4
+originalarray = np.arange(0, 20).reshape(4, 5)
+originalarray[[3, 1], :] = originalarray[[1, 3], :]
+print(originalarray)
+'''
+[[ 0  1  2  3  4]
+ [15 16 17 18 19]
+ [10 11 12 13 14]
+ [ 5  6  7  8  9]]
+'''
+
+#177. Write a NumPy program to create an array of 4,5 shape and to reverse the rows of the said array. After reversing 1st row will be 4th and 4th will be 1st, 2nd row will be 3rd row and 3rd row will be 2nd row.
+originalarray = np.arange(0, 20).reshape(4, 5)
+print(originalarray)
+'''
+[[ 0  1  2  3  4]
+ [ 5  6  7  8  9]
+ [10 11 12 13 14]
+ [15 16 17 18 19]]
+'''
+originalarray[::-1] = originalarray[::1]
+print(originalarray)
+'''
+[[15 16 17 18 19]
+ [10 11 12 13 14]
+ [ 5  6  7  8  9]
+ [ 0  1  2  3  4]]
+'''
