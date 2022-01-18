@@ -3111,3 +3111,318 @@ print(originalarray)
  [ 5  6  7  8  9]
  [ 0  1  2  3  4]]
 '''
+
+#178. Write a NumPy program to replace all the nan (missing values) of a given array with the mean of another array.
+arraynonan = np.arange(0, 20).reshape(4, 5)
+print(arraynonan)
+'''
+[[ 0  1  2  3  4]
+ [ 5  6  7  8  9]
+ [10 11 12 13 14]
+ [15 16 17 18 19]]
+'''
+arrayyesnan = np.array([[1, 2, np.nan], [4, 5, 6], [np.nan, 7, np.nan]], dtype=float) #DeprecationWarning: `np.float` is a deprecated alias for the builtin `float`.  arrayyesnan = np.array([[1, 2, np.nan], [4, 5, 6]], dtype=np.float)
+print(arrayyesnan)
+'''
+[[ 1.  2. nan]
+ [ 4.  5.  6.]
+ [nan  7. nan]]
+'''
+print(np.mean(arraynonan)) #print 9.5
+arrayyesnan[arrayyesnan == np.nan] = np.mean(arraynonan) #RM:  didn't work
+print(arrayyesnan)
+'''
+[[ 1.  2. nan]
+ [ 4.  5.  6.]
+ [nan  7. nan]]
+'''
+arraynantozero = np.nan_to_num(arrayyesnan)
+print(arraynantozero)
+'''
+[[1. 2. 0.]
+ [4. 5. 6.]
+ [0. 7. 0.]]
+'''
+arraynantozero[arraynantozero == 0] = np.mean(arraynonan)
+print(arraynantozero)
+'''
+[[1.  2.  9.5]
+ [4.  5.  6. ]
+ [9.5 7.  9.5]]
+'''
+#official solution with my variables
+arrayyesnan[np.isnan(arrayyesnan)] = np.mean(arraynonan)
+print(arrayyesnan)
+'''
+[[1.  2.  9.5]
+ [4.  5.  6. ]
+ [9.5 7.  9.5]]
+'''
+
+#179. Write a NumPy program to fetch all items from a given array of 4,5 shape which are either greater than 6 and a multiple of 3.
+originalarray = np.arange(0, 20).reshape(4, 5)
+print(originalarray)
+'''
+[[ 0  1  2  3  4]
+ [ 5  6  7  8  9]
+ [10 11 12 13 14]
+ [15 16 17 18 19]]
+'''
+print(originalarray[(originalarray % 3 == 0) & (originalarray > 6)]) #print [ 9 12 15 18]  #RM:  && is invalid syntax
+
+#180. Write a NumPy program to check whether the dimensions of two given arrays are same or not.
+array1 = np.arange(0, 20).reshape(4, 5)
+array2 = np.arange(0, 20).reshape(4, 5)
+print(np.array_equal(array1, array2)) #print True
+
+#181. Write a NumPy program to place a specified element in specified time randomly in a specified 2D array.
+zeros4x4 = np.zeros([4, 4], dtype=float)
+print(zeros4x4)
+'''
+[[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+'''
+zeros4x4rows, zeros4x4columns = zeros4x4.shape
+zeros4x4elements = zeros4x4.size
+print(zeros4x4rows) #print 4
+print(zeros4x4columns) #print 4
+print(zeros4x4elements) #print 16
+randomhowmnayreplace = np.random.randint(0, zeros4x4elements)
+for counter in range(0, randomhowmnayreplace):
+    randomrow = np.random.randint(0, zeros4x4rows - 1)
+    randomcolumn = np.random.randint(0, zeros4x4columns - 1)
+    zeros4x4[randomrow, randomcolumn] = 10
+    counter += 1
+print(zeros4x4)
+'''
+[[10.  0. 10.  0.]
+ [10.  0.  0.  0.]
+ [10.  0.  0.  0.]
+ [ 0.  0.  0.  0.]]
+'''
+
+#182. Write a NumPy program to subtract the mean of each row of a given matrix.
+randomintegers = np.random.randint(1, 9, size=(5, 10))
+print(randomintegers)
+'''
+[[8 1 1 4 6 5 1 1 4 8]
+ [5 7 5 1 7 8 6 6 2 7]
+ [2 8 2 8 7 8 1 2 4 8]
+ [3 5 8 8 6 6 5 6 1 1]
+ [4 1 3 8 7 8 7 5 5 4]]
+'''
+randomintegersmean = np.mean(randomintegers)
+print(randomintegersmean) #print 4.88
+randomintegersmeanuptodown = np.mean(randomintegers, axis=0)
+print(randomintegersmeanuptodown) #print [4.4 4.4 3.8 5.8 6.6 7.  4.  4.  3.2 5.6]
+randomintegersmeanlefttoright = np.mean(randomintegers, axis=1)
+print(randomintegersmeanlefttoright) #print [3.9 5.4 5.  4.9 5.2]
+randomintegersmeanlefttorightsubtracteachrow = np.mean(randomintegers, axis=1, keepdims=True) #keepdims=True If this is set to True, the axes which are reduced are left in the result as dimensions with size one.  https://numpy.org/doc/stable/reference/generated/numpy.mean.html
+print(randomintegersmeanlefttorightsubtracteachrow)
+'''
+[[3.9]
+ [5.4]
+ [5. ]
+ [4.9]
+ [5.2]]
+ '''
+answer = randomintegers - randomintegersmeanlefttorightsubtracteachrow
+print(answer)
+'''
+[[ 4.1 -2.9 -2.9  0.1  2.1  1.1 -2.9 -2.9  0.1  4.1]
+ [-0.4  1.6 -0.4 -4.4  1.6  2.6  0.6  0.6 -3.4  1.6]
+ [-3.   3.  -3.   3.   2.   3.  -4.  -3.  -1.   3. ]
+ [-1.9  0.1  3.1  3.1  1.1  1.1  0.1  1.1 -3.9 -3.9]
+ [-1.2 -4.2 -2.2  2.8  1.8  2.8  1.8 -0.2 -0.2 -1.2]]
+'''
+
+#183. Write a NumPy program to test whether a given 2D array has null columns or not.
+randomintegers = np.random.randint(0, 3, size=(5, 10))
+print(randomintegers)
+'''
+[[2 0 1 0 1 0 0 0 2 0]
+ [1 1 0 0 2 2 0 0 2 2]
+ [0 0 1 1 2 0 0 1 0 2]
+ [1 0 2 2 0 2 1 2 2 0]
+ [1 0 0 2 2 2 1 1 0 0]]
+'''
+print(np.isnan(randomintegers))
+'''
+[[False False False False False False False False False False]
+ [False False False False False False False False False False]
+ [False False False False False False False False False False]
+ [False False False False False False False False False False]
+ [False False False False False False False False False False]]
+'''
+print(np.isnan(randomintegers).any()) #print False
+
+#184. Write a NumPy program to create an array using generator function that generates 15 integers.
+fifteenintegers = np.arange(0, 15)
+print(fifteenintegers) #print [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14]
+#question asked to create a function to generate 15 integers.  Official solution with my edits.
+def generatefunction(numberofintegers):
+    for n in range(0, numberofintegers):
+        yield n
+
+
+x = 15
+fifteenintegers = np.fromiter(generatefunction(x), dtype=int, count=-1) #fromiter function creates a one dimensional array from an iterable object.  https://numpy.org/doc/stable/reference/generated/numpy.fromiter.html
+print(fifteenintegers) #print [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14]
+
+#185. Write a NumPy program to create a new vector with 2 consecutive 0 between two values of a given vector.
+initialarray = np.arange(1, 9, dtype=int)
+print(initialarray) #print [1 2 3 4 5 6 7 8]
+initialarrayinsertzerossecondindex = np.insert(initialarray, 2, 0)
+print(initialarrayinsertzerossecondindex) #print [1 2 0 3 4 5 6 7 8]
+initialarrayinsertzeroseverysecondindex = np.insert(initialarray, (1, 2, 3), [0, 0, 0], axis=None)
+print(initialarrayinsertzeroseverysecondindex) #print [1 0 2 0 3 0 4 5 6 7 8]
+# initialarrayinsertzeroseverysecondindex2 = np.insert(initialarray, (1, 2, 3), [[0, 0], [0, 0]], axis=None)
+# print(initialarrayinsertzeroseverysecondindex2) #print ValueError: shape mismatch: value array of shape (2,2) could not be broadcast to indexing result of shape (3,)
+#official solution
+initialarray = np.arange(1, 9, dtype=int)
+print(initialarray) #print [1 2 3 4 5 6 7 8]
+consecutivenumber = 2
+zerosarray = np.zeros(np.size(initialarray) + np.size(initialarray) - 1)
+print(zerosarray) #print [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+initialarrayinsertzeroseverysecondindex = np.zeros(np.size(initialarray) + (np.size(initialarray) - 1) * consecutivenumber)
+print(initialarrayinsertzeroseverysecondindex) #print [0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+initialarrayinsertzeroseverysecondindex[::consecutivenumber + 1] = initialarray
+print(initialarrayinsertzeroseverysecondindex) #print [1. 0. 0. 2. 0. 0. 3. 0. 0. 4. 0. 0. 5. 0. 0. 6. 0. 0. 7. 0. 0. 8.]
+
+#186. Write a NumPy program to multiply an array of dimension (2,2,3) by an array with dimensions (2,2).  #RM:  Broadcasting.  The term broadcasting describes how NumPy treats arrays with different shapes during arithmetic operations. Subject to certain constraints, the smaller array is “broadcast” across the larger array so that they have compatible shapes.  https://numpy.org/doc/stable/user/basics.broadcasting.html
+ones = np.ones([2, 2, 3])
+print(ones)
+'''
+[[[1. 1. 1.]
+  [1. 1. 1.]]
+
+ [[1. 1. 1.]
+  [1. 1. 1.]]]
+'''
+onesfirst = np.ones([2, 2])
+print(onesfirst)
+'''
+[[1. 1.]
+ [1. 1.]]
+'''
+onesnowthrees = onesfirst * 3
+print(onesnowthrees)
+'''
+[[3. 3.]
+ [3. 3.]]
+'''
+print(onesnowthrees[0:2, 0:1])
+'''
+[[3.]
+ [3.]]
+'''
+print(ones * onesnowthrees[0:2, 0:1])  #I used the onesnowthrees two rows and one column array to multiply the ones two rows and three columns array by three.  Look at print(onesnowthrees[0:2, 0:1]).
+'''
+[[[3. 3. 3.]
+  [3. 3. 3.]]
+
+ [[3. 3. 3.]
+  [3. 3. 3.]]]
+'''
+print(onesnowthrees[0:2, 0:1] * ones)
+'''
+[[[3. 3. 3.]
+  [3. 3. 3.]]
+
+ [[3. 3. 3.]
+  [3. 3. 3.]]]
+'''
+#official solution
+newarray = ones * onesnowthrees[:, :, None]
+print(newarray)
+'''
+[[[3. 3. 3.]
+  [3. 3. 3.]]
+
+ [[3. 3. 3.]
+  [3. 3. 3.]]]
+'''
+
+#187. Write a NumPy program to convert a given vector of integers to a matrix of binary representation.  #RM:  answer is a new numpy array for which each row is the binary representation of each number in original array
+originalarray = np.array([0, 1, 3, 5, 7, 9, 11, 13, 15])
+print(originalarray) #print [ 0  1  3  5  7  9 11 13 15]
+binaryrepresentation = np.binary_repr(15, width=8)
+print(binaryrepresentation) #print 00001111
+binaryrepresentationarray = np.array([])
+print(binaryrepresentationarray) #print []
+print(type(binaryrepresentationarray)) #print []
+for x in range(0, np.size(originalarray)):
+    binaryrepresentationarray = np.append(binaryrepresentationarray, np.binary_repr(originalarray[x], width=8))
+print(binaryrepresentationarray) #print ['00000000' '00000001' '00000011' '00000101' '00000111' '00001001' '00001011' '00001101' '00001111']
+#official solution
+binnums = ((originalarray.reshape(-1, 1) & (2**np.arange(8))) != 0).astype(int)
+print(binnums)
+'''
+[[0 0 0 0 0 0 0 0]
+ [1 0 0 0 0 0 0 0]
+ [1 1 0 0 0 0 0 0]
+ [1 0 1 0 0 0 0 0]
+ [1 1 1 0 0 0 0 0]
+ [1 0 0 1 0 0 0 0]
+ [1 1 0 1 0 0 0 0]
+ [1 0 1 1 0 0 0 0]
+ [1 1 1 1 0 0 0 0]]
+'''
+
+#188. Write a NumPy program to extract rows with unequal values (e.g. [1,1,2]) from 10x3 matrix.  #RM:  In other words, remove rows which has the same number [0 0 0] [1 1 1] [2 2 2] [3 3 3]. #RM:  https://numpy.org/doc/stable/reference/generated/numpy.logical_and.html.
+#official solution
+originalarray = np.random.randint(0, 4, size=(10, 3))
+print(originalarray)
+'''
+[[2 2 0]
+ [1 0 2]
+ [3 2 3]
+ [3 2 0]
+ [1 2 0]
+ [1 2 0]
+ [1 0 3]
+ [1 1 0]
+ [1 1 0]
+ [2 2 2]]
+'''
+equalvalues = np.logical_and.reduce(originalarray[:, 1:] == originalarray[:, :-1], axis=1)
+print(equalvalues) #print [False False False False False False False False False  True]
+answer = originalarray[~equalvalues]
+print(answer)
+'''
+[[2 2 0]
+ [1 0 2]
+ [3 2 3]
+ [3 2 0]
+ [1 2 0]
+ [1 2 0]
+ [1 0 3]
+ [1 1 0]
+ [1 1 0]]
+'''
+
+#189. Write a NumPy program to find rows of a given array of shape (8,3) that contain elements of each row of another given array of shape (2,2).  #RM:  official solution is given array shape (6,4) and another given array shape (2,3).
+#official solution
+givenarray = np.random.randint(0, 6, size=(6, 4))
+anothergivenarray = np.random.randint(0, 6, size=(2, 3))
+print(givenarray)
+'''
+[[0 4 1 0]
+ [2 1 5 0]
+ [5 3 0 4]
+ [0 2 3 2]
+ [4 4 5 0]
+ [2 2 5 5]]
+'''
+print(anothergivenarray)
+'''
+[[5 3 4]
+ [5 5 5]]
+'''
+temp = (givenarray[..., np.newaxis, np.newaxis] == anothergivenarray)
+#print(temp) #RM:  prints a numpy array of True and False multiple dimensions
+rows = (temp.sum(axis=(1, 2, 3)) >= anothergivenarray.shape[1]).nonzero()[0]
+print(rows) #print [1 2 4 5]
+
